@@ -1,0 +1,104 @@
+from PyQt5 import QtWidgets, QtGui, QtCore
+from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QLineEdit, QPushButton,QVBoxLayout
+from PyQt5.QtGui import QPixmap, QFont
+from PyQt5.QtCore import QTimer
+from Check_Internet import check_internet
+import sys
+import os
+
+#PathDefine
+ROOT_PATH      = os.path.dirname(os.path.abspath(__file__))
+DATA_PATH      = os.path.join(ROOT_PATH,'..','Data')
+ICON_LOGO_PATH = os.path.join(ROOT_PATH,'..','Icon_Logo')
+
+class LoginWindow(QMainWindow):
+    def __init__(self):
+        super(LoginWindow, self).__init__()
+
+        self.setWindowTitle('Health Monitoring System')
+        self.setWindowIcon(QtGui.QIcon(os.path.join(ICON_LOGO_PATH, 'healthcare.png')))
+
+        screen_resolution = QtWidgets.QApplication.desktop().screenGeometry()
+        screen_width, screen_height = screen_resolution.width(), screen_resolution.height()
+        global screen_center_x, screen_center_y
+        screen_center_x = screen_width//2
+        screen_center_y = screen_height//2
+
+        # Create a QTimer
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.update_ui)
+        self.timer.start(10)  # Check every second
+
+    def update_ui(self):
+        if check_internet():
+            self.timer.stop()  # Stop checking when internet is available
+            self.show_login_screen()
+        else:
+            self.show_no_internet_screen()
+
+    def show_no_internet_screen(self):
+        pixmap = QPixmap(os.path.join(ICON_LOGO_PATH, 'no-internet.png'))
+        self.image_label = QLabel(self)
+        self.image_label.setPixmap(pixmap)
+        self.image_label.adjustSize()
+        self.image_label.move(screen_center_x-self.image_label.width()//2, screen_center_y-70)
+        self.image_label.show()
+
+        self.label1 = QLabel('No Internet connection.', self)
+        self.label1.setFont(QtGui.QFont('Roboto', 16))
+        self.label1.setStyleSheet("color: red")
+        self.label1.adjustSize()
+        self.label1.move(screen_center_x-self.label1.width()//2, screen_center_y)
+        self.label1.show()
+        
+        self.label2 = QLabel('Please check your Internet connection and try again.', self)
+        self.label2.setFont(QtGui.QFont('Roboto', 16))
+        self.label2.adjustSize()
+        self.label2.move(screen_center_x-self.label2.width()//2, screen_center_y+30)
+        self.label2.show()
+        
+    def show_login_screen(self):
+        self.title_label = QLabel("Login", self)
+        self.title_label.setFont(QtGui.QFont('Roboto', 20, QtGui.QFont.Bold))
+        self.title_label.adjustSize()
+        self.title_label.move(500,200)
+        self.title_label.show()
+        
+        self.username_label = QLabel('Username', self)
+        self.username_label.setFont(QtGui.QFont('Roboto', 16))
+        self.username_label.adjustSize()
+        self.username_label.move(500,300)
+        self.username_label.show()
+        
+        self.username_entry = QLineEdit(self)
+        self.username_entry.setFont(QtGui.QFont('Roboto', 16))
+        self.username_entry.adjustSize()
+        self.username_entry.move(500,350)
+        self.username_entry.show()
+        
+        self.password_label = QLabel('Password', self)
+        self.password_label.setFont(QtGui.QFont('Roboto', 16))
+        self.password_label.adjustSize()
+        self.password_label.move(500,400)
+        self.password_label.show()
+
+        self.password_entry = QLineEdit(self)
+        self.password_entry.setFont(QtGui.QFont('Roboto', 16))
+        self.password_entry.setEchoMode(QLineEdit.Password)
+        self.password_entry.adjustSize()
+        self.password_entry.move(500,450)
+        self.password_entry.show()
+
+        self.login_button = QPushButton('Log in',self)
+        self.login_button.adjustSize()
+        self.login_button.move(500,500)
+        self.login_button.show()
+
+    
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+
+    window = LoginWindow()
+    window.showMaximized()
+
+    sys.exit(app.exec_())
