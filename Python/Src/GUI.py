@@ -1,111 +1,81 @@
-import tkinter as tk
-import tkinter.font as font
-from tkinter import ttk 
-from PIL import Image, ImageTk
+import img_src_rc
+from PyQt5 import QtGui, QtWidgets, QtCore
+import sys
 import os
-import time
-import threading
 import pandas as pd
-from Check_Internet import check_internet
-from Check_credentials import check_credentials
-
-# Path Defined
+import login
+import signup
+import homepage
+######################################################################
 ROOT_PATH      = os.path.dirname(os.path.abspath(__file__))
 DATA_PATH      = os.path.join(ROOT_PATH,'..','Data')
-ICON_LOGO_PATH = os.path.join(ROOT_PATH,'..','Icon_Logo')
+font = QtGui.QFont()
+font.setFamily("Rockwell")
+error_msg = None
 
-# Global Variables
-username_entry = None
-password_entry = None
-login_frame = None
+ui = ''
+app = QtWidgets.QApplication(sys.argv)
+MainWindow = QtWidgets.QMainWindow()
 
-def login():
-    username = username_entry.get()
-    password = password_entry.get()
+def main_Ui():
+    global ui,error_msg
+    ui = login.Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    error_msg = QtWidgets.QLabel(ui.widget)
+    if error_msg is not None:
+        error_msg.deleteLater()
+        error_msg = None
+    # username = ui.line_username.text()
+    # password = ui.line_password.text()
+    ui.createButton.clicked.connect(sign_up_Ui)
+    ui.sign_inButton.clicked.connect(homepage_Ui)
+    MainWindow.setFixedHeight(1080)
+    MainWindow.setFixedWidth(1920)
+    MainWindow.showMaximized()
+
+def sign_up_Ui(): 
+    global ui
+    ui = signup.Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    ui.sign_upButton.clicked.connect(main_Ui)
+
+    MainWindow.setFixedHeight(1080)
+    MainWindow.setFixedWidth(1920)
+    MainWindow.showMaximized()  
     
-    if check_credentials(username, password):
-        # Clear all widgets in root
-        for widget in root.winfo_children():
-            widget.destroy()
+def homepage_Ui():
+    global ui,error_msg
+    
+    username = ui.line_username.text()
+    password = ui.line_password.text()
+    if error_msg is None:
+        error_msg = QtWidgets.QLabel(ui.widget)
+        error_msg.setStyleSheet("background-color: rgba(0,0,0,0);color: red")
+        font.setPointSize(10)
+        error_msg.setFont(font)
         
-        # Display success message
-        success_label = tk.Label(root, text='Login Successfully', font=('Rockwell Light', 20,'bold'))
-        success_label.place(x=center_x, y=center_y, anchor='center')
+    if len(username)==0 or len(password)==0:
+        
+        error_msg.setText("Please input all fields.")
+        error_msg.move(80, 270)
+        error_msg.show()
+        
     else:
-        # Display error message
-        error_label1 = tk.Label(login_frame, text='The username or password is incorrect.', fg='red',font=('Rockwell Light',12))
-        error_label2 = tk.Label(login_frame, text='Please try again.', fg='red',font=('Rockwell',12))
-        error_label1.grid(row=5, columnspan = 2)
-        error_label2.grid(row=6, columnspan = 2)
-# GUI
-root = tk.Tk()
-root.title('Health Monitoring System')
-root.iconbitmap(os.path.join(ICON_LOGO_PATH, 'healthcare.ico'))
-x = root.winfo_screenwidth()
-y = root.winfo_screenheight()
-center_x = x // 2
-center_y = y // 2
-root.geometry('{0}x{1}+0+0'.format(x,y))
-root.state('zoomed')
-
-def display_no_internet_ui():
-    image_path = os.path.join(ICON_LOGO_PATH, 'no-internet.png')
-    image = Image.open(image_path)
-    photo = ImageTk.PhotoImage(image)
-    image_label = tk.Label(root)
-    image_label.image = photo  # lưu trữ tham chiếu đến hình ảnh
-    image_label.config(image=photo)
-    image_label.place(x=center_x, y=center_y - 60, anchor='center')
-    
-    row1 = tk.Label(root, text='No Internet connection.', fg = 'red', font = ('Rockwell Light',16))
-    row1.place(x=center_x, y=center_y, anchor='center')
-    
-    row2 = tk.Label(root, text='Please check your Internet connection and try again.', fg = 'black', font = ('Rockwell Light',16))
-    row2.place(x=center_x, y=center_y + 30, anchor='center')
-
-def display_login_ui():
-    global username_entry, password_entry, login_frame
-
-    login_frame = ttk.Frame(root)
-    login_frame.place(x=center_x, y= center_y-30, anchor= 'center', width = 330,height=380)
-    login_frame.config(borderwidth=2, relief='solid')
-    
-    title_label = tk.Label(login_frame, text="Login", font=('Rockwell Light', 24,'bold'),justify='center')
-    title_label.grid(row=0, columnspan=3,pady=(30,40))
-    
-    username_label = tk.Label(login_frame, text='Username:', font=('Rockwell Light', 16))
-    username_label.grid(row=3, column=0, sticky="w",pady=(0,20),padx=(10,0))
-    username_entry = tk.Entry(login_frame, font=('Rockwell Light', 13), width= 20,bd=0)
-    username_entry.grid(row=3, column=1, sticky="w",pady=(0,20),padx=(10,10))
-
-    
-    password_label = tk.Label(login_frame, text='Password:', font=('Rockwell Light', 16))
-    password_label.grid(row=4, column=0, sticky="w",pady=(0,20),padx=(10,0))
-    password_entry = tk.Entry(login_frame, font=('Rockwell Light', 13), show="•", width= 20,bd=0)
-    password_entry.grid(row=4, column=1, sticky="w",pady=(0,20),padx=(10,10))
-    
         
-    login_button = tk.Button(login_frame, text='Log in', command=login, width= 20,font=('Rockwell Light', 10))
-    login_button.grid(row=7, columnspan=2)
-
-def update_ui():
-    current_state = None
-    while True:
-        internet_connected = check_internet()
-        if internet_connected != current_state:
-            # Clear all widgets in root
-            for widget in root.winfo_children():
-                widget.destroy()
+        df = pd.read_csv(os.path.join(DATA_PATH,'Login_Account.csv'))
+        
+        if ((df['Username'] == username) & (df['Password'] == password)).any():
             
-            if internet_connected:
-                display_login_ui()
-            else:
-                display_no_internet_ui()
-            
-            current_state = internet_connected
-        
-        time.sleep(1)  # Check every 5 seconds
-        
-threading.Thread(target=update_ui).start()
-
-root.mainloop()
+            ui = homepage.Ui_MainWindow()
+            ui.setupUi(MainWindow)
+            MainWindow.setFixedHeight(1080)
+            MainWindow.setFixedWidth(1920)
+            MainWindow.showMaximized()
+        else:
+            error_msg.setText("Invalid username or password.")
+            error_msg.setGeometry(QtCore.QRect(70, 265, 300, 30))
+            error_msg.show()
+    
+    
+main_Ui()
+sys.exit(app.exec_())

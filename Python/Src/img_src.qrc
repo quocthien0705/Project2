@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="icon">
+    <file>Icon_Logo/stone-texture.jpg</file>
+    <file>Icon_Logo/healthcare.png</file>
+    <file>Icon_Logo/no-internet.png</file>
+  </qresource>
+</RCC>
