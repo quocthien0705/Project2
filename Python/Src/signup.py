@@ -71,33 +71,34 @@ class Ui_MainWindow(object):
         self.label_signup.setAlignment(QtCore.Qt.AlignCenter)
         self.label_signup.setTextInteractionFlags(QtCore.Qt.NoTextInteraction)
         self.label_signup.setObjectName("label_signup")
-        self.line_username = QtWidgets.QLineEdit(self.widget)
-        self.line_username.setGeometry(QtCore.QRect(80, 120, 220, 40))
+        self.line_username_signup = QtWidgets.QLineEdit(self.widget)
+        self.line_username_signup.setGeometry(QtCore.QRect(80, 120, 220, 40))
         font = QtGui.QFont()
         font.setFamily("Rockwell")
         font.setPointSize(10)
-        self.line_username.setFont(font)
-        self.line_username.setStyleSheet("background-color: rgba(0,0,0,0);\n"
+        self.line_username_signup.setFont(font)
+        self.line_username_signup.setStyleSheet("background-color: rgba(0,0,0,0);\n"
 "border:none;\n"
 "border-bottom:2px solid rgba(0, 0, 0,255);\n"
 "color: rgba(0,0,0,255);\n"
 "padding-bottom:5px")
-        self.line_username.setText("")
-        self.line_username.setObjectName("line_username")
-        self.line_password = QtWidgets.QLineEdit(self.widget)
-        self.line_password.setGeometry(QtCore.QRect(80, 240, 220, 40))
+        self.line_username_signup.setText("")
+        self.line_username_signup.setClearButtonEnabled(False)
+        self.line_username_signup.setObjectName("line_username_signup")
+        self.line_password_signup = QtWidgets.QLineEdit(self.widget)
+        self.line_password_signup.setGeometry(QtCore.QRect(80, 240, 220, 40))
         font = QtGui.QFont()
         font.setFamily("Rockwell")
         font.setPointSize(10)
-        self.line_password.setFont(font)
-        self.line_password.setStyleSheet("background-color: rgba(0,0,0,0);\n"
+        self.line_password_signup.setFont(font)
+        self.line_password_signup.setStyleSheet("background-color: rgba(0,0,0,0);\n"
 "border:none;\n"
 "border-bottom:2px solid rgba(0, 0, 0,255);\n"
 "color: rgba(0,0,0,255);\n"
 "padding-bottom:5px")
-        self.line_password.setText("")
-        self.line_password.setEchoMode(QtWidgets.QLineEdit.Password)
-        self.line_password.setObjectName("line_password")
+        self.line_password_signup.setText("")
+        self.line_password_signup.setEchoMode(QtWidgets.QLineEdit.Password)
+        self.line_password_signup.setObjectName("line_password_signup")
         self.sign_upButton = QtWidgets.QPushButton(self.widget)
         self.sign_upButton.setGeometry(QtCore.QRect(90, 380, 200, 40))
         font = QtGui.QFont()
@@ -119,6 +120,7 @@ class Ui_MainWindow(object):
 "border-bottom:2px solid rgba(0, 0, 0,255);\n"
 "color: rgba(0,0,0,255);\n"
 "padding-bottom:5px")
+        self.line_email.setInputMethodHints(QtCore.Qt.ImhNone)
         self.line_email.setText("")
         self.line_email.setEchoMode(QtWidgets.QLineEdit.Normal)
         self.line_email.setObjectName("line_email")
@@ -152,9 +154,8 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Health Monitoring System"))
         self.label_signup.setText(_translate("MainWindow", "Sign up"))
-        self.line_username.setPlaceholderText(_translate("MainWindow", "Username"))
-        self.line_password.setPlaceholderText(_translate("MainWindow", "Password"))
+        self.line_username_signup.setPlaceholderText(_translate("MainWindow", "Username"))
+        self.line_password_signup.setPlaceholderText(_translate("MainWindow", "Password"))
         self.sign_upButton.setText(_translate("MainWindow", "Sign up"))
         self.line_email.setPlaceholderText(_translate("MainWindow", "Email"))
         self.line_confirm.setPlaceholderText(_translate("MainWindow", "Confirm Password"))
-

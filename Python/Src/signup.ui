@@ -130,7 +130,7 @@ border-radius:15px;</string>
       <set>Qt::NoTextInteraction</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="line_username">
+    <widget class="QLineEdit" name="line_username_signup">
      <property name="geometry">
       <rect>
        <x>80</x>
@@ -158,8 +158,11 @@ padding-bottom:5px</string>
      <property name="placeholderText">
       <string>Username</string>
      </property>
+     <property name="clearButtonEnabled">
+      <bool>false</bool>
+     </property>
     </widget>
-    <widget class="QLineEdit" name="line_password">
+    <widget class="QLineEdit" name="line_password_signup">
      <property name="geometry">
       <rect>
        <x>80</x>
@@ -234,6 +237,9 @@ border:none;
 border-bottom:2px solid rgba(0, 0, 0,255);
 color: rgba(0,0,0,255);
 padding-bottom:5px</string>
+     </property>
+     <property name="inputMethodHints">
+      <set>Qt::ImhNone</set>
      </property>
      <property name="text">
       <string/>
