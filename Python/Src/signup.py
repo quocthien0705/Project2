@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import img_src_rc
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -108,6 +108,7 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         font.setKerning(False)
         self.sign_upButton.setFont(font)
+        self.sign_upButton.setFocusPolicy(QtCore.Qt.NoFocus)
         self.sign_upButton.setObjectName("sign_upButton")
         self.line_email = QtWidgets.QLineEdit(self.widget)
         self.line_email.setGeometry(QtCore.QRect(80, 180, 220, 40))
@@ -159,3 +160,4 @@ class Ui_MainWindow(object):
         self.sign_upButton.setText(_translate("MainWindow", "Sign up"))
         self.line_email.setPlaceholderText(_translate("MainWindow", "Email"))
         self.line_confirm.setPlaceholderText(_translate("MainWindow", "Confirm Password"))
+import img_src_rc

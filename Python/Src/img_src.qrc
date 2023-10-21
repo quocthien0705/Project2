@@ -1,7 +1,21 @@
 <RCC>
   <qresource prefix="icon">
-    <file>Icon_Logo/stone-texture.jpg</file>
+    <file>Icon_Logo/home_black.png</file>
+    <file>Icon_Logo/home_white.png</file>
+    <file>Icon_Logo/add-user_black.png</file>
+    <file>Icon_Logo/add-user_white.png</file>
     <file>Icon_Logo/healthcare.png</file>
+    <file>Icon_Logo/heartbeat_black.png</file>
+    <file>Icon_Logo/heartbeat_white.png</file>
+    <file>Icon_Logo/logout_black.png</file>
+    <file>Icon_Logo/logout_white.png</file>
+    <file>Icon_Logo/no-internet.png</file>
+    <file>Icon_Logo/sidebar_black.png</file>
+    <file>Icon_Logo/sidebar_white.png</file>
+    <file>Icon_Logo/stone-texture.jpg</file>
+    <file>Icon_Logo/two-arrows_black.png</file>
+    <file>Icon_Logo/two-arrows_white.png</file>
+    <file>Icon_Logo/stone-texture.jpg</file>
     <file>Icon_Logo/no-internet.png</file>
   </qresource>
 </RCC>

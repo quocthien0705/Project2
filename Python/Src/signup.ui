@@ -212,6 +212,9 @@ padding-bottom:5px</string>
        <kerning>false</kerning>
       </font>
      </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
      <property name="text">
       <string>Sign up</string>
      </property>

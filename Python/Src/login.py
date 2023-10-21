@@ -9,19 +9,20 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import img_src_rc
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1920, 1080)
+
+class Ui_LoginForm(object):
+    def setupUi(self, LoginForm):
+        LoginForm.setObjectName("LoginForm")
+        LoginForm.resize(1920, 1080)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        LoginForm.setFont(font)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/icon/Icon_Logo/healthcare.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
-        MainWindow.setWindowIcon(icon)
-        MainWindow.setStyleSheet("background-color: rgb(255, 255, 255);")
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
-        self.centralwidget.setObjectName("centralwidget")
-        self.widget = QtWidgets.QWidget(self.centralwidget)
+        LoginForm.setWindowIcon(icon)
+        LoginForm.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.widget = QtWidgets.QWidget(LoginForm)
         self.widget.setGeometry(QtCore.QRect(770, 300, 380, 480))
         self.widget.setStyleSheet("QPushButton#sign_inButton{    \n"
 "    background-color: qlineargradient(spread:pad, x1:0, y1:0.505682, x2:1, y2:0.477, stop:0 rgba(20, 47, 78, 219), stop:1 rgba(85, 98, 112, 226));\n"
@@ -84,20 +85,20 @@ class Ui_MainWindow(object):
 "padding-bottom:5px")
         self.line_username.setText("")
         self.line_username.setObjectName("line_username")
-        self.line_password = QtWidgets.QLineEdit(self.widget)
-        self.line_password.setGeometry(QtCore.QRect(80, 220, 220, 40))
+        self.linepassword = QtWidgets.QLineEdit(self.widget)
+        self.linepassword.setGeometry(QtCore.QRect(80, 220, 220, 40))
         font = QtGui.QFont()
         font.setFamily("Rockwell")
         font.setPointSize(10)
-        self.line_password.setFont(font)
-        self.line_password.setStyleSheet("background-color: rgba(0,0,0,0);\n"
+        self.linepassword.setFont(font)
+        self.linepassword.setStyleSheet("background-color: rgba(0,0,0,0);\n"
 "border:none;\n"
 "border-bottom:2px solid rgba(0, 0, 0,255);\n"
 "color: rgba(0,0,0,255);\n"
 "padding-bottom:5px")
-        self.line_password.setText("")
-        self.line_password.setEchoMode(QtWidgets.QLineEdit.Password)
-        self.line_password.setObjectName("line_password")
+        self.linepassword.setText("")
+        self.linepassword.setEchoMode(QtWidgets.QLineEdit.Password)
+        self.linepassword.setObjectName("linepassword")
         self.sign_inButton = QtWidgets.QPushButton(self.widget)
         self.sign_inButton.setGeometry(QtCore.QRect(90, 300, 200, 40))
         font = QtGui.QFont()
@@ -107,6 +108,7 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         font.setKerning(False)
         self.sign_inButton.setFont(font)
+        self.sign_inButton.setFocusPolicy(QtCore.Qt.NoFocus)
         self.sign_inButton.setObjectName("sign_inButton")
         self.label_createnew = QtWidgets.QLabel(self.widget)
         self.label_createnew.setGeometry(QtCore.QRect(75, 370, 145, 20))
@@ -132,25 +134,17 @@ class Ui_MainWindow(object):
         self.createButton.setStyleSheet("background-color: rgba(0,0,0,0);\n"
 "border: none")
         self.createButton.setObjectName("createButton")
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1920, 26))
-        self.menubar.setObjectName("menubar")
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
-        self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
 
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.retranslateUi(LoginForm)
+        QtCore.QMetaObject.connectSlotsByName(LoginForm)
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self, LoginForm):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Health Monitoring System"))
-        self.label_signup.setText(_translate("MainWindow", "Sign in"))
-        self.line_username.setPlaceholderText(_translate("MainWindow", "Username"))
-        self.line_password.setPlaceholderText(_translate("MainWindow", "Password"))
-        self.sign_inButton.setText(_translate("MainWindow", "Sign in"))
-        self.label_createnew.setText(_translate("MainWindow", "Don\'t have account?"))
-        self.createButton.setText(_translate("MainWindow", "Create one"))
-
+        LoginForm.setWindowTitle(_translate("LoginForm", "Health Monitoring System"))
+        self.label_signup.setText(_translate("LoginForm", "Sign in"))
+        self.line_username.setPlaceholderText(_translate("LoginForm", "Username"))
+        self.linepassword.setPlaceholderText(_translate("LoginForm", "Password"))
+        self.sign_inButton.setText(_translate("LoginForm", "Sign in"))
+        self.label_createnew.setText(_translate("LoginForm", "Don\'t have account?"))
+        self.createButton.setText(_translate("LoginForm", "Create one"))
+import img_src_rc

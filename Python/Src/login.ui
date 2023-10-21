@@ -134,7 +134,7 @@ border-radius:15px;</string>
      <set>Qt::NoTextInteraction</set>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineusername">
+   <widget class="QLineEdit" name="line_username">
     <property name="geometry">
      <rect>
       <x>80</x>
@@ -212,6 +212,9 @@ padding-bottom:5px</string>
       <bold>true</bold>
       <kerning>false</kerning>
      </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
     </property>
     <property name="text">
      <string>Sign in</string>
