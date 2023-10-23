@@ -2,37 +2,82 @@
 import sys
 import math
 import re
+import pyqtgraph
+import numpy as np
+import struct
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtSerialPort import QSerialPort, QSerialPortInfo
-import io
+from pyqtgraph import PlotWidget
+
 class SerialMonitor(QtWidgets.QMainWindow):
     def __init__(self):
         super(SerialMonitor, self).__init__()
+        self.sendCount = 0
+        self.lastData = bytearray()
         self.port = QSerialPort()
-        self.serialDataView = SerialDataView(self)
-        self.serialSendView = SerialSendView(self)
+        self.serialDataGraph = SerialDataGraph(self)
 
         self.setCentralWidget( QtWidgets.QWidget(self) )
         layout = QtWidgets.QVBoxLayout( self.centralWidget() )
-        layout.addWidget(self.serialDataView)
-        layout.addWidget(self.serialSendView)
+        layout.addWidget(self.serialDataGraph)
         layout.setContentsMargins(3, 3, 3, 3)
-        self.setWindowTitle('Serial Monitor')
+        self.setWindowTitle('Serial Graph Monitor')
 
-        ### Tool Bar ###
         self.toolBar = ToolBar(self)
         self.addToolBar(self.toolBar)
 
-        ### Status Bar ###
         self.setStatusBar( QtWidgets.QStatusBar(self) )
         self.statusText = QtWidgets.QLabel(self)
         self.statusBar().addWidget( self.statusText )
         
-        ### Signal Connect ###
         self.toolBar.portOpenButton.clicked.connect(self.portOpen)
-        self.serialSendView.serialSendSignal.connect(self.sendFromPort)
-        self.port.readyRead.connect(self.readFromPort)
-        self.data_file = io.open(r"D:\HK231\Project_2\Python\Src\data.txt", "w")
+        self.port.readyRead.connect(self.readData)
+        self.serialDataGraph.mouseMovedSignal.connect(self.graphCrossHairChanged)
+
+        self.timer = QtCore.QTimer()
+        self.timer.setInterval(5)
+        self.timer.timeout.connect(self.sendData)
+
+    def slipDecode(self, packet):
+        return packet.replace(b'\xDB\xDC', b'\xC0').replace(b'\xDB\xDD', b'\xDB')
+
+    def slipEncode(self, packet):
+        return b''.join([ b'\xDB\xDC' if i==192 else b'\xDB\xDD' if i==219 else bytes([i]) for i in packet ]) + b'\xC0'
+
+    def sendData(self):
+        y0, y1 = int( 32767 * math.sin( 0.01 * self.sendCount ) + 32767 ), int( 32767 * math.cos( 0.01 * self.sendCount ) + 32767 )
+        self.port.write( self.slipEncode( struct.pack('>H', y0) + struct.pack('>H', y1) ) )
+        self.sendCount += 1
+
+    def readData(self):
+        data = self.port.readAll()
+        if len(data) > 0:
+
+            splited = data.split(b'\xC0')
+
+            if len(splited[0]) == 0:
+                splited = splited[1:]
+            else:
+                splited[0] = self.lastData + splited[0]
+
+            if len(splited[-1]) == 0 or not len(splited[-1]) == 4:
+                self.lastData = splited.pop(-1)
+
+            for packet in splited:
+                decoded = self.slipDecode(packet)
+
+                try:
+                    y0 = struct.unpack('>H', decoded[:2])[0]
+                    y1 = struct.unpack('>H', decoded[2:])[0]
+                except:
+                    pass
+
+                self.serialDataGraph.appendData(y0, 0)
+                self.serialDataGraph.appendData(y1, 1)
+
+    def graphCrossHairChanged(self, x, y0, y1):
+        self.statusText.setText( str(round(x, 4)) + ', ' + str(round(y0, 4)) + ', ' + str(round(y1, 4)) )
+
     def portOpen(self, flag):
         if flag:
             self.port.setBaudRate( self.toolBar.baudRate() )
@@ -49,24 +94,53 @@ class SerialMonitor(QtWidgets.QMainWindow):
             else:
                 self.statusText.setText('Port opened')
                 self.toolBar.serialControlEnable(False)
+                self.timer.start()
         else:
+            self.timer.stop()
             self.port.close()
             self.statusText.setText('Port closed')
             self.toolBar.serialControlEnable(True)
         
-    def readFromPort(self):
-        data = self.port.readAll()
-        if len(data) > 0:
-            self.serialDataView.appendSerialText( QtCore.QTextStream(data).readAll(), QtGui.QColor(255, 0, 0) )
-            self.data_file.write(data)
-            self.data_file.flush()
-    def sendFromPort(self, text):
-        self.port.write( text.encode() )
-        self.serialDataView.appendSerialText( text, QtGui.QColor(0, 0, 255) )
-    def closeEvent(self, event):
+class SerialDataGraph(QtWidgets.QWidget):
+    mouseMovedSignal = QtCore.pyqtSignal( float, float, float )
+    def __init__(self, parent):
+        super(SerialDataGraph, self).__init__(parent)
         
-        self.data_file.close()
-        event.accept()
+        self.plotWidget = pyqtgraph.PlotWidget()
+        self.plotWidget.setBackground('#FFFFFFFF')
+        self.plotWidget.plotItem.getAxis('bottom').setPen( pyqtgraph.mkPen(color='#000000') )
+        self.plotWidget.plotItem.getAxis('left').setPen( pyqtgraph.mkPen(color='#000000') )
+        self.plotWidget.plotItem.showGrid(True, True, 0.3)
+        self.plotWidget.setXRange(0, 300)
+
+        self.data = [ self.plotWidget.plotItem.plot(pen='r'), self.plotWidget.plotItem.plot(pen='b')]
+        self.data[0].setData( np.zeros(300) )
+        self.data[1].setData( np.zeros(300) )
+
+        self.crossHairV = pyqtgraph.InfiniteLine(angle=90, movable=False)
+        self.crossHairH = pyqtgraph.InfiniteLine(angle=0, movable=False)
+        self.plotWidget.addItem(self.crossHairV, ignoreBounds=True)
+        self.plotWidget.addItem(self.crossHairH, ignoreBounds=True)
+        self.plotWidget.scene().sigMouseMoved.connect(self.mouseMovedEvent)
+
+        self.setLayout( QtWidgets.QVBoxLayout() )
+        self.layout().addWidget(self.plotWidget)
+
+    def appendData(self, data, yNum):
+        rolled = np.roll(self.data[yNum].yData, -1)
+        rolled[-1] = data
+        self.data[yNum].setData(rolled)
+
+    def mouseMovedEvent(self, pos):
+        if self.plotWidget.sceneBoundingRect().contains(pos):
+            mousePoint = self.plotWidget.plotItem.getViewBox().mapSceneToView(pos)
+            index = int( mousePoint.x() )
+            data0, data1 = self.data[0].yData, self.data[1].yData
+            if 0 <= index < data0.shape[0] and 0 <= index < data1.shape[0]:
+                self.mouseMovedSignal.emit( mousePoint.x(), data0[index], data1[index] )
+            self.crossHairV.setPos( mousePoint.x() )
+            self.crossHairH.setPos( mousePoint.y() )
+
 class SerialDataView(QtWidgets.QWidget):
     def __init__(self, parent):
         super(SerialDataView, self).__init__(parent)
@@ -120,30 +194,6 @@ class SerialDataView(QtWidgets.QWidget):
         
         self.serialData.moveCursor(QtGui.QTextCursor.End)
         self.serialDataHex.moveCursor(QtGui.QTextCursor.End)
-
-class SerialSendView(QtWidgets.QWidget):
-
-    serialSendSignal = QtCore.pyqtSignal(str)
-
-    def __init__(self, parent):
-        super(SerialSendView, self).__init__(parent)
-
-        self.sendData = QtWidgets.QTextEdit(self)
-        self.sendData.setAcceptRichText(False)
-        self.sendData.setSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
-
-        self.sendButton = QtWidgets.QPushButton('Send')
-        self.sendButton.clicked.connect(self.sendButtonClicked)
-        self.sendButton.setSizePolicy(QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Preferred)
-        
-        self.setLayout( QtWidgets.QHBoxLayout(self) )
-        self.layout().addWidget(self.sendData)
-        self.layout().addWidget(self.sendButton)
-        self.layout().setContentsMargins(3, 3, 3, 3)
-
-    def sendButtonClicked(self):
-        self.serialSendSignal.emit( self.sendData.toPlainText() )
-        self.sendData.clear()
 
 class ToolBar(QtWidgets.QToolBar):
     def __init__(self, parent):

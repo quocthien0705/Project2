@@ -10,7 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from testUART import SerialMonitor
-
+import test_visualize
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -338,14 +338,17 @@ class Ui_MainWindow(object):
         self.page_4.setObjectName("page_4")
         self.gridLayout_5 = QtWidgets.QGridLayout(self.page_4)
         self.gridLayout_5.setObjectName("gridLayout_5")
-        self.label_7 = QtWidgets.QLabel(self.page_4)
-        font = QtGui.QFont()
-        font.setPointSize(20)
-        self.label_7.setFont(font)
-        self.label_7.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_7.setObjectName("label_7")
-        self.gridLayout_5.addWidget(self.label_7, 0, 0, 1, 1)
+        self.serialMonitor_V = test_visualize.SerialMonitor()
+        self.gridLayout_5.addWidget(self.serialMonitor_V, 0, 0, 1, 1)
         self.stackedWidget.addWidget(self.page_4)
+        # self.label_7 = QtWidgets.QLabel(self.page_4)
+        # font = QtGui.QFont()
+        # font.setPointSize(20)
+        # self.label_7.setFont(font)
+        # self.label_7.setAlignment(QtCore.Qt.AlignCenter)
+        # self.label_7.setObjectName("label_7")
+        # self.gridLayout_5.addWidget(self.label_7, 0, 0, 1, 1)
+        # self.stackedWidget.addWidget(self.page_4)
         self.page_5 = QtWidgets.QWidget()
         self.page_5.setObjectName("page_5")
         self.gridLayout_6 = QtWidgets.QGridLayout(self.page_5)
@@ -402,6 +405,6 @@ class Ui_MainWindow(object):
         self.exit_btn_2.setText(_translate("MainWindow", "Exit"))
         self.label_5.setText(_translate("MainWindow", "HomePage"))
         self.label_6.setText(_translate("MainWindow", "Create New Profile"))
-        self.label_7.setText(_translate("MainWindow", "Display"))
+        # self.label_7.setText(_translate("MainWindow", "Display"))
         # self.label_8.setText(_translate("MainWindow", "UART"))
 import img_src_rc
