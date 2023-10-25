@@ -32,7 +32,7 @@ class SerialMonitor(QtWidgets.QMainWindow):
         self.toolBar.portOpenButton.clicked.connect(self.portOpen)
         self.serialSendView.serialSendSignal.connect(self.sendFromPort)
         self.port.readyRead.connect(self.readFromPort)
-        self.data_file = io.open(r"D:\HCMUT\huy\ĐA2\New folder\https---github.com-quocthien0705-Project_2\Python\Src\data.txt", "w")
+        self.data_file = io.open(r"D:\HCMUT\huy\ĐA2\New folder\PJ\SW\Src\data.txt", "w")
     def portOpen(self, flag):
         if flag:
             self.port.setBaudRate( self.toolBar.baudRate() )
