@@ -4,44 +4,62 @@ from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton
 import sys
 import os
 import pandas as pd
+import stacked
 import login
 import signup
 from get_taskbar_height import get_taskbar_height
 import sidebar
-######################################################################
 ROOT_PATH      = os.path.dirname(os.path.abspath(__file__))
 DATA_PATH      = os.path.join(ROOT_PATH,'..','Data')
 font = QtGui.QFont()
 font.setFamily("Rockwell")
 error_msg = None
 signup_error_msg = None
+ui = None
 taskbar_height = get_taskbar_height()
-ui = ''
 app = QtWidgets.QApplication(sys.argv)
 Mainwindow = QtWidgets.QMainWindow()
 
-def sign_up_Ui(): 
-    global ui,username_signup,password_signup,confirm,email,signup_error_msg
-    ui = signup.Ui_MainWindow()
+def login_Ui():
+    global ui,error_msg
+    ui = stacked.Ui_MainWindow()
     ui.setupUi(Mainwindow)
-    ui.sign_upButton.clicked.connect(on_sign_up_clicked)
+    ui.stackedWidget.setCurrentIndex(0)
+    error_msg = QtWidgets.QLabel(ui.widget_login)
+    if error_msg is not None:
+        error_msg.deleteLater()
+        error_msg = None    
+    ui.sign_inButton_2.clicked.connect(homepage_Ui)
+    ui.createButton_2.clicked.connect(lambda:signup_Ui(ui))
     Mainwindow.setFixedHeight(1080-taskbar_height)
     Mainwindow.setFixedWidth(1920)
-    Mainwindow.showMaximized()  
-    signup_error_msg = QtWidgets.QLabel(ui.widget)
+    Mainwindow.showMaximized()
+def signup_Ui(ui):
+    global signup_error_msg
+    # ui = stacked.Ui_MainWindow()
+    # ui.setupUi(Mainwindow)
+    ui.stackedWidget.setCurrentIndex(1)
+    ui.sign_upButton_2.clicked.connect(lambda:on_sign_up_clicked(ui))
+    signup_error_msg = QtWidgets.QLabel(ui.widget_signup)
     if signup_error_msg is not None:
         signup_error_msg.deleteLater()
-        signup_error_msg = None
-def on_sign_up_clicked():
+        signup_error_msg = None    
+    Mainwindow.setFixedHeight(1080-taskbar_height)
+    Mainwindow.setFixedWidth(1920)
+    Mainwindow.showMaximized()
+def on_sign_up_clicked(ui):
     global username_signup, password_signup, confirm, email, signup_error_msg
-    username_signup = ui.line_username_signup.text()
-    password_signup = ui.line_password_signup.text()
-    confirm = ui.line_confirm.text()
-    email = ui.line_email.text()
+    # ui = stacked.Ui_MainWindow()
+    # ui.setupUi(Mainwindow)
+    # ui.stackedWidget.setCurrentIndex(1)    
+    username_signup = ui.line_username_signup_2.text()
+    password_signup = ui.line_password_signup_2.text()
+    confirm = ui.line_confirm_2.text()
+    email = ui.line_email_2.text()
 
     
     if signup_error_msg is None:
-        signup_error_msg = QtWidgets.QLabel(ui.widget)
+        signup_error_msg = QtWidgets.QLabel(ui.widget_signup)
         signup_error_msg.setStyleSheet("background-color: rgba(0,0,0,0);color: red")
         font.setPointSize(10)
         signup_error_msg.setFont(font)
@@ -88,21 +106,6 @@ def on_sign_up_clicked():
             data.to_csv(os.path.join(DATA_PATH,'Login_Account.csv'), mode='a', header=False, index=False)
             
             login_Ui()
-    
-def login_Ui():
-    global ui,error_msg
-    ui = login.Ui_LoginForm()
-    ui.setupUi(Mainwindow)
-    error_msg = QtWidgets.QLabel(ui.widget)
-    if error_msg is not None:
-        error_msg.deleteLater()
-        error_msg = None
-    ui.createButton.clicked.connect(sign_up_Ui)
-    
-    ui.sign_inButton.clicked.connect(homepage_Ui)
-    Mainwindow.setFixedHeight(1080-taskbar_height)
-    Mainwindow.setFixedWidth(1920)
-    Mainwindow.showMaximized()
 def create_main_window():
     Mainwindow = QMainWindow()
     ui = sidebar.Ui_MainWindow()
@@ -148,11 +151,11 @@ def on_uart_btn_toggled(ui):
     ui.stackedWidget.setCurrentIndex(4)
 def homepage_Ui():
     global ui,error_msg,username,password
-    username = ui.line_username.text()
-    password = ui.linepassword.text()
+    username = ui.line_username_2.text()
+    password = ui.linepassword_2.text()
 
     if error_msg is None:
-        error_msg = QtWidgets.QLabel(ui.widget)
+        error_msg = QtWidgets.QLabel(ui.widget_login)
         error_msg.setStyleSheet("background-color: rgba(0,0,0,0);color: red")
         font.setPointSize(10)
         error_msg.setFont(font)

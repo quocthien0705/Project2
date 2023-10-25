@@ -5,13 +5,14 @@ import re
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtSerialPort import QSerialPort, QSerialPortInfo
 import io
+import os
 class SerialMonitor(QtWidgets.QMainWindow):
     def __init__(self):
         super(SerialMonitor, self).__init__()
         self.port = QSerialPort()
         self.serialDataView = SerialDataView(self)
         self.serialSendView = SerialSendView(self)
-
+        ROOT_PATH      = os.path.dirname(os.path.abspath(__file__))
         self.setCentralWidget( QtWidgets.QWidget(self) )
         layout = QtWidgets.QVBoxLayout( self.centralWidget() )
         layout.addWidget(self.serialDataView)
@@ -32,7 +33,7 @@ class SerialMonitor(QtWidgets.QMainWindow):
         self.toolBar.portOpenButton.clicked.connect(self.portOpen)
         self.serialSendView.serialSendSignal.connect(self.sendFromPort)
         self.port.readyRead.connect(self.readFromPort)
-        self.data_file = io.open(r"D:\HCMUT\huy\ĐA2\New folder\PJ\SW\Src\data.txt", "w")
+        self.data_file = io.open(os.path.join(ROOT_PATH,'data.txt'), "w")
     def portOpen(self, flag):
         if flag:
             self.port.setBaudRate( self.toolBar.baudRate() )
