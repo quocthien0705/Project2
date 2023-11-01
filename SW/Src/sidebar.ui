@@ -693,7 +693,7 @@
        <item>
         <widget class="QStackedWidget" name="stackedWidget">
          <property name="currentIndex">
-          <number>5</number>
+          <number>2</number>
          </property>
          <widget class="QWidget" name="page">
           <layout class="QGridLayout" name="gridLayout_2"/>
@@ -719,19 +719,124 @@
          </widget>
          <widget class="QWidget" name="page_3">
           <layout class="QGridLayout" name="gridLayout_4">
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_6">
-             <property name="font">
-              <font>
-               <pointsize>20</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>Create New Profile</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
+           <item row="1" column="0">
+            <widget class="QWidget" name="widget_2" native="true">
+             <widget class="QFrame" name="frame">
+              <property name="geometry">
+               <rect>
+                <x>318</x>
+                <y>0</y>
+                <width>1000</width>
+                <height>831</height>
+               </rect>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <widget class="QLabel" name="label">
+               <property name="geometry">
+                <rect>
+                 <x>340</x>
+                 <y>20</y>
+                 <width>320</width>
+                 <height>40</height>
+                </rect>
+               </property>
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                 <horstretch>50</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Rockwell</family>
+                 <pointsize>20</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgb(255, 85, 127);</string>
+               </property>
+               <property name="text">
+                <string>Create New Profile</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignHCenter|Qt::AlignTop</set>
+               </property>
+              </widget>
+              <widget class="QLabel" name="label_2">
+               <property name="geometry">
+                <rect>
+                 <x>150</x>
+                 <y>120</y>
+                 <width>112</width>
+                 <height>32</height>
+                </rect>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Rockwell</family>
+                 <pointsize>13</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>Full Name:</string>
+               </property>
+              </widget>
+              <widget class="QLabel" name="label_3">
+               <property name="geometry">
+                <rect>
+                 <x>150</x>
+                 <y>180</y>
+                 <width>131</width>
+                 <height>32</height>
+                </rect>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Rockwell</family>
+                 <pointsize>13</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>Day of Birth:</string>
+               </property>
+              </widget>
+              <widget class="QLineEdit" name="line_fullname">
+               <property name="geometry">
+                <rect>
+                 <x>280</x>
+                 <y>120</y>
+                 <width>500</width>
+                 <height>35</height>
+                </rect>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Rockwell</family>
+                 <pointsize>10</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgba(0,0,0,0);
+border:1px solid rgba(0, 0, 0,255);
+border-radius: 5px;
+color: rgba(0,0,0,255);
+padding-bottom:5px</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="placeholderText">
+                <string/>
+               </property>
+              </widget>
+             </widget>
             </widget>
            </item>
           </layout>
@@ -790,7 +895,7 @@
  </widget>
  <resources>
   <include location="img_src.qrc"/>
-  <include location="C:/Users/ADMIN/.designer/backup/img_src.qrc"/>
+  <include location="img_src.qrc"/>
  </resources>
  <connections>
   <connection>

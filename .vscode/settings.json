@@ -1,5 +1,8 @@
 {
     "python.analysis.extraPaths": [
         "./SW/Src"
+    ],
+    "cSpell.words": [
+        "UART"
     ]
 }

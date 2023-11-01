@@ -185,7 +185,9 @@ class ToolBar(QtWidgets.QToolBar):
         self._flowControl.addItems(['No Flow Control', 'Hardware Control', 'Software Control'])
         self._flowControl.setCurrentIndex(0)
         self._flowControl.setMinimumHeight(30)
-
+        self.refreshButton = QtWidgets.QPushButton('Refresh')
+        self.refreshButton.clicked.connect(self.refreshPorts)
+        self.refreshButton.setMinimumHeight(30)
         self.addWidget( self.portOpenButton )
         self.addWidget( self.portNames)
         self.addWidget( self.baudRates)
@@ -193,6 +195,7 @@ class ToolBar(QtWidgets.QToolBar):
         self.addWidget( self._parity)
         self.addWidget( self.stopBits)
         self.addWidget( self._flowControl)
+        self.addWidget(self.refreshButton)
 
     def serialControlEnable(self, flag):
         self.portNames.setEnabled(flag)
@@ -219,6 +222,10 @@ class ToolBar(QtWidgets.QToolBar):
 
     def flowControl(self):
         return self._flowControl.currentIndex()
+    
+    def refreshPorts(self):
+        self.portNames.clear()
+        self.portNames.addItems([port.portName() for port in QSerialPortInfo().availablePorts()])
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
