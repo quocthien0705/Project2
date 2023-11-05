@@ -331,8 +331,14 @@ class Ui_MainWindow(object):
         self.widget_2.setObjectName("widget_2")
         self.frame = QtWidgets.QFrame(self.widget_2)
         self.frame.setGeometry(QtCore.QRect(318, 0, 1000, 831))
-        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(10)
+        self.frame.setFont(font)
+        self.frame.setStyleSheet("")
+        self.frame.setInputMethodHints(QtCore.Qt.ImhNone)
+        self.frame.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Plain)
         self.frame.setObjectName("frame")
         self.label = QtWidgets.QLabel(self.frame)
         self.label.setGeometry(QtCore.QRect(340, 20, 320, 40))
@@ -358,17 +364,17 @@ class Ui_MainWindow(object):
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
         self.label_3 = QtWidgets.QLabel(self.frame)
-        self.label_3.setGeometry(QtCore.QRect(150, 180, 131, 32))
+        self.label_3.setGeometry(QtCore.QRect(150, 200, 130, 32))
         font = QtGui.QFont()
         font.setFamily("Rockwell")
         font.setPointSize(13)
         self.label_3.setFont(font)
         self.label_3.setObjectName("label_3")
         self.line_fullname = QtWidgets.QLineEdit(self.frame)
-        self.line_fullname.setGeometry(QtCore.QRect(280, 120, 500, 35))
+        self.line_fullname.setGeometry(QtCore.QRect(272, 120, 508, 35))
         font = QtGui.QFont()
         font.setFamily("Rockwell")
-        font.setPointSize(10)
+        font.setPointSize(11)
         self.line_fullname.setFont(font)
         self.line_fullname.setStyleSheet("background-color: rgba(0,0,0,0);\n"
 "border:1px solid rgba(0, 0, 0,255);\n"
@@ -378,6 +384,424 @@ class Ui_MainWindow(object):
         self.line_fullname.setText("")
         self.line_fullname.setPlaceholderText("")
         self.line_fullname.setObjectName("line_fullname")
+        self.dateEdit = QtWidgets.QDateEdit(self.frame)
+        self.dateEdit.setGeometry(QtCore.QRect(290, 200, 130, 35))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(10)
+        self.dateEdit.setFont(font)
+        self.dateEdit.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.dateEdit.setStyleSheet("/* Style for header area  ####################################################*/ \n"
+"\n"
+"QCalendarWidget QWidget {\n"
+"     alternate-background-color: #B8E2FF;\n"
+"}\n"
+"\n"
+"/* style for top navigation area ###############################################*/ \n"
+"\n"
+"QDateEdit QWidget#qt_calendar_navigationbar {\n"
+"    background-color: #fff;\n"
+"    border: 2px solid  #B8E2FF;\n"
+"    border-bottom: 0px;\n"
+"    border-top-left-radius: 5px;\n"
+"    border-top-right-radius: 5px;\n"
+"}\n"
+"\n"
+"/* style for month change buttons ############################################ */\n"
+"\n"
+"QDateEdit QWidget#qt_calendar_prevmonth, \n"
+"QDateEdit QWidget#qt_calendar_nextmonth {\n"
+"    /* border delete */\n"
+"    border: none;  \n"
+"    /* delete default icons */\n"
+"    qproperty-icon: none; \n"
+"    \n"
+"    min-width: 13px;\n"
+"    max-width: 13px;\n"
+"    min-height: 13px;\n"
+"    max-height: 13px;\n"
+"\n"
+"    border-radius: 5px; \n"
+"    /* set background transparent */\n"
+"    background-color: transparent; \n"
+"    padding: 5px;\n"
+"}\n"
+"\n"
+"/* style for pre month button ############################################ */\n"
+"\n"
+"QDateEdit QWidget#qt_calendar_prevmonth {\n"
+"    /* set text for button */\n"
+"    /*qproperty-text: \">\";*/\n"
+"    margin-left:5px;\n"
+"    image: url(:/icon/Icon_Logo/arrow-119-48.ico);\n"
+"}\n"
+"\n"
+"/* style for next month button ########################################### */\n"
+"QDateEdit QWidget#qt_calendar_nextmonth {\n"
+"    margin-right:5px;\n"
+"    image: url(:/icon/Icon_Logo/arrow-19-48.ico);\n"
+"    /* qproperty-text: \">\"; */\n"
+"}\n"
+"QDateEdit QWidget#qt_calendar_prevmonth:hover, \n"
+"QDateEdit QWidget#qt_calendar_nextmonth:hover {\n"
+"    background-color: #55aaff;\n"
+"}\n"
+"\n"
+"QDateEdit QWidget#qt_calendar_prevmonth:pressed, \n"
+"QDateEdit QWidget#qt_calendar_nextmonth:pressed {\n"
+"    background-color: rgba(235, 235, 235, 100);\n"
+"}\n"
+"\n"
+"\n"
+"/* Style for month and yeat buttons #################################### */\n"
+"\n"
+"QDateEdit QWidget#qt_calendar_yearbutton {\n"
+"    color: #000;\n"
+"    margin:5px;\n"
+"    border-radius: 5px;\n"
+"    font-size: 13px;\n"
+"    padding:0px 10px;\n"
+"}\n"
+"\n"
+"QDateEdit QWidget#qt_calendar_monthbutton {\n"
+"    width: 110px;\n"
+"    color: #000;\n"
+"    font-size: 13px;\n"
+"    margin:5px 0px;\n"
+"    border-radius: 5px;\n"
+"    padding:0px 2px;\n"
+"}\n"
+"\n"
+"QDateEdit QWidget#qt_calendar_yearbutton:hover, \n"
+"QDateEdit QWidget#qt_calendar_monthbutton:hover {\n"
+"    background-color: #55aaff;\n"
+"}\n"
+"\n"
+"QDateEdit QWidget#qt_calendar_yearbutton:pressed, \n"
+"QDateEdit QWidget#qt_calendar_monthbutton:pressed {\n"
+"    background-color: rgba(235, 235, 235, 100);\n"
+"}\n"
+"\n"
+"/* Style for year input lineEdit ######################################*/\n"
+"\n"
+"QDateEdit QWidget#qt_calendar_yearedit {\n"
+"    min-width: 53px;\n"
+"    color: #000;\n"
+"    background: transparent;\n"
+"    font-size: 13px;\n"
+"}\n"
+"\n"
+"/* Style for year change buttons ######################################*/\n"
+"\n"
+"QDateEdit QWidget#qt_calendar_yearedit::up-button { \n"
+"    image: url(:/icon/Icon_Logo/arrow-151-48.ico);\n"
+"    subcontrol-position: right;\n"
+"}\n"
+"\n"
+"QDateEdit QWidget#qt_calendar_yearedit::down-button { \n"
+"    image: url(:/icon/Icon_Logo/arrow-213-48.ico);\n"
+"    subcontrol-position: left; \n"
+"}\n"
+"\n"
+"QDateEdit QWidget#qt_calendar_yearedit::down-button, \n"
+"QDateEdit QWidget#qt_calendar_yearedit::up-button {\n"
+"    width:10px;\n"
+"    padding: 0px 5px;\n"
+"    border-radius:3px;\n"
+"}\n"
+"\n"
+"QDateEdit QWidget#qt_calendar_yearedit::down-button:hover, \n"
+"QDateEdit QWidget#qt_calendar_yearedit::up-button:hover {\n"
+"    background-color: #55aaff;\n"
+"}\n"
+"\n"
+"/* Style for month select menu ##################################### */\n"
+"\n"
+"QDateEdit QCalendarWidget QToolButton QMenu {\n"
+"     background-color: white;\n"
+"}\n"
+"\n"
+"QDateEdit QCalendarWidget QToolButton QMenu::item {\n"
+"    /*padding: 10px;*/\n"
+"}\n"
+"\n"
+"QDateEdit QCalendarWidget QToolButton QMenu::item:selected:enabled {\n"
+"    background-color: #55aa7f;\n"
+"}\n"
+"\n"
+"QDateEdit QCalendarWidget QToolButton::menu-indicator {\n"
+"    /* Remove toolButton arrow */\n"
+"      /*image: none; */\n"
+"    nosubcontrol-origin: margin;\n"
+"    subcontrol-position: right center;\n"
+"    margin-top: 10px;\n"
+"    width:20px;\n"
+"}\n"
+"\n"
+"/* Style for calendar table ########################################## */\n"
+"\n"
+"QDateEdit QCalendarWidget QTableView {\n"
+"    /* Remove the selected dashed box */\n"
+"    outline: 0px;\n"
+"\n"
+"    border: 2px solid  #B8E2FF;\n"
+"    border-top: 0px;\n"
+"    border-bottom-left-radius: 5px;\n"
+"    border-bottom-right-radius: 5px;\n"
+"}\n"
+"\n"
+"QDateEdit QCalendarWidget QTableView::item:hover {\n"
+"   border-radius:5px;\n"
+"    background-color:#aaffff;\n"
+"}\n"
+"\n"
+"QDateEdit QCalendarWidget QTableView::item:selected {\n"
+"    background-color: #55aa7f; \n"
+"    border-radius:5px;\n"
+"}")
+        self.dateEdit.setInputMethodHints(QtCore.Qt.ImhNone)
+        self.dateEdit.setReadOnly(False)
+        self.dateEdit.setAccelerated(False)
+        self.dateEdit.setCalendarPopup(True)
+        self.dateEdit.setCurrentSectionIndex(0)
+        self.dateEdit.setTimeSpec(QtCore.Qt.LocalTime)
+        self.dateEdit.setObjectName("dateEdit")
+        self.label_4 = QtWidgets.QLabel(self.frame)
+        self.label_4.setGeometry(QtCore.QRect(540, 200, 50, 32))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(13)
+        self.label_4.setFont(font)
+        self.label_4.setObjectName("label_4")
+        self.comboBox = QtWidgets.QComboBox(self.frame)
+        self.comboBox.setGeometry(QtCore.QRect(600, 200, 180, 35))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(9)
+        self.comboBox.setFont(font)
+        self.comboBox.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.comboBox.setStyleSheet("#comboBox {\n"
+"    border: 1px solid #000;\n"
+"    border-radius: 4px;\n"
+"    padding-left: 10px;\n"
+"}\n"
+"\n"
+"#comboBox::drop-down {\n"
+"    border: 0px;\n"
+"}\n"
+"\n"
+"#comboBox::down-arrow {\n"
+"    image: url(:/icon/Icon_Logo/arrow-204-32.ico);\n"
+"    width: 12px;\n"
+"    height: 12px;\n"
+"    margin-right:15px;\n"
+"}\n"
+"\n"
+"#comboBox:on {\n"
+"     border: 2px solid #c2dbfe;\n"
+" }\n"
+"\n"
+"QComboBox QListView {\n"
+"    font-size: 12px;\n"
+"    border:1px solid rgba(0,0,0,10%);\n"
+"    padding:5px;\n"
+"    background-color: #fff;\n"
+"    outline: 0px;  /*去虚线*/\n"
+"}\n"
+"\n"
+"QComboBox QListView::item{\n"
+"    padding-left:10px;\n"
+"    background-color:#FFFFFF;\n"
+"}\n"
+"QComboBox QListView::item:hover{\n"
+"   background-color:#1e90ff;\n"
+"}\n"
+"QComboBox QListView::item:selected{\n"
+"   background-color:#1e90ff;\n"
+"}\n"
+"\n"
+"")
+        self.comboBox.setPlaceholderText("")
+        self.comboBox.setObjectName("comboBox")
+        self.comboBox.addItem("")
+        self.comboBox.addItem("")
+        self.line_height = QtWidgets.QLineEdit(self.frame)
+        self.line_height.setGeometry(QtCore.QRect(290, 360, 80, 35))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(10)
+        self.line_height.setFont(font)
+        self.line_height.setStyleSheet("background-color: rgba(0,0,0,0);\n"
+"border:1px solid rgba(0, 0, 0,255);\n"
+"border-radius: 5px;\n"
+"color: rgba(0,0,0,255);\n"
+"padding-bottom:5px")
+        self.line_height.setInputMethodHints(QtCore.Qt.ImhNone)
+        self.line_height.setText("")
+        self.line_height.setPlaceholderText("")
+        self.line_height.setObjectName("line_height")
+        self.label_6 = QtWidgets.QLabel(self.frame)
+        self.label_6.setGeometry(QtCore.QRect(150, 360, 130, 32))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(13)
+        self.label_6.setFont(font)
+        self.label_6.setObjectName("label_6")
+        self.line_weight = QtWidgets.QLineEdit(self.frame)
+        self.line_weight.setGeometry(QtCore.QRect(560, 360, 220, 35))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(10)
+        self.line_weight.setFont(font)
+        self.line_weight.setStyleSheet("background-color: rgba(0,0,0,0);\n"
+"border:1px solid rgba(0, 0, 0,255);\n"
+"border-radius: 5px;\n"
+"color: rgba(0,0,0,255);\n"
+"padding-bottom:5px")
+        self.line_weight.setInputMethodHints(QtCore.Qt.ImhNone)
+        self.line_weight.setText("")
+        self.line_weight.setPlaceholderText("")
+        self.line_weight.setObjectName("line_weight")
+        self.label_9 = QtWidgets.QLabel(self.frame)
+        self.label_9.setGeometry(QtCore.QRect(410, 360, 140, 32))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(13)
+        self.label_9.setFont(font)
+        self.label_9.setObjectName("label_9")
+        self.line_insur_number = QtWidgets.QLineEdit(self.frame)
+        self.line_insur_number.setGeometry(QtCore.QRect(450, 520, 330, 35))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(10)
+        self.line_insur_number.setFont(font)
+        self.line_insur_number.setStyleSheet("background-color: rgba(0,0,0,0);\n"
+"border:1px solid rgba(0, 0, 0,255);\n"
+"border-radius: 5px;\n"
+"color: rgba(0,0,0,255);\n"
+"padding-bottom:5px")
+        self.line_insur_number.setInputMethodHints(QtCore.Qt.ImhNone)
+        self.line_insur_number.setText("")
+        self.line_insur_number.setPlaceholderText("")
+        self.line_insur_number.setObjectName("line_insur_number")
+        self.label_10 = QtWidgets.QLabel(self.frame)
+        self.label_10.setGeometry(QtCore.QRect(150, 520, 290, 32))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(14)
+        self.label_10.setFont(font)
+        self.label_10.setObjectName("label_10")
+        self.line_address = QtWidgets.QLineEdit(self.frame)
+        self.line_address.setGeometry(QtCore.QRect(260, 280, 520, 35))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(10)
+        self.line_address.setFont(font)
+        self.line_address.setStyleSheet("background-color: rgba(0,0,0,0);\n"
+"border:1px solid rgba(0, 0, 0,255);\n"
+"border-radius: 5px;\n"
+"color: rgba(0,0,0,255);\n"
+"padding-bottom:5px")
+        self.line_address.setText("")
+        self.line_address.setPlaceholderText("")
+        self.line_address.setObjectName("line_address")
+        self.label_11 = QtWidgets.QLabel(self.frame)
+        self.label_11.setGeometry(QtCore.QRect(150, 280, 100, 32))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(13)
+        self.label_11.setFont(font)
+        self.label_11.setObjectName("label_11")
+        self.line_note = QtWidgets.QLineEdit(self.frame)
+        self.line_note.setGeometry(QtCore.QRect(220, 600, 560, 35))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(10)
+        self.line_note.setFont(font)
+        self.line_note.setStyleSheet("background-color: rgba(0,0,0,0);\n"
+"border:1px solid rgba(0, 0, 0,255);\n"
+"border-radius: 5px;\n"
+"color: rgba(0,0,0,255);\n"
+"padding-bottom:5px")
+        self.line_note.setText("")
+        self.line_note.setObjectName("line_note")
+        self.line_phone_number = QtWidgets.QLineEdit(self.frame)
+        self.line_phone_number.setGeometry(QtCore.QRect(330, 440, 450, 35))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(10)
+        self.line_phone_number.setFont(font)
+        self.line_phone_number.setStyleSheet("background-color: rgba(0,0,0,0);\n"
+"border:1px solid rgba(0, 0, 0,255);\n"
+"border-radius: 5px;\n"
+"color: rgba(0,0,0,255);\n"
+"padding-bottom:5px")
+        self.line_phone_number.setInputMethodHints(QtCore.Qt.ImhNone)
+        self.line_phone_number.setText("")
+        self.line_phone_number.setPlaceholderText("")
+        self.line_phone_number.setObjectName("line_phone_number")
+        self.label_13 = QtWidgets.QLabel(self.frame)
+        self.label_13.setGeometry(QtCore.QRect(150, 440, 170, 32))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(14)
+        self.label_13.setFont(font)
+        self.label_13.setObjectName("label_13")
+        self.label_12 = QtWidgets.QLabel(self.frame)
+        self.label_12.setGeometry(QtCore.QRect(150, 600, 60, 32))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(13)
+        self.label_12.setFont(font)
+        self.label_12.setObjectName("label_12")
+        self.save_button = QtWidgets.QPushButton(self.frame)
+        self.save_button.setGeometry(QtCore.QRect(370, 700, 100, 50))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(13)
+        font.setBold(True)
+        font.setWeight(75)
+        font.setKerning(False)
+        self.save_button.setFont(font)
+        self.save_button.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.save_button.setStyleSheet("QPushButton#save_button{    \n"
+"    background-color: rgba(239, 35, 60,255);\n"
+"    color:white;\n"
+"    border-radius:7px;\n"
+"}\n"
+"QPushButton#save_button:hover{    \n"
+"    background-color: rgba(239, 35, 60,200);\n"
+"}\n"
+"QPushButton#save_button:pressed{    \n"
+"    padding-left:5px;\n"
+"    padding-top:5px;\n"
+"    background-color: rgba(229, 56, 59,200);\n"
+"}")
+        self.save_button.setObjectName("save_button")
+        self.clear_button = QtWidgets.QPushButton(self.frame)
+        self.clear_button.setGeometry(QtCore.QRect(530, 700, 100, 50))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(13)
+        font.setBold(True)
+        font.setWeight(75)
+        font.setKerning(False)
+        self.clear_button.setFont(font)
+        self.clear_button.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.clear_button.setStyleSheet("QPushButton#clear_button{    \n"
+"    background-color: rgba(21, 122, 110,255);\n"
+"    color:white;\n"
+"    border-radius:7px;\n"
+"}\n"
+"QPushButton#clear_button:hover{    \n"
+"    background-color: rgba(21, 122, 110,200);\n"
+"}\n"
+"QPushButton#clear_button:pressed{    \n"
+"    padding-left:5px;\n"
+"    padding-top:5px;\n"
+"    background-color: rgba(17, 98, 87,200);\n"
+"}")
+        self.clear_button.setObjectName("clear_button")
         self.gridLayout_4.addWidget(self.widget_2, 1, 0, 1, 1)
         self.stackedWidget.addWidget(self.page_3)
         self.page_4 = QtWidgets.QWidget()
@@ -387,7 +811,6 @@ class Ui_MainWindow(object):
         self.serialMonitor_V = test_visualize.MainWindow()
         self.gridLayout_5.addWidget(self.serialMonitor_V, 0, 0, 1, 1)
         self.stackedWidget.addWidget(self.page_4)
-        # self.label_7 = QtWidgets.QLabel(self.page_4)
         # self.label_7 = QtWidgets.QLabel(self.page_4)
         # font = QtGui.QFont()
         # font.setPointSize(20)
@@ -427,6 +850,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         self.stackedWidget.setCurrentIndex(2)
+        self.comboBox.setCurrentIndex(0)
         self.change_btn.toggled['bool'].connect(self.icon_only_widget.setVisible) # type: ignore
         self.change_btn.toggled['bool'].connect(self.full_menu_widget.setHidden) # type: ignore
         self.home_btn_1.toggled['bool'].connect(self.home_btn_2.setChecked) # type: ignore
@@ -454,6 +878,19 @@ class Ui_MainWindow(object):
         self.label.setText(_translate("MainWindow", "Create New Profile"))
         self.label_2.setText(_translate("MainWindow", "Full Name:"))
         self.label_3.setText(_translate("MainWindow", "Day of Birth:"))
+        self.dateEdit.setDisplayFormat(_translate("MainWindow", "MM/dd/yyyy"))
+        self.label_4.setText(_translate("MainWindow", "Sex:"))
+        self.comboBox.setItemText(0, _translate("MainWindow", "Male"))
+        self.comboBox.setItemText(1, _translate("MainWindow", "Female"))
+        self.label_6.setText(_translate("MainWindow", "Height (cm):"))
+        self.label_9.setText(_translate("MainWindow", "Weight (kg):"))
+        self.label_10.setText(_translate("MainWindow", "Health Insurance Number:"))
+        self.label_11.setText(_translate("MainWindow", "Address:"))
+        self.line_note.setPlaceholderText(_translate("MainWindow", "Note here if the patient has underlying disease."))
+        self.label_13.setText(_translate("MainWindow", "Phone Number:"))
+        self.label_12.setText(_translate("MainWindow", "Note:"))
+        self.save_button.setText(_translate("MainWindow", "Save"))
+        self.clear_button.setText(_translate("MainWindow", "Clear"))
         # self.label_7.setText(_translate("MainWindow", "Display"))
         # self.label_8.setText(_translate("MainWindow", "UART"))
 import img_src_rc

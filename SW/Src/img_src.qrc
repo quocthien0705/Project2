@@ -1,5 +1,10 @@
 <RCC>
   <qresource prefix="icon">
+    <file>Icon_Logo/arrow-19-48.ico</file>
+    <file>Icon_Logo/arrow-119-48.ico</file>
+    <file>Icon_Logo/arrow-151-48.ico</file>
+    <file>Icon_Logo/arrow-204-32.ico</file>
+    <file>Icon_Logo/arrow-213-48.ico</file>
     <file>Icon_Logo/home_black.png</file>
     <file>Icon_Logo/home_white.png</file>
     <file>Icon_Logo/add-user_black.png</file>
