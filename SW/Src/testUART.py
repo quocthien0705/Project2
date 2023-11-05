@@ -59,7 +59,7 @@ class SerialMonitor(QtWidgets.QMainWindow):
         data = self.port.readAll()
         if len(data) > 0:
             self.serialDataView.appendSerialText( QtCore.QTextStream(data).readAll(), QtGui.QColor(255, 0, 0) )
-            self.data_file.write(data)
+            self.data_file.write(str(data))
             self.data_file.flush()
     def sendFromPort(self, text):
         self.port.write( text.encode() )

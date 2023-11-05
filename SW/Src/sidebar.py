@@ -384,7 +384,7 @@ class Ui_MainWindow(object):
         self.page_4.setObjectName("page_4")
         self.gridLayout_5 = QtWidgets.QGridLayout(self.page_4)
         self.gridLayout_5.setObjectName("gridLayout_5")
-        self.serialMonitor_V = test_visualize.SerialMonitor()
+        self.serialMonitor_V = test_visualize.MainWindow()
         self.gridLayout_5.addWidget(self.serialMonitor_V, 0, 0, 1, 1)
         self.stackedWidget.addWidget(self.page_4)
         # self.label_7 = QtWidgets.QLabel(self.page_4)
