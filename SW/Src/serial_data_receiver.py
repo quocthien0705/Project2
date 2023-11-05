@@ -18,7 +18,7 @@ class SerialDataReceiver(QtCore.QThread):
             self.running = True
             while self.running:
                 if self.serial.in_waiting > 0:
-                    data = int(self.serial.readline().strip())
+                    data = float(self.serial.readline().strip())
                     self.data_received.emit(data)
         except serial.SerialException as e:
             error_message = f"Error opening the serial port: {e}"
