@@ -1,0 +1,25 @@
+Removed Member From Class: ClassName=Sheet1 Member=U
+Added Component: Designator=C*(CAP 0603)
+Add component (AddParameter): Name = "Arrow_Electronics-Purchase-URL"; Value = "https://snapeda.com/shop?store=Arrow+Electronics&id=4218692"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Availability"; Value = "Good"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "KEMET"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser-Purchase-URL"; Value = "https://snapeda.com/shop?store=Mouser&id=4218692"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "C0603C103K5RAC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "0603 KEMET"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/C0603C103K5RAC/KEMET/view-part/4218692/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=U*(AD627 8-SOIC)
+Add component (AddParameter): Name = "Availability"; Value = "Warning"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1Description"; Value = "New link"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1URL"; Value = "http://www.tme.vn/Product.aspx?id=2272&fbclid=IwAR1r3-aYSaNjoE7f3PSriBxNBMmIgj82tOKJ_9gO5Z10qRkidb9YGGOgiqw#page=pro_info"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "DigiKey-Purchase-URL"; Value = "https://snapeda.com/shop?store=DigiKey&id=558411"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Analog Devices"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "AD627AR"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "SOIC-8 Analog Devices"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Parameter 1"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/AD627AR/Analog%20Devices%20Inc./view-part/558411/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Member To Class: ClassName=Sheet1 Member=Component C* CMP2
+Added Member To Class: ClassName=Sheet1 Member=Component U* CMP1

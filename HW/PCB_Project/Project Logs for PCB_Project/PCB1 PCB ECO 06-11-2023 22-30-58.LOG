@@ -1,0 +1,10 @@
+Added Component: Designator=U(R_8)
+Add component (AddParameter): Name = "Availability"; Value = "Warning"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "DigiKey-Purchase-URL"; Value = "https://snapeda.com/shop?store=DigiKey&id=558411"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Analog Devices"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "AD627AR"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "SOIC-8 Analog Devices"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/AD627AR/Analog%20Devices%20Inc./view-part/558411/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Member To Class: ClassName=Sheet1 Member=Component U 1
