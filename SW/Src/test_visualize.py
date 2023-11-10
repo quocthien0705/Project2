@@ -4,10 +4,13 @@ from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication, QMainWindow, QComboBox, QPushButton, QVBoxLayout, QHBoxLayout, QWidget, QLabel, QMessageBox
-
+import csv
+import os
+from datetime import datetime
 from pyqtgraph import PlotWidget, mkPen
 from serial_data_receiver import SerialDataReceiver
-
+ROOT_PATH      = os.path.dirname(os.path.abspath(__file__))
+DATA_PATH      = os.path.join(ROOT_PATH,'..','Data')
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -28,10 +31,13 @@ class MainWindow(QMainWindow):
         self.refresh_button = QPushButton("Refresh")
         self.refresh_button.clicked.connect(self.refresh_serial_ports)
 
+        self.save_button = QPushButton("Save")
+        self.save_button.clicked.connect(self.save_data)
+        
         self.baudrate_label = QLabel("Baud rate")
         self.baudrate_dropdown = QComboBox()
         self.baudrate_dropdown.addItems(self.baud_rates)
-        self.baudrate_dropdown.setCurrentText("9600")
+        self.baudrate_dropdown.setCurrentText("115200")
 
         self.start_button = QPushButton("Start")
         self.start_button.clicked.connect(self.start_serial)
@@ -65,6 +71,7 @@ class MainWindow(QMainWindow):
         top_layout.addWidget(self.port_label)
         top_layout.addWidget(self.port_dropdown)
         top_layout.addWidget(self.refresh_button)
+        top_layout.addWidget(self.save_button)
         top_layout.addSpacing(35)
         top_layout.addWidget(self.baudrate_label)
         top_layout.addWidget(self.baudrate_dropdown)
@@ -115,7 +122,7 @@ class MainWindow(QMainWindow):
     def update_graph(self, data):
         self.x.append(len(self.x))
         self.y.append(data)
-
+        print(self.x, self.y)
         pen = mkPen(color="g", width=2)
         self.plot_widget.plot(self.x, self.y, pen=pen, clear=True)
 
@@ -132,3 +139,15 @@ class MainWindow(QMainWindow):
 
         frame.moveCenter(center_point)
         self.move(frame.topLeft())
+
+    def save_data(self):
+        
+        now = datetime.now()
+        timestamp = now.strftime("%Y%m%d_%H%M%S")
+
+        filename = os.path.join(DATA_PATH,f'data_{timestamp}.csv')
+
+        with open(filename, 'w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(["x", "y"])
+            writer.writerows(zip(self.x, self.y))

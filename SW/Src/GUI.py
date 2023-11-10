@@ -5,16 +5,17 @@ import sys
 import os
 import pandas as pd
 import stacked
-import login
-import signup
+import csv
 from get_taskbar_height import get_taskbar_height
 import sidebar
+from support_function import *
 ROOT_PATH      = os.path.dirname(os.path.abspath(__file__))
 DATA_PATH      = os.path.join(ROOT_PATH,'..','Data')
 font = QtGui.QFont()
 font.setFamily("Rockwell")
 error_msg = None
 signup_error_msg = None
+error_profile = None
 ui = None
 taskbar_height = get_taskbar_height()
 app = QtWidgets.QApplication(sys.argv)
@@ -73,17 +74,17 @@ def on_sign_up_clicked(ui):
         df = pd.read_csv(os.path.join(DATA_PATH,'Login_Account.csv'))
 
         
-        if (df['Username'] == username_signup).any() and (df['Email'] == email).any():
+        if check_user_and_email_signup(df,username_signup,email):
             signup_error_msg.setText("Username and Email already exist.")
             signup_error_msg.setGeometry(QtCore.QRect(55, 345, 300, 30))
             signup_error_msg.show()
         
-        elif (df['Username'] == username_signup).any():
+        elif check_user_signup(df,username_signup):
             signup_error_msg.setText("Username already exists.")
             signup_error_msg.setGeometry(QtCore.QRect(70, 345, 300, 30))
             signup_error_msg.show()
         
-        elif (df['Email'] == email).any():
+        elif check_email_signup(df,email):
             signup_error_msg.setText("Email already exists.")
             signup_error_msg.setGeometry(QtCore.QRect(70, 345, 300, 30))
             signup_error_msg.show()
@@ -137,16 +138,87 @@ def on_stackedWidget_currentChanged(ui, index):
             btn.setChecked(False)
         else:
             btn.setAutoExclusive(True)
+def save_to_excel(fullname, dob, sex, height, weight, phone, insur_number, address, note):
+    filename = os.path.join(DATA_PATH, "Profile_of_Patient.xlsx")
+    fields = ["Full Name", "Day of Birth", "Sex", "Height (cm)", "Weight (kg)", "Phone Number", "Health Insurance Number", "Address", "Note"]
+    row = [fullname, dob, sex, height, weight, phone, insur_number, address, note]
 
+    # Kiểm tra xem file đã tồn tại chưa
+    if os.path.isfile(filename):
+        df = pd.read_excel(filename)
+        df.loc[len(df)] = row
+    else:
+        df = pd.DataFrame([row], columns=fields)
+
+    df.to_excel(filename, index=False)
+
+def on_save_button_clicked(ui):
+    global error_profile
+    fullname = ui.line_fullname.text()
+    dob = ui.dateEdit.date().toString("dd/MM/yyyy")
+    sex = ui.comboBox.currentText()
+    height = ui.line_height.text()
+    weight = ui.line_weight.text()
+    insur_number = ui.line_insur_number.text()
+    address = ui.line_address.text()
+    note = ui.line_note.text()
+    phone = ui.line_phone_number.text()
+    
+    df = pd.read_excel(os.path.join(DATA_PATH,"Profile_of_Patient.xlsx"))
+        
+    if error_profile is None:
+        error_profile = QtWidgets.QLabel(ui.frame)
+        error_profile.setStyleSheet("background-color: rgba(0,0,0,0);color: red")
+        font.setPointSize(10)
+        error_profile.setFont(font)
+    
+    if not all([fullname, sex, height, weight, phone, insur_number, address]):
+        error_profile.setText("Please input all fields.")
+        error_profile.setGeometry(QtCore.QRect(250, 650, 500, 30))
+        error_profile.show()          
+    elif fullname in df['Full Name'].values:
+        error_profile.setText("Profile already exists.")
+        error_profile.setGeometry(QtCore.QRect(250, 650, 500, 30))
+        error_profile.show()
+    elif not height.isdigit() or not weight.isdigit():
+            error_profile.setText("Height or weight must be integers.")
+            error_profile.setGeometry(QtCore.QRect(250, 400, 500, 30))
+            error_profile.show()
+    else:
+        error_profile.deleteLater()
+        error_profile = None 
+        save_to_excel(fullname, dob, sex, str(height), str(weight),str(phone), str(insur_number), address, note)
+
+def on_clear_button_clicked(ui):
+    global error_profile
+    ui.line_fullname.clear()
+    ui.dateEdit.setDate(QtCore.QDate.currentDate())
+    ui.comboBox.setCurrentIndex(0)
+    ui.line_height.clear()
+    ui.line_weight.clear()
+    ui.line_phone_number.clear()
+    ui.line_insur_number.clear()
+    ui.line_address.clear()
+    ui.line_note.clear()
+    if error_profile is not None:
+        error_profile.deleteLater()
+        error_profile = None 
 def on_home_btn_toggled(ui):
     ui.stackedWidget.setCurrentIndex(1)
 
 def on_display_btn_toggled(ui):
     ui.stackedWidget.setCurrentIndex(3)
-
+    
 def on_newprofile_btn_toggled(ui):
+    global error_profile
     ui.stackedWidget.setCurrentIndex(2)
-
+    if error_profile is not None:
+        error_profile.deleteLater()
+        error_profile = None     
+    if not hasattr(ui, 'save_button_connected'):
+        ui.save_button.clicked.connect(lambda: on_save_button_clicked(ui))
+        ui.save_button_connected = True
+    ui.clear_button.clicked.connect(lambda: on_clear_button_clicked(ui))
 def on_uart_btn_toggled(ui):
     ui.stackedWidget.setCurrentIndex(4)
 def homepage_Ui():
@@ -168,7 +240,7 @@ def homepage_Ui():
         
     else:
         df = pd.read_csv(os.path.join(DATA_PATH,'Login_Account.csv'))
-        if ((df['Username'] == username) & (df['Password'] == password)).any():
+        if check_user_and_password_signin(df,username,password):
             # print(username,password)
             ui = sidebar.Ui_MainWindow()
             ui.setupUi(Mainwindow)

@@ -3,7 +3,7 @@ from PyQt5 import QtCore, QtGui
 from PyQt5.QtWidgets import QMessageBox
 
 class SerialDataReceiver(QtCore.QThread):
-    data_received = QtCore.pyqtSignal(int)
+    data_received = QtCore.pyqtSignal(float)
 
     def __init__(self, port, baudrate=9600):
         super().__init__()

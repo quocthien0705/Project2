@@ -1455,46 +1455,6 @@ padding-bottom:5px</string>
                 <string>Note:</string>
                </property>
               </widget>
-              <widget class="QPushButton" name="save_button">
-               <property name="geometry">
-                <rect>
-                 <x>370</x>
-                 <y>700</y>
-                 <width>100</width>
-                 <height>50</height>
-                </rect>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Rockwell</family>
-                 <pointsize>13</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                 <kerning>false</kerning>
-                </font>
-               </property>
-               <property name="focusPolicy">
-                <enum>Qt::NoFocus</enum>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QPushButton#save_button{	
-	background-color: rgb(239, 35, 60,255);
-	color:white;
-	border-radius:7px;
-}
-QPushButton#save_button:hover{	
-	background-color: rgba(239, 35, 60,200);
-}
-QPushButton#save_button:pressed{	
-	padding-left:5px;
-	padding-top:5px;
-	background-color: rgba(229, 56, 59,200);
-}</string>
-               </property>
-               <property name="text">
-                <string>Save</string>
-               </property>
-              </widget>
               <widget class="QPushButton" name="clear_button">
                <property name="geometry">
                 <rect>
@@ -1533,6 +1493,46 @@ QPushButton#clear_button:pressed{
                </property>
                <property name="text">
                 <string>Clear</string>
+               </property>
+              </widget>
+              <widget class="QPushButton" name="save_button">
+               <property name="geometry">
+                <rect>
+                 <x>370</x>
+                 <y>700</y>
+                 <width>100</width>
+                 <height>50</height>
+                </rect>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Rockwell</family>
+                 <pointsize>12</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                 <kerning>false</kerning>
+                </font>
+               </property>
+               <property name="focusPolicy">
+                <enum>Qt::NoFocus</enum>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton#save_button{	
+	background-color: rgb(239, 35, 60,255);
+	color:white;
+	border-radius:7px;
+}
+QPushButton#save_button:hover{	
+	background-color: rgba(239, 35, 60,200);
+}
+QPushButton#save_button:pressed{	
+	padding-left:5px;
+	padding-top:5px;
+	background-color: rgba(229, 56, 59,200);
+}</string>
+               </property>
+               <property name="text">
+                <string>Save</string>
                </property>
               </widget>
              </widget>

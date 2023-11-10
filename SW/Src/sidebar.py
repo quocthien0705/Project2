@@ -754,30 +754,6 @@ class Ui_MainWindow(object):
         font.setPointSize(13)
         self.label_12.setFont(font)
         self.label_12.setObjectName("label_12")
-        self.save_button = QtWidgets.QPushButton(self.frame)
-        self.save_button.setGeometry(QtCore.QRect(370, 700, 100, 50))
-        font = QtGui.QFont()
-        font.setFamily("Rockwell")
-        font.setPointSize(13)
-        font.setBold(True)
-        font.setWeight(75)
-        font.setKerning(False)
-        self.save_button.setFont(font)
-        self.save_button.setFocusPolicy(QtCore.Qt.NoFocus)
-        self.save_button.setStyleSheet("QPushButton#save_button{    \n"
-"    background-color: rgba(239, 35, 60,255);\n"
-"    color:white;\n"
-"    border-radius:7px;\n"
-"}\n"
-"QPushButton#save_button:hover{    \n"
-"    background-color: rgba(239, 35, 60,200);\n"
-"}\n"
-"QPushButton#save_button:pressed{    \n"
-"    padding-left:5px;\n"
-"    padding-top:5px;\n"
-"    background-color: rgba(229, 56, 59,200);\n"
-"}")
-        self.save_button.setObjectName("save_button")
         self.clear_button = QtWidgets.QPushButton(self.frame)
         self.clear_button.setGeometry(QtCore.QRect(530, 700, 100, 50))
         font = QtGui.QFont()
@@ -802,6 +778,30 @@ class Ui_MainWindow(object):
 "    background-color: rgba(17, 98, 87,200);\n"
 "}")
         self.clear_button.setObjectName("clear_button")
+        self.save_button = QtWidgets.QPushButton(self.frame)
+        self.save_button.setGeometry(QtCore.QRect(370, 700, 100, 50))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        font.setKerning(False)
+        self.save_button.setFont(font)
+        self.save_button.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.save_button.setStyleSheet("QPushButton#save_button{    \n"
+"    background-color: rgba(239, 35, 60,255);\n"
+"    color:white;\n"
+"    border-radius:7px;\n"
+"}\n"
+"QPushButton#save_button:hover{    \n"
+"    background-color: rgba(239, 35, 60,200);\n"
+"}\n"
+"QPushButton#save_button:pressed{    \n"
+"    padding-left:5px;\n"
+"    padding-top:5px;\n"
+"    background-color: rgba(229, 56, 59,200);\n"
+"}")
+        self.save_button.setObjectName("save_button")
         self.gridLayout_4.addWidget(self.widget_2, 1, 0, 1, 1)
         self.stackedWidget.addWidget(self.page_3)
         self.page_4 = QtWidgets.QWidget()
@@ -886,11 +886,11 @@ class Ui_MainWindow(object):
         self.label_9.setText(_translate("MainWindow", "Weight (kg):"))
         self.label_10.setText(_translate("MainWindow", "Health Insurance Number:"))
         self.label_11.setText(_translate("MainWindow", "Address:"))
-        self.line_note.setPlaceholderText(_translate("MainWindow", "Note here if the patient has underlying disease."))
+        self.line_note.setPlaceholderText(_translate("MainWindow", "[Optional] Note here if the patient has underlying disease."))
         self.label_13.setText(_translate("MainWindow", "Phone Number:"))
         self.label_12.setText(_translate("MainWindow", "Note:"))
-        self.save_button.setText(_translate("MainWindow", "Save"))
         self.clear_button.setText(_translate("MainWindow", "Clear"))
+        self.save_button.setText(_translate("MainWindow", "Save"))
         # self.label_7.setText(_translate("MainWindow", "Display"))
         # self.label_8.setText(_translate("MainWindow", "UART"))
 import img_src_rc
