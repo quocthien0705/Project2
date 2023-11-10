@@ -63,8 +63,8 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 		if (hadc-> Instance==ADC1)
 	 {
 		adcval= HAL_ADC_GetValue(&hadc1);
-		//Voltage = (float)adcval/4095*3.3;
-		 sprintf(data, "%d\r\n", adcval);
+		Voltage = (float)adcval/4095*3.3;
+		 sprintf(data, "%f\r\n", Voltage);
 		//HAL_UART_Transmit_IT(&huart1,(uint8_t*)data,sprintf(data,"%f",Voltage));
 		 HAL_UART_Transmit_IT(&huart1,(uint8_t*)data, strlen(data));
 	 }
