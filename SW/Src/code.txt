@@ -1,3 +1,3 @@
 pyrcc5 img_src.qrc -o img_src_rc.py
 pyuic5 no_internet.ui -o no_internet.py
-pyinstaller --window --onefile --icon="icon.png" --name="LabMonitoringTool_Ver4" GUI_Lab_Monitoring_Tools.py
+pyinstaller --window --onefile --icon="healthcare.png" --name="Health Monitoring System" GUI.py

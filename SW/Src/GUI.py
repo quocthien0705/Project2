@@ -9,8 +9,8 @@ import csv
 from get_taskbar_height import get_taskbar_height
 import sidebar
 from support_function import *
-ROOT_PATH      = os.path.dirname(os.path.abspath(__file__))
-DATA_PATH      = os.path.join(ROOT_PATH,'..','Data')
+# ROOT_PATH      = os.path.dirname(os.path.abspath(__file__))
+DATA_PATH      = os.path.join(os.path.dirname(os.getcwd()),'..' ,'Data')
 font = QtGui.QFont()
 font.setFamily("Rockwell")
 error_msg = None
@@ -107,26 +107,6 @@ def on_sign_up_clicked(ui):
             data.to_csv(os.path.join(DATA_PATH,'Login_Account.csv'), mode='a', header=False, index=False)
             
             login_Ui()
-def create_main_window():
-    Mainwindow = QMainWindow()
-    ui = sidebar.Ui_MainWindow()
-    ui.setupUi(Mainwindow)
-
-    ui.icon_only_widget.hide()
-    ui.stackedWidget.setCurrentIndex(1)
-    ui.home_btn_2.setChecked(True)
-    # Connect signals to slots
-    ui.stackedWidget.currentChanged.connect(lambda: on_stackedWidget_currentChanged(ui, ui.stackedWidget.currentIndex()))
-    ui.home_btn_1.toggled.connect(lambda: on_home_btn_toggled(ui))
-    ui.home_btn_2.toggled.connect(lambda: on_home_btn_toggled(ui))
-    ui.display_btn_1.toggled.connect(lambda: on_display_btn_toggled(ui))
-    ui.display_btn_2.toggled.connect(lambda: on_display_btn_toggled(ui))
-    ui.newprofile_btn_1.toggled.connect(lambda: on_newprofile_btn_toggled(ui))
-    ui.newprofile_btn_2.toggled.connect(lambda: on_newprofile_btn_toggled(ui))
-    ui.uart_btn_1.toggled.connect(lambda: on_uart_btn_toggled(ui))
-    ui.uart_btn_2.toggled.connect(lambda: on_uart_btn_toggled(ui))
-
-    return Mainwindow
 
 def on_stackedWidget_currentChanged(ui, index):
     btn_list = ui.icon_only_widget.findChildren(QPushButton) \
@@ -163,7 +143,6 @@ def on_save_button_clicked(ui):
     address = ui.line_address.text()
     note = ui.line_note.text()
     phone = ui.line_phone_number.text()
-    
     df = pd.read_excel(os.path.join(DATA_PATH,"Profile_of_Patient.xlsx"))
         
     if error_profile is None:
@@ -212,6 +191,7 @@ def on_display_btn_toggled(ui):
 def on_newprofile_btn_toggled(ui):
     global error_profile
     ui.stackedWidget.setCurrentIndex(2)
+    print(ui.dateEdit.date().toString("dd/MM/yyyy"))
     if error_profile is not None:
         error_profile.deleteLater()
         error_profile = None     
@@ -250,7 +230,7 @@ def homepage_Ui():
             ui.icon_only_widget.hide()
             ui.stackedWidget.setCurrentIndex(1)
             ui.home_btn_2.setChecked(True)
-            # Connect signals to slots
+            # # Connect signals to slots
             ui.stackedWidget.currentChanged.connect(lambda: on_stackedWidget_currentChanged(ui, ui.stackedWidget.currentIndex()))
             ui.home_btn_1.toggled.connect(lambda: on_home_btn_toggled(ui))
             ui.home_btn_2.toggled.connect(lambda: on_home_btn_toggled(ui))

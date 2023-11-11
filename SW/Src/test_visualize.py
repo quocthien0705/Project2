@@ -9,12 +9,12 @@ import os
 from datetime import datetime
 from pyqtgraph import PlotWidget, mkPen
 from serial_data_receiver import SerialDataReceiver
-ROOT_PATH      = os.path.dirname(os.path.abspath(__file__))
-DATA_PATH      = os.path.join(ROOT_PATH,'..','Data')
+# ROOT_PATH      = os.path.dirname(os.path.abspath(__file__))
+DATA_PATH      = os.path.join(os.path.dirname(os.getcwd()),'..', 'Data')
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-
+        self.last_data = None
         self.setWindowTitle("SerialPort")
         self.setGeometry(0, 0, 500, 500)
         self.center_window()
@@ -120,11 +120,13 @@ class MainWindow(QMainWindow):
         self.stop_button.setEnabled(False)
 
     def update_graph(self, data):
-        self.x.append(len(self.x))
-        self.y.append(data)
-        print(self.x, self.y)
-        pen = mkPen(color="g", width=2)
-        self.plot_widget.plot(self.x, self.y, pen=pen, clear=True)
+        if data != self.last_data:
+            self.x.append(len(self.x))
+            self.y.append(data)
+            print(self.x, self.y)
+            pen = mkPen(color="g", width=2)
+            self.plot_widget.plot(self.x, self.y, pen=pen, clear=True)
+            self.last_data = data
 
     def show_message_dialog(self, title, message):
         msg_box = QMessageBox()
