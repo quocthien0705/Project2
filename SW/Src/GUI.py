@@ -10,7 +10,7 @@ from get_taskbar_height import get_taskbar_height
 import sidebar
 from support_function import *
 # ROOT_PATH      = os.path.dirname(os.path.abspath(__file__))
-DATA_PATH      = os.path.join(os.path.dirname(os.getcwd()),'..' ,'Data')
+# DATA_PATH      = os.path.join(os.path.dirname(os.getcwd()) ,'Data')
 font = QtGui.QFont()
 font.setFamily("Rockwell")
 error_msg = None
@@ -71,20 +71,20 @@ def on_sign_up_clicked(ui):
         signup_error_msg.move(80, 340)
         signup_error_msg.show()
     else:
-        df = pd.read_csv(os.path.join(DATA_PATH,'Login_Account.csv'))
+        # df = pd.read_csv(os.path.join(DATA_PATH,'Login_Account.csv'))
 
         
-        if check_user_and_email_signup(df,username_signup,email):
+        if check_user_and_email_signup(username_signup,email):
             signup_error_msg.setText("Username and Email already exist.")
             signup_error_msg.setGeometry(QtCore.QRect(55, 345, 300, 30))
             signup_error_msg.show()
         
-        elif check_user_signup(df,username_signup):
+        elif check_user_signup(username_signup):
             signup_error_msg.setText("Username already exists.")
             signup_error_msg.setGeometry(QtCore.QRect(70, 345, 300, 30))
             signup_error_msg.show()
         
-        elif check_email_signup(df,email):
+        elif check_email_signup(email):
             signup_error_msg.setText("Email already exists.")
             signup_error_msg.setGeometry(QtCore.QRect(70, 345, 300, 30))
             signup_error_msg.show()
@@ -103,9 +103,9 @@ def on_sign_up_clicked(ui):
             signup_error_msg.show()
         else:
             print(username_signup,password_signup,confirm,email)  
-            data = pd.DataFrame([[username_signup, password_signup, email]], columns=['Username', 'Password', 'Email'])
-            data.to_csv(os.path.join(DATA_PATH,'Login_Account.csv'), mode='a', header=False, index=False)
-            
+            # data = pd.DataFrame([[username_signup, password_signup, email]], columns=['Username', 'Password', 'Email'])
+            # data.to_csv(os.path.join(DATA_PATH,'Login_Account.csv'), mode='a', header=False, index=False)
+            insert_new_user(username_signup, password_signup, email)
             login_Ui()
 
 def on_stackedWidget_currentChanged(ui, index):
@@ -118,19 +118,19 @@ def on_stackedWidget_currentChanged(ui, index):
             btn.setChecked(False)
         else:
             btn.setAutoExclusive(True)
-def save_to_excel(fullname, dob, sex, height, weight, phone, insur_number, address, note):
-    filename = os.path.join(DATA_PATH, "Profile_of_Patient.xlsx")
-    fields = ["Full Name", "Day of Birth", "Sex", "Height (cm)", "Weight (kg)", "Phone Number", "Health Insurance Number", "Address", "Note"]
-    row = [fullname, dob, sex, height, weight, phone, insur_number, address, note]
+# def save_to_excel(fullname, dob, sex, height, weight, phone, insur_number, address, note):
+#     filename = os.path.join(DATA_PATH, "Profile_of_Patient.xlsx")
+#     fields = ["Full Name", "Day of Birth", "Sex", "Height (cm)", "Weight (kg)", "Phone Number", "Health Insurance Number", "Address", "Note"]
+#     row = [fullname, dob, sex, height, weight, phone, insur_number, address, note]
 
-    # Kiểm tra xem file đã tồn tại chưa
-    if os.path.isfile(filename):
-        df = pd.read_excel(filename)
-        df.loc[len(df)] = row
-    else:
-        df = pd.DataFrame([row], columns=fields)
+#     # Kiểm tra xem file đã tồn tại chưa
+#     if os.path.isfile(filename):
+#         df = pd.read_excel(filename)
+#         df.loc[len(df)] = row
+#     else:
+#         df = pd.DataFrame([row], columns=fields)
 
-    df.to_excel(filename, index=False)
+#     df.to_excel(filename, index=False)
 
 def on_save_button_clicked(ui):
     global error_profile
@@ -143,7 +143,7 @@ def on_save_button_clicked(ui):
     address = ui.line_address.text()
     note = ui.line_note.text()
     phone = ui.line_phone_number.text()
-    df = pd.read_excel(os.path.join(DATA_PATH,"Profile_of_Patient.xlsx"))
+    # df = pd.read_excel(os.path.join(DATA_PATH,"Profile_of_Patient.xlsx"))
         
     if error_profile is None:
         error_profile = QtWidgets.QLabel(ui.frame)
@@ -155,7 +155,7 @@ def on_save_button_clicked(ui):
         error_profile.setText("Please input all fields.")
         error_profile.setGeometry(QtCore.QRect(250, 650, 500, 30))
         error_profile.show()          
-    elif fullname in df['Full Name'].values:
+    elif check_fullname_exists(fullname):
         error_profile.setText("Profile already exists.")
         error_profile.setGeometry(QtCore.QRect(250, 650, 500, 30))
         error_profile.show()
@@ -166,7 +166,7 @@ def on_save_button_clicked(ui):
     else:
         error_profile.deleteLater()
         error_profile = None 
-        save_to_excel(fullname, dob, sex, str(height), str(weight),str(phone), str(insur_number), address, note)
+        save_to_db(fullname, dob, sex, str(height), str(weight),str(phone), str(insur_number), address, note)
 
 def on_clear_button_clicked(ui):
     global error_profile
@@ -219,8 +219,8 @@ def homepage_Ui():
         error_msg.show()
         
     else:
-        df = pd.read_csv(os.path.join(DATA_PATH,'Login_Account.csv'))
-        if check_user_and_password_signin(df,username,password):
+        # df = pd.read_csv(os.path.join(DATA_PATH,'Login_Account.csv'))
+        if check_user_and_password_signin(username,password):
             # print(username,password)
             ui = sidebar.Ui_MainWindow()
             ui.setupUi(Mainwindow)

@@ -1,3 +1,21 @@
 pyrcc5 img_src.qrc -o img_src_rc.py
 pyuic5 no_internet.ui -o no_internet.py
-pyinstaller --window --onefile --icon="healthcare.png" --name="Health Monitoring System" GUI.py
+pyinstaller --windowed --onefile --icon="healthcare.png" --name="Health Monitoring System" GUI.py
+
+docker compose up
+ngrok config add-authtoken 2YJADwviMfSkdh04ZCTOqC6jdxN_6wHSVo3BW35f6kzEZ39mU
+ngrok tcp 5432     
+
+gkX6tjH8QsZniu8ve3LVQLnMjP7H6YbtxxyglCmf1dZosDu9TmpryeKaJzoeEd5J
+
+QUOCTHIEN
+Thien07052002
+
+Project_Health_Care_System
+@healthcare2
+
+export PGHOST=a-3.postgres.database.azure.com
+export PGUSER=Project_Health_Care_System
+export PGPORT=5432
+export PGDATABASE=
+export PGPASSWORD="{your-password}"

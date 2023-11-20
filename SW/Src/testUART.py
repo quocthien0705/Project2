@@ -33,7 +33,7 @@ class SerialMonitor(QtWidgets.QMainWindow):
         self.toolBar.portOpenButton.clicked.connect(self.portOpen)
         self.serialSendView.serialSendSignal.connect(self.sendFromPort)
         self.port.readyRead.connect(self.readFromPort)
-        self.data_file = io.open(os.path.join(ROOT_PATH,'data.txt'), "w")
+        # self.data_file = io.open(os.path.join(ROOT_PATH,'data.txt'), "w")
     def portOpen(self, flag):
         if flag:
             self.port.setBaudRate( self.toolBar.baudRate() )
@@ -59,8 +59,8 @@ class SerialMonitor(QtWidgets.QMainWindow):
         data = self.port.readAll()
         if len(data) > 0:
             self.serialDataView.appendSerialText( QtCore.QTextStream(data).readAll(), QtGui.QColor(255, 0, 0) )
-            self.data_file.write(str(data))
-            self.data_file.flush()
+            # self.data_file.write(str(data))
+            # self.data_file.flush()
     def sendFromPort(self, text):
         self.port.write( text.encode() )
         self.serialDataView.appendSerialText( text, QtGui.QColor(0, 0, 255) )
