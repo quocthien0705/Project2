@@ -128,7 +128,7 @@ int main(void)
   {
     /* USER CODE END WHILE */
  HAL_ADC_Start_IT(&hadc1);
-		HAL_Delay(20);
+		HAL_Delay(5);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
