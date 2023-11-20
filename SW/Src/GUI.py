@@ -10,7 +10,12 @@ from get_taskbar_height import get_taskbar_height
 import sidebar
 from support_function import *
 # ROOT_PATH      = os.path.dirname(os.path.abspath(__file__))
+<<<<<<< HEAD
 # DATA_PATH      = os.path.join(os.path.dirname(os.getcwd()) ,'Data')
+=======
+DATA_PATH = 'd:\\HCMUT\\huy\\PJ2\\New folder\\Project2\\SW\\Data'
+#DATA_PATH      = os.path.join(os.path.dirname(os.getcwd()),'..' ,'Data')
+>>>>>>> 3fb8c6b4b5c0bc4ff661fc00ef3f38683dcb68a3
 font = QtGui.QFont()
 font.setFamily("Rockwell")
 error_msg = None

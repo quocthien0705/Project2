@@ -8,6 +8,7 @@ from PyQt5.QtCore import QTimer, Qt
 from datetime import datetime
 from pyqtgraph import PlotWidget, mkPen
 from serial_data_receiver import SerialDataReceiver
+<<<<<<< HEAD
 class SaveDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -293,6 +294,11 @@ class ExportDialog(QDialog):
         if file_path:
             self.pathLineEdit.setText(file_path[0])
 
+=======
+# ROOT_PATH      = os.path.dirname(os.path.abspath(__file__))
+#DATA_PATH      = os.path.join(os.path.dirname(os.getcwd()),'..', 'Data')
+DATA_PATH = 'd:\\HCMUT\\huy\\PJ2\\New folder\\Project2\\SW\\Data'
+>>>>>>> 3fb8c6b4b5c0bc4ff661fc00ef3f38683dcb68a3
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -408,8 +414,7 @@ class MainWindow(QMainWindow):
         if data != self.last_data:
             self.x.append(len(self.x))
             self.y.append(data)
-            print(self.x, self.y)
-            pen = mkPen(color="g", width=2)
+            pen = mkPen(color="blue", width=2)
             self.plot_widget.plot(self.x, self.y, pen=pen, clear=True)
             self.last_data = data
 
