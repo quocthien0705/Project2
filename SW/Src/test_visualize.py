@@ -6,9 +6,8 @@ from PyQt5.QtGui import QIcon,QFont
 from PyQt5.QtWidgets import QApplication, QMainWindow, QComboBox, QPushButton, QVBoxLayout, QHBoxLayout,QLineEdit, QWidget, QLabel, QMessageBox,QFileDialog,QDialog,QSizePolicy
 from PyQt5.QtCore import QTimer, Qt
 from datetime import datetime
-from pyqtgraph import PlotWidget, mkPen
+from pyqtgraph import PlotWidget, mkPen,AxisItem
 from serial_data_receiver import SerialDataReceiver
-<<<<<<< HEAD
 class SaveDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -294,11 +293,6 @@ class ExportDialog(QDialog):
         if file_path:
             self.pathLineEdit.setText(file_path[0])
 
-=======
-# ROOT_PATH      = os.path.dirname(os.path.abspath(__file__))
-#DATA_PATH      = os.path.join(os.path.dirname(os.getcwd()),'..', 'Data')
-DATA_PATH = 'd:\\HCMUT\\huy\\PJ2\\New folder\\Project2\\SW\\Data'
->>>>>>> 3fb8c6b4b5c0bc4ff661fc00ef3f38683dcb68a3
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -307,7 +301,9 @@ class MainWindow(QMainWindow):
         self.setGeometry(0, 0, 500, 500)
         self.center_window()
         # self.setWindowIcon(QIcon("vizhport.ico"))
-
+        self.current_x = 0
+        button_height = 25
+        button_width = 150
         self.serial_ports = []
         self.baud_rates = ["300", "600", "750", "1200", "2400",
             "4800", "9600", "14400", "19200", "31250", "38400",
@@ -317,28 +313,129 @@ class MainWindow(QMainWindow):
         self.port_label = QLabel("Serial Ports")
         self.port_dropdown = QComboBox()
         self.refresh_button = QPushButton("Refresh")
+        
+        self.refresh_button.setStyleSheet("""
+            QPushButton {
+                background-color: rgba(0, 119, 182,255);
+                color:white;
+                border-radius:5px;
+            }
+
+            QPushButton:hover {
+                background-color: rgba(0, 119, 182,200);
+            }
+
+            QPushButton:pressed {
+                padding-left:5px;
+                padding-top:5px;
+                background-color: rgba(0, 69, 106,200);
+            }
+        """)
         self.refresh_button.clicked.connect(self.refresh_serial_ports)
 
         self.save_button = QPushButton("Save")
         self.save_button.clicked.connect(self.save_data)
+        self.save_button.setStyleSheet("""
+            QPushButton {
+                background-color: rgba(0, 150, 199,255);
+                color:white;
+                border-radius:5px;
+            }
+
+            QPushButton:hover {
+                background-color: rgba(0, 150, 199,200);
+            }
+
+            QPushButton:pressed {
+                padding-left:5px;
+                padding-top:5px;
+                background-color: rgba(0, 109, 146,200);
+            }
+        """)
         self.export_button = QPushButton("Export Data to Excel")
+        self.export_button.setStyleSheet("""
+            QPushButton {
+                background-color: rgba(0, 180, 216,255);
+                color:white;
+                border-radius:5px;
+            }
+
+            QPushButton:hover {
+                background-color: rgba(0, 180, 216,200);
+            }
+
+            QPushButton:pressed {
+                padding-left:5px;
+                padding-top:5px;
+                background-color: rgba(0, 117, 141,200);
+            }
+        """)
         self.export_button.clicked.connect(self.export_data)
-        
+        self.save_button.setFixedHeight(button_height)
+        self.export_button.setFixedHeight(button_height)
+        self.refresh_button.setFixedHeight(button_height)
+        self.save_button.setFixedWidth(button_width)
+        self.export_button.setFixedWidth(button_width)
+        self.refresh_button.setFixedWidth(button_width)
         self.baudrate_label = QLabel("Baud rate")
         self.baudrate_dropdown = QComboBox()
         self.baudrate_dropdown.addItems(self.baud_rates)
         self.baudrate_dropdown.setCurrentText("115200")
 
         self.start_button = QPushButton("Start")
+        self.start_button.setStyleSheet("""
+            QPushButton {
+                background-color: rgba(2, 62, 138,255);
+                color:white;
+                border-radius:5px;
+            }
+
+            QPushButton:hover {
+                background-color: rgba(2, 62, 138,200);
+            }
+
+            QPushButton:pressed {
+                padding-left:5px;
+                padding-top:5px;
+                background-color: rgba(16, 54, 102,200);
+            }
+        """)
         self.start_button.clicked.connect(self.start_serial)
 
         self.stop_button = QPushButton("Stop")
+        self.stop_button.setStyleSheet("""
+            QPushButton {
+                background-color: rgba(2, 62, 138,255);
+                color:white;
+                border-radius:5px;
+            }
+
+            QPushButton:hover {
+                background-color: rgba(2, 62, 138,200);
+            }
+
+            QPushButton:pressed {
+                padding-left:5px;
+                padding-top:5px;
+                background-color: rgba(16, 54, 102,200);
+            }
+        """)
+        self.stop_button.setFixedHeight(button_height)
+        self.stop_button.setFixedWidth(100)
+        self.start_button.setFixedHeight(button_height)
+        self.start_button.setFixedWidth(100)
         self.stop_button.setEnabled(False)
         self.stop_button.clicked.connect(self.stop_serial)
-
-        self.plot_widget = PlotWidget()
+        x_axis = AxisItem(orientation='bottom')
+        y_axis = AxisItem(orientation='left')
+        x_axis.setPen('k')  #Black
+        y_axis.setPen('k')
+        x_axis.setTextPen('k')
+        y_axis.setTextPen('k')
+        self.plot_widget = PlotWidget(axisItems={'bottom': x_axis, 'left': y_axis})
         self.plot_widget.setMinimumSize(300, 300)
-        self.plot_widget.showGrid(False, True, alpha=0.5)
+        self.plot_widget.setBackground('w')
+        self.plot_widget.showGrid(True, True, alpha=0.5)
 
         self.x = []
         self.y = []
@@ -412,9 +509,11 @@ class MainWindow(QMainWindow):
 
     def update_graph(self, data):
         if data != self.last_data:
-            self.x.append(len(self.x))
+            self.x.append(self.current_x)
             self.y.append(data)
-            pen = mkPen(color="blue", width=2)
+            self.current_x += 1
+            self.plot_widget.setXRange(self.current_x - 100, self.current_x)
+            pen = mkPen(color="red", width=2)
             self.plot_widget.plot(self.x, self.y, pen=pen, clear=True)
             self.last_data = data
 
