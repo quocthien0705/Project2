@@ -9,7 +9,6 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from testUART import SerialMonitor
 import test_visualize
 
 class Ui_MainWindow(object):
@@ -754,30 +753,6 @@ class Ui_MainWindow(object):
         font.setPointSize(13)
         self.label_12.setFont(font)
         self.label_12.setObjectName("label_12")
-        self.save_button = QtWidgets.QPushButton(self.frame)
-        self.save_button.setGeometry(QtCore.QRect(370, 700, 100, 50))
-        font = QtGui.QFont()
-        font.setFamily("Rockwell")
-        font.setPointSize(13)
-        font.setBold(True)
-        font.setWeight(75)
-        font.setKerning(False)
-        self.save_button.setFont(font)
-        self.save_button.setFocusPolicy(QtCore.Qt.NoFocus)
-        self.save_button.setStyleSheet("QPushButton#save_button{    \n"
-"    background-color: rgba(239, 35, 60,255);\n"
-"    color:white;\n"
-"    border-radius:7px;\n"
-"}\n"
-"QPushButton#save_button:hover{    \n"
-"    background-color: rgba(239, 35, 60,200);\n"
-"}\n"
-"QPushButton#save_button:pressed{    \n"
-"    padding-left:5px;\n"
-"    padding-top:5px;\n"
-"    background-color: rgba(229, 56, 59,200);\n"
-"}")
-        self.save_button.setObjectName("save_button")
         self.clear_button = QtWidgets.QPushButton(self.frame)
         self.clear_button.setGeometry(QtCore.QRect(530, 700, 100, 50))
         font = QtGui.QFont()
@@ -802,29 +777,672 @@ class Ui_MainWindow(object):
 "    background-color: rgba(17, 98, 87,200);\n"
 "}")
         self.clear_button.setObjectName("clear_button")
+        self.save_button = QtWidgets.QPushButton(self.frame)
+        self.save_button.setGeometry(QtCore.QRect(370, 700, 100, 50))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        font.setKerning(False)
+        self.save_button.setFont(font)
+        self.save_button.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.save_button.setStyleSheet("QPushButton#save_button{    \n"
+"    background-color: rgba(239, 35, 60,255);\n"
+"    color:white;\n"
+"    border-radius:7px;\n"
+"}\n"
+"QPushButton#save_button:hover{    \n"
+"    background-color: rgba(239, 35, 60,200);\n"
+"}\n"
+"QPushButton#save_button:pressed{    \n"
+"    padding-left:5px;\n"
+"    padding-top:5px;\n"
+"    background-color: rgba(229, 56, 59,200);\n"
+"}")
+        self.save_button.setObjectName("save_button")
         self.gridLayout_4.addWidget(self.widget_2, 1, 0, 1, 1)
         self.stackedWidget.addWidget(self.page_3)
         self.page_4 = QtWidgets.QWidget()
         self.page_4.setObjectName("page_4")
         self.gridLayout_5 = QtWidgets.QGridLayout(self.page_4)
         self.gridLayout_5.setObjectName("gridLayout_5")
-        self.serialMonitor_V = test_visualize.MainWindow()
-        self.gridLayout_5.addWidget(self.serialMonitor_V, 0, 0, 1, 1)
+        self.widget_4 = QtWidgets.QWidget(self.page_4)
+        self.widget_4.setObjectName("widget_4")
+        self.comboBox_2 = QtWidgets.QComboBox(self.widget_4)
+        self.comboBox_2.setGeometry(QtCore.QRect(320, 15, 211, 30))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(12)
+        self.comboBox_2.setFont(font)
+        self.comboBox_2.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.comboBox_2.setStyleSheet("#comboBox_2 {\n"
+"    border: 1px solid #000;\n"
+"    border-radius: 4px;\n"
+"    padding-left: 10px;\n"
+"}\n"
+"\n"
+"#comboBox_2::drop-down {\n"
+"    border: 0px;\n"
+"}\n"
+"\n"
+"#comboBox_2::down-arrow {\n"
+"    image: url(:/icon/Icon_Logo/arrow-204-32.ico);\n"
+"    width: 12px;\n"
+"    height: 12px;\n"
+"    margin-right:15px;\n"
+"}\n"
+"\n"
+"#comboBox_2:on {\n"
+"     border: 2px solid #c2dbfe;\n"
+" }\n"
+"\n"
+"QComboBox QListView {\n"
+"    font-size: 12px;\n"
+"    border:1px solid rgba(0,0,0,10%);\n"
+"    padding:5px;\n"
+"    background-color: #fff;\n"
+"    outline: 0px;  /*去虚线*/\n"
+"}\n"
+"\n"
+"QComboBox QListView::item{\n"
+"    padding-left:10px;\n"
+"    background-color:#FFFFFF;\n"
+"}\n"
+"QComboBox QListView::item:hover{\n"
+"   background-color:#1e90ff;\n"
+"}\n"
+"QComboBox QListView::item:selected{\n"
+"   background-color:#1e90ff;\n"
+"}\n"
+"\n"
+"")
+        self.comboBox_2.setObjectName("comboBox_2")
+        self.comboBox_2.addItem("")
+        self.comboBox_2.addItem("")
+        self.comboBox_2.addItem("")
+        self.stackedWidget_2 = QtWidgets.QStackedWidget(self.widget_4)
+        self.stackedWidget_2.setGeometry(QtCore.QRect(0, 60, 1632, 771))
+        self.stackedWidget_2.setObjectName("stackedWidget_2")
+        self.page_dashboard = QtWidgets.QWidget()
+        self.page_dashboard.setObjectName("page_dashboard")
+        self.label_14 = QtWidgets.QLabel(self.page_dashboard)
+        self.label_14.setGeometry(QtCore.QRect(664, 10, 330, 40))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(18)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_14.setFont(font)
+        self.label_14.setStyleSheet("color: rgb(113, 97, 239);")
+        self.label_14.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_14.setObjectName("label_14")
+        self.widget_doctors = QtWidgets.QWidget(self.page_dashboard)
+        self.widget_doctors.setGeometry(QtCore.QRect(272, 130, 420, 130))
+        self.widget_doctors.setStyleSheet("border:1px solid rgba(190, 191, 197, 255);\n"
+"border-radius: 15px;\n"
+"")
+        self.widget_doctors.setObjectName("widget_doctors")
+        self.label_15 = QtWidgets.QLabel(self.widget_doctors)
+        self.label_15.setGeometry(QtCore.QRect(30, 10, 71, 110))
+        self.label_15.setStyleSheet("border-color: rgb(255, 255, 255);")
+        self.label_15.setText("")
+        self.label_15.setPixmap(QtGui.QPixmap(":/icon/Icon_Logo/doctor.png"))
+        self.label_15.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_15.setObjectName("label_15")
+        self.label_16 = QtWidgets.QLabel(self.widget_doctors)
+        self.label_16.setGeometry(QtCore.QRect(180, 30, 102, 40))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(15)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_16.setFont(font)
+        self.label_16.setStyleSheet("border-color: rgb(255, 255, 255);\n"
+"color: rgba(111, 113, 120,255)")
+        self.label_16.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_16.setObjectName("label_16")
+        self.label_number_doctors = QtWidgets.QLabel(self.widget_doctors)
+        self.label_number_doctors.setGeometry(QtCore.QRect(110, 27, 70, 40))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(22)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_number_doctors.setFont(font)
+        self.label_number_doctors.setStyleSheet("border-color: rgb(255, 255, 255);\n"
+"color: rgba(0, 0, 0,255)")
+        self.label_number_doctors.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_number_doctors.setObjectName("label_number_doctors")
+        self.label_17 = QtWidgets.QLabel(self.widget_doctors)
+        self.label_17.setGeometry(QtCore.QRect(110, 73, 271, 30))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_17.setFont(font)
+        self.label_17.setStyleSheet("border-color: rgb(255, 255, 255);\n"
+"color: rgba(111, 113, 120,255)")
+        self.label_17.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.label_17.setObjectName("label_17")
+        self.widget_patients = QtWidgets.QWidget(self.page_dashboard)
+        self.widget_patients.setGeometry(QtCore.QRect(966, 130, 420, 130))
+        self.widget_patients.setStyleSheet("border:1px solid rgba(190, 191, 197, 255);\n"
+"border-radius: 15px;\n"
+"")
+        self.widget_patients.setObjectName("widget_patients")
+        self.label_18 = QtWidgets.QLabel(self.widget_patients)
+        self.label_18.setGeometry(QtCore.QRect(30, 10, 71, 110))
+        self.label_18.setStyleSheet("border-color: rgb(255, 255, 255);")
+        self.label_18.setText("")
+        self.label_18.setPixmap(QtGui.QPixmap(":/icon/Icon_Logo/patient.png"))
+        self.label_18.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_18.setObjectName("label_18")
+        self.label_19 = QtWidgets.QLabel(self.widget_patients)
+        self.label_19.setGeometry(QtCore.QRect(180, 30, 102, 40))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(15)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_19.setFont(font)
+        self.label_19.setStyleSheet("border-color: rgb(255, 255, 255);\n"
+"color: rgba(111, 113, 120,255)")
+        self.label_19.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_19.setObjectName("label_19")
+        self.label_number_patients = QtWidgets.QLabel(self.widget_patients)
+        self.label_number_patients.setGeometry(QtCore.QRect(110, 27, 70, 40))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(22)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_number_patients.setFont(font)
+        self.label_number_patients.setStyleSheet("border-color: rgb(255, 255, 255);\n"
+"color: rgba(0, 0, 0,255)")
+        self.label_number_patients.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_number_patients.setObjectName("label_number_patients")
+        self.label_20 = QtWidgets.QLabel(self.widget_patients)
+        self.label_20.setGeometry(QtCore.QRect(110, 73, 271, 30))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_20.setFont(font)
+        self.label_20.setStyleSheet("border-color: rgb(255, 255, 255);\n"
+"color: rgba(111, 113, 120,255)")
+        self.label_20.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.label_20.setObjectName("label_20")
+        self.widget_male = QtWidgets.QWidget(self.page_dashboard)
+        self.widget_male.setGeometry(QtCore.QRect(1180, 400, 190, 190))
+        self.widget_male.setStyleSheet("border-radius: 15px;\n"
+"border: 1px;\n"
+"background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(25, 118, 210, 255), stop:0.55 rgba(21, 101, 192, 255), stop:0.98 rgba(0, 41, 107, 255));")
+        self.widget_male.setObjectName("widget_male")
+        self.label_21 = QtWidgets.QLabel(self.widget_male)
+        self.label_21.setGeometry(QtCore.QRect(110, 110, 81, 81))
+        self.label_21.setStyleSheet("background-color: rgba(255, 255, 255,0);")
+        self.label_21.setText("")
+        self.label_21.setPixmap(QtGui.QPixmap(":/icon/Icon_Logo/male-white.png"))
+        self.label_21.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_21.setObjectName("label_21")
+        self.label_22 = QtWidgets.QLabel(self.widget_male)
+        self.label_22.setGeometry(QtCore.QRect(100, -10, 81, 81))
+        self.label_22.setStyleSheet("background-color: rgba(255, 255, 255,0);")
+        self.label_22.setText("")
+        self.label_22.setPixmap(QtGui.QPixmap(":/icon/Icon_Logo/male.png"))
+        self.label_22.setScaledContents(True)
+        self.label_22.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_22.setObjectName("label_22")
+        self.label_per_male = QtWidgets.QLabel(self.widget_male)
+        self.label_per_male.setGeometry(QtCore.QRect(20, 80, 71, 21))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(15)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_per_male.setFont(font)
+        self.label_per_male.setStyleSheet("color: rgb(255, 255, 255);\n"
+"background-color: rgba(255, 255, 255,0);")
+        self.label_per_male.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.label_per_male.setObjectName("label_per_male")
+        self.label_24 = QtWidgets.QLabel(self.widget_male)
+        self.label_24.setGeometry(QtCore.QRect(90, 80, 31, 21))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(15)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_24.setFont(font)
+        self.label_24.setStyleSheet("color: rgb(255, 255, 255);\n"
+"background-color: rgba(255, 255, 255,0);")
+        self.label_24.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_24.setObjectName("label_24")
+        self.label_number_male = QtWidgets.QLabel(self.widget_male)
+        self.label_number_male.setGeometry(QtCore.QRect(20, 110, 71, 21))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(15)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_number_male.setFont(font)
+        self.label_number_male.setStyleSheet("color: rgb(255, 255, 255);\n"
+"background-color: rgba(255, 255, 255,0);")
+        self.label_number_male.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.label_number_male.setObjectName("label_number_male")
+        self.widget_female = QtWidgets.QWidget(self.page_dashboard)
+        self.widget_female.setGeometry(QtCore.QRect(980, 400, 190, 190))
+        self.widget_female.setStyleSheet("border-radius: 15px;\n"
+"border: 1px;\n"
+"background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(255, 179, 198, 255), stop:0.55 rgba(255, 143, 171, 255), stop:0.98 rgba(251, 111, 146, 255));")
+        self.widget_female.setObjectName("widget_female")
+        self.label_23 = QtWidgets.QLabel(self.widget_female)
+        self.label_23.setGeometry(QtCore.QRect(110, 110, 81, 81))
+        self.label_23.setStyleSheet("background-color: rgba(255, 255, 255,0);")
+        self.label_23.setText("")
+        self.label_23.setPixmap(QtGui.QPixmap(":/icon/Icon_Logo/female-white.png"))
+        self.label_23.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_23.setObjectName("label_23")
+        self.label_25 = QtWidgets.QLabel(self.widget_female)
+        self.label_25.setGeometry(QtCore.QRect(100, -10, 81, 81))
+        self.label_25.setStyleSheet("background-color: rgba(255, 255, 255,0);")
+        self.label_25.setText("")
+        self.label_25.setPixmap(QtGui.QPixmap(":/icon/Icon_Logo/female.png"))
+        self.label_25.setScaledContents(True)
+        self.label_25.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_25.setObjectName("label_25")
+        self.label_per_female = QtWidgets.QLabel(self.widget_female)
+        self.label_per_female.setGeometry(QtCore.QRect(20, 80, 71, 21))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(15)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_per_female.setFont(font)
+        self.label_per_female.setStyleSheet("color: rgb(255, 255, 255);\n"
+"background-color: rgba(255, 255, 255,0);")
+        self.label_per_female.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.label_per_female.setObjectName("label_per_female")
+        self.label_26 = QtWidgets.QLabel(self.widget_female)
+        self.label_26.setGeometry(QtCore.QRect(90, 80, 31, 21))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(15)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_26.setFont(font)
+        self.label_26.setStyleSheet("color: rgb(255, 255, 255);\n"
+"background-color: rgba(255, 255, 255,0);")
+        self.label_26.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_26.setObjectName("label_26")
+        self.label_number_female = QtWidgets.QLabel(self.widget_female)
+        self.label_number_female.setGeometry(QtCore.QRect(20, 110, 71, 21))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(15)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_number_female.setFont(font)
+        self.label_number_female.setStyleSheet("color: rgb(255, 255, 255);\n"
+"background-color: rgba(255, 255, 255,0);")
+        self.label_number_female.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.label_number_female.setObjectName("label_number_female")
+        self.widget_ave_age = QtWidgets.QWidget(self.page_dashboard)
+        self.widget_ave_age.setGeometry(QtCore.QRect(102, 345, 760, 300))
+        self.widget_ave_age.setStyleSheet("border:1px solid rgba(190, 191, 197, 255);\n"
+"border-radius: 15px;\n"
+"")
+        self.widget_ave_age.setObjectName("widget_ave_age")
+        self.label_28 = QtWidgets.QLabel(self.widget_ave_age)
+        self.label_28.setGeometry(QtCore.QRect(50, 10, 301, 40))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(15)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_28.setFont(font)
+        self.label_28.setStyleSheet("border-color: rgb(255, 255, 255);\n"
+"color: rgba(111, 113, 120,255)")
+        self.label_28.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.label_28.setObjectName("label_28")
+        self.label_ages = QtWidgets.QLabel(self.widget_ave_age)
+        self.label_ages.setGeometry(QtCore.QRect(350, 10, 111, 40))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(22)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_ages.setFont(font)
+        self.label_ages.setStyleSheet("border-color: rgb(255, 255, 255);\n"
+"color: rgba(0, 0, 0,255)")
+        self.label_ages.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.label_ages.setObjectName("label_ages")
+        self.widget_plot = QtWidgets.QWidget(self.widget_ave_age)
+        self.widget_plot.setGeometry(QtCore.QRect(10, 50, 741, 240))
+        self.widget_plot.setStyleSheet("border-color: rgba(255, 255, 255,0);")
+        self.widget_plot.setObjectName("widget_plot")
+        self.stackedWidget_2.addWidget(self.page_dashboard)
+        self.page_ecg = QtWidgets.QWidget()
+        self.page_ecg.setObjectName("page_ecg")
+        self.label_27 = QtWidgets.QLabel(self.page_ecg)
+        self.label_27.setGeometry(QtCore.QRect(664, 10, 330, 40))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(18)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_27.setFont(font)
+        self.label_27.setStyleSheet("color: rgb(113, 97, 239);")
+        self.label_27.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_27.setObjectName("label_27")
+        self.widget_data = QtWidgets.QWidget(self.page_ecg)
+        self.widget_data.setGeometry(QtCore.QRect(960, 70, 600, 172))
+        self.widget_data.setStyleSheet("border:1px solid rgba(190, 191, 197, 255);\n"
+"border-radius: 15px;\n"
+"")
+        self.widget_data.setObjectName("widget_data")
+        self.label_30 = QtWidgets.QLabel(self.widget_data)
+        self.label_30.setGeometry(QtCore.QRect(20, 10, 100, 32))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_30.setFont(font)
+        self.label_30.setStyleSheet("border-color: rgb(255, 255, 255);\n"
+"color: rgba(111, 113, 120,255)")
+        self.label_30.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.label_30.setObjectName("label_30")
+        self.label_fullname = QtWidgets.QLabel(self.widget_data)
+        self.label_fullname.setGeometry(QtCore.QRect(120, 8, 461, 32))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(15)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_fullname.setFont(font)
+        self.label_fullname.setStyleSheet("border-color: rgb(255, 255, 255);\n"
+"color: rgb(0, 0, 0);")
+        self.label_fullname.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.label_fullname.setObjectName("label_fullname")
+        self.label_31 = QtWidgets.QLabel(self.widget_data)
+        self.label_31.setGeometry(QtCore.QRect(20, 50, 120, 32))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_31.setFont(font)
+        self.label_31.setStyleSheet("border-color: rgb(255, 255, 255);\n"
+"color: rgba(111, 113, 120,255)")
+        self.label_31.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.label_31.setObjectName("label_31")
+        self.label_dob = QtWidgets.QLabel(self.widget_data)
+        self.label_dob.setGeometry(QtCore.QRect(140, 48, 150, 32))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(15)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_dob.setFont(font)
+        self.label_dob.setStyleSheet("border-color: rgb(255, 255, 255);\n"
+"color: rgb(0, 0, 0);")
+        self.label_dob.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.label_dob.setObjectName("label_dob")
+        self.label_32 = QtWidgets.QLabel(self.widget_data)
+        self.label_32.setGeometry(QtCore.QRect(370, 50, 50, 32))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_32.setFont(font)
+        self.label_32.setStyleSheet("border-color: rgb(255, 255, 255);\n"
+"color: rgba(111, 113, 120,255)")
+        self.label_32.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.label_32.setObjectName("label_32")
+        self.label_sex = QtWidgets.QLabel(self.widget_data)
+        self.label_sex.setGeometry(QtCore.QRect(420, 48, 100, 32))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(15)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_sex.setFont(font)
+        self.label_sex.setStyleSheet("border-color: rgb(255, 255, 255);\n"
+"color: rgb(0, 0, 0);")
+        self.label_sex.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.label_sex.setObjectName("label_sex")
+        self.label_33 = QtWidgets.QLabel(self.widget_data)
+        self.label_33.setGeometry(QtCore.QRect(20, 130, 150, 32))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_33.setFont(font)
+        self.label_33.setStyleSheet("border-color: rgb(255, 255, 255);\n"
+"color: rgba(111, 113, 120,255)")
+        self.label_33.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.label_33.setObjectName("label_33")
+        self.label_phone = QtWidgets.QLabel(self.widget_data)
+        self.label_phone.setGeometry(QtCore.QRect(170, 128, 161, 32))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(15)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_phone.setFont(font)
+        self.label_phone.setStyleSheet("border-color: rgb(255, 255, 255);\n"
+"color: rgb(0, 0, 0);")
+        self.label_phone.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.label_phone.setObjectName("label_phone")
+        self.label_insur = QtWidgets.QLabel(self.widget_data)
+        self.label_insur.setGeometry(QtCore.QRect(270, 88, 120, 32))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(15)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_insur.setFont(font)
+        self.label_insur.setStyleSheet("border-color: rgb(255, 255, 255);\n"
+"color: rgb(0, 0, 0);")
+        self.label_insur.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.label_insur.setObjectName("label_insur")
+        self.label_34 = QtWidgets.QLabel(self.widget_data)
+        self.label_34.setGeometry(QtCore.QRect(20, 90, 250, 32))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_34.setFont(font)
+        self.label_34.setStyleSheet("border-color: rgb(255, 255, 255);\n"
+"color: rgba(111, 113, 120,255)")
+        self.label_34.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.label_34.setObjectName("label_34")
+        self.comboBox_name = QtWidgets.QComboBox(self.page_ecg)
+        self.comboBox_name.setGeometry(QtCore.QRect(506, 70, 350, 30))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(12)
+        self.comboBox_name.setFont(font)
+        self.comboBox_name.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.comboBox_name.setStyleSheet("#comboBox_name {\n"
+"    border: 1px solid #000;\n"
+"    border-radius: 4px;\n"
+"    padding-left: 10px;\n"
+"}\n"
+"\n"
+"#comboBox_name::drop-down {\n"
+"    border: 0px;\n"
+"}\n"
+"\n"
+"#comboBox_name::down-arrow {\n"
+"    image: url(:/icon/Icon_Logo/arrow-204-32.ico);\n"
+"    width: 12px;\n"
+"    height: 12px;\n"
+"    margin-right:15px;\n"
+"}\n"
+"\n"
+"#comboBox_name:on {\n"
+"     border: 2px solid #c2dbfe;\n"
+" }\n"
+"\n"
+"QComboBox QListView {\n"
+"    font-size: 12px;\n"
+"    border:1px solid rgba(0,0,0,10%);\n"
+"    padding:5px;\n"
+"    background-color: #fff;\n"
+"    outline: 0px;  /*去虚线*/\n"
+"}\n"
+"\n"
+"QComboBox QListView::item{\n"
+"    padding-left:10px;\n"
+"    background-color:#FFFFFF;\n"
+"}\n"
+"QComboBox QListView::item:hover{\n"
+"   background-color:#1e90ff;\n"
+"}\n"
+"QComboBox QListView::item:selected{\n"
+"   background-color:#1e90ff;\n"
+"}\n"
+"\n"
+"")
+        self.comboBox_name.setObjectName("comboBox_name")
+        self.label_29 = QtWidgets.QLabel(self.page_ecg)
+        self.label_29.setGeometry(QtCore.QRect(66, 70, 430, 30))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_29.setFont(font)
+        self.label_29.setStyleSheet("color: rgb(87, 16, 137);")
+        self.label_29.setObjectName("label_29")
+        self.comboBox_date = QtWidgets.QComboBox(self.page_ecg)
+        self.comboBox_date.setGeometry(QtCore.QRect(506, 130, 241, 30))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(12)
+        self.comboBox_date.setFont(font)
+        self.comboBox_date.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.comboBox_date.setStyleSheet("#comboBox_date {\n"
+"    border: 1px solid #000;\n"
+"    border-radius: 4px;\n"
+"    padding-left: 10px;\n"
+"}\n"
+"\n"
+"#comboBox_date::drop-down {\n"
+"    border: 0px;\n"
+"}\n"
+"\n"
+"#comboBox_date::down-arrow {\n"
+"    image: url(:/icon/Icon_Logo/arrow-204-32.ico);\n"
+"    width: 12px;\n"
+"    height: 12px;\n"
+"    margin-right:15px;\n"
+"}\n"
+"\n"
+"#comboBox_date:on {\n"
+"     border: 2px solid #c2dbfe;\n"
+" }\n"
+"\n"
+"QComboBox QListView {\n"
+"    font-size: 12px;\n"
+"    border:1px solid rgba(0,0,0,10%);\n"
+"    padding:5px;\n"
+"    background-color: #fff;\n"
+"    outline: 0px;  /*去虚线*/\n"
+"}\n"
+"\n"
+"QComboBox QListView::item{\n"
+"    padding-left:10px;\n"
+"    background-color:#FFFFFF;\n"
+"}\n"
+"QComboBox QListView::item:hover{\n"
+"   background-color:#1e90ff;\n"
+"}\n"
+"QComboBox QListView::item:selected{\n"
+"   background-color:#1e90ff;\n"
+"}\n"
+"\n"
+"")
+        self.comboBox_date.setObjectName("comboBox_date")
+        self.label_35 = QtWidgets.QLabel(self.page_ecg)
+        self.label_35.setGeometry(QtCore.QRect(66, 130, 261, 30))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_35.setFont(font)
+        self.label_35.setStyleSheet("color: rgb(87, 16, 137);")
+        self.label_35.setObjectName("label_35")
+        self.widget_plot_ecg = QtWidgets.QWidget(self.page_ecg)
+        self.widget_plot_ecg.setGeometry(QtCore.QRect(66, 250, 1500, 520))
+        self.widget_plot_ecg.setObjectName("widget_plot_ecg")
+        self.label_36 = QtWidgets.QLabel(self.widget_plot_ecg)
+        self.label_36.setGeometry(QtCore.QRect(550, 0, 400, 40))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(18)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_36.setFont(font)
+        self.label_36.setStyleSheet("color: rgb(113, 97, 239);")
+        self.label_36.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_36.setObjectName("label_36")
+        self.widget_ecg_graph = QtWidgets.QWidget(self.widget_plot_ecg)
+        self.widget_ecg_graph.setGeometry(QtCore.QRect(-1, 50, 1500, 470))
+        self.widget_ecg_graph.setObjectName("widget_ecg_graph")
+        self.start_button = QtWidgets.QPushButton(self.page_ecg)
+        self.start_button.setGeometry(QtCore.QRect(750, 120, 105, 50))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        font.setKerning(False)
+        self.start_button.setFont(font)
+        self.start_button.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.start_button.setStyleSheet("QPushButton#start_button{    \n"
+"    background-color: rgba(224, 195, 252,255);\n"
+"    color:rgb(87, 16, 137);\n"
+"    border-radius:7px;\n"
+"}\n"
+"QPushButton#start_button:hover{    \n"
+"    background-color: rgba(224, 195, 252,200);\n"
+"}\n"
+"QPushButton#start_button:pressed{    \n"
+"    padding-left:5px;\n"
+"    padding-top:5px;\n"
+"    background-color: rgba(184, 156, 208,200);\n"
+"}")
+        self.start_button.setObjectName("start_button")
+        self.stackedWidget_2.addWidget(self.page_ecg)
+        self.page_history = QtWidgets.QWidget()
+        self.page_history.setObjectName("page_history")
+        self.stackedWidget_2.addWidget(self.page_history)
+        self.label_7 = QtWidgets.QLabel(self.widget_4)
+        self.label_7.setGeometry(QtCore.QRect(50, 15, 261, 30))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_7.setFont(font)
+        self.label_7.setObjectName("label_7")
+        self.gridLayout_5.addWidget(self.widget_4, 0, 0, 1, 1)
         self.stackedWidget.addWidget(self.page_4)
-        # self.label_7 = QtWidgets.QLabel(self.page_4)
-        # font = QtGui.QFont()
-        # font.setPointSize(20)
-        # self.label_7.setFont(font)
-        # self.label_7.setAlignment(QtCore.Qt.AlignCenter)
-        # self.label_7.setObjectName("label_7")
-        # self.gridLayout_5.addWidget(self.label_7, 0, 0, 1, 1)
-        # self.stackedWidget.addWidget(self.page_4)
         self.page_5 = QtWidgets.QWidget()
         self.page_5.setObjectName("page_5")
         self.gridLayout_6 = QtWidgets.QGridLayout(self.page_5)
         self.gridLayout_6.setObjectName("gridLayout_6")
-        self.serialMonitor = SerialMonitor()
-        self.gridLayout_6.addWidget(self.serialMonitor, 0, 0, 1, 1)
+        self.serialMonitor_V = test_visualize.MainWindow()
+        self.gridLayout_6.addWidget(self.serialMonitor_V, 0, 0, 1, 1)
         self.stackedWidget.addWidget(self.page_5)
         # self.label_8 = QtWidgets.QLabel(self.page_5)
         # font = QtGui.QFont()
@@ -849,8 +1467,9 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(3)
         self.comboBox.setCurrentIndex(0)
+        self.stackedWidget_2.setCurrentIndex(1)
         self.change_btn.toggled['bool'].connect(self.icon_only_widget.setVisible) # type: ignore
         self.change_btn.toggled['bool'].connect(self.full_menu_widget.setHidden) # type: ignore
         self.home_btn_1.toggled['bool'].connect(self.home_btn_2.setChecked) # type: ignore
@@ -889,8 +1508,41 @@ class Ui_MainWindow(object):
         self.line_note.setPlaceholderText(_translate("MainWindow", "Note here if the patient has underlying disease."))
         self.label_13.setText(_translate("MainWindow", "Phone Number:"))
         self.label_12.setText(_translate("MainWindow", "Note:"))
-        self.save_button.setText(_translate("MainWindow", "Save"))
         self.clear_button.setText(_translate("MainWindow", "Clear"))
-        # self.label_7.setText(_translate("MainWindow", "Display"))
+        self.save_button.setText(_translate("MainWindow", "Save"))
+        self.comboBox_2.setItemText(0, _translate("MainWindow", "System Overview"))
+        self.comboBox_2.setItemText(1, _translate("MainWindow", "Patient\'s Data"))
+        self.comboBox_2.setItemText(2, _translate("MainWindow", "Patient\'s History"))
+        self.label_14.setText(_translate("MainWindow", "SYSTEM OVERVIEW"))
+        self.label_16.setText(_translate("MainWindow", "Doctors"))
+        self.label_number_doctors.setText(_translate("MainWindow", "123"))
+        self.label_17.setText(_translate("MainWindow", "Total Available Doctors"))
+        self.label_19.setText(_translate("MainWindow", "Patients"))
+        self.label_number_patients.setText(_translate("MainWindow", "456"))
+        self.label_20.setText(_translate("MainWindow", "Total Available Registrants"))
+        self.label_per_male.setText(_translate("MainWindow", "59.87"))
+        self.label_24.setText(_translate("MainWindow", "%"))
+        self.label_number_male.setText(_translate("MainWindow", "273"))
+        self.label_per_female.setText(_translate("MainWindow", "40.13"))
+        self.label_26.setText(_translate("MainWindow", "%"))
+        self.label_number_female.setText(_translate("MainWindow", "183"))
+        self.label_28.setText(_translate("MainWindow", "Average Ages of Patients"))
+        self.label_ages.setText(_translate("MainWindow", "50.00"))
+        self.label_27.setText(_translate("MainWindow", "Patient\'s Data"))
+        self.label_30.setText(_translate("MainWindow", "Full name:"))
+        self.label_fullname.setText(_translate("MainWindow", "None"))
+        self.label_31.setText(_translate("MainWindow", "Day of birth:"))
+        self.label_dob.setText(_translate("MainWindow", "None"))
+        self.label_32.setText(_translate("MainWindow", "Sex:"))
+        self.label_sex.setText(_translate("MainWindow", "None"))
+        self.label_33.setText(_translate("MainWindow", "Phone number:"))
+        self.label_phone.setText(_translate("MainWindow", "None"))
+        self.label_insur.setText(_translate("MainWindow", "None"))
+        self.label_34.setText(_translate("MainWindow", "Health Insurance Number:"))
+        self.label_29.setText(_translate("MainWindow", "Select Fullname/Health Insurance Number:"))
+        self.label_35.setText(_translate("MainWindow", "Select measurement date:"))
+        self.label_36.setText(_translate("MainWindow", "Electrocardiogram (ECG)"))
+        self.start_button.setText(_translate("MainWindow", "Start"))
+        self.label_7.setText(_translate("MainWindow", "Select Display\'s category:"))
         # self.label_8.setText(_translate("MainWindow", "UART"))
 import img_src_rc

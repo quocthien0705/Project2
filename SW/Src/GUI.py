@@ -1,11 +1,10 @@
 import img_src_rc
 from PyQt5 import QtGui, QtWidgets, QtCore
-from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton
+from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton,QVBoxLayout,QMessageBox
 import sys
-import os
+from pyqtgraph import PlotWidget, mkPen,AxisItem
 import pandas as pd
 import stacked
-import csv
 from get_taskbar_height import get_taskbar_height
 import sidebar
 from support_function import *
@@ -165,7 +164,24 @@ def on_save_button_clicked(ui):
     else:
         error_profile.deleteLater()
         error_profile = None 
-        save_to_db(fullname, dob, sex, str(height), str(weight),str(phone), str(insur_number), address, note)
+        try:
+            save_to_db(fullname, dob, sex, str(height), str(weight),str(phone), str(insur_number), address, note)
+            # Show a success message
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Information)
+            msg.setText("New profile saved successfully!")
+            msg.setWindowTitle("Success")
+            msg.exec_()
+            # Clear the fields after successful save
+            on_clear_button_clicked(ui)
+        except Exception as e:
+            # Show an error message
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Critical)
+            msg.setText("Failed to save new profile.")
+            msg.setInformativeText(str(e))  # Show the error message from the exception
+            msg.setWindowTitle("Error")
+            msg.exec_()
 
 def on_clear_button_clicked(ui):
     global error_profile
@@ -181,12 +197,93 @@ def on_clear_button_clicked(ui):
     if error_profile is not None:
         error_profile.deleteLater()
         error_profile = None 
+def on_combobox_changed(index):
+    ui.stackedWidget_2.setCurrentIndex(index)
+
 def on_home_btn_toggled(ui):
     ui.stackedWidget.setCurrentIndex(1)
 
 def on_display_btn_toggled(ui):
     ui.stackedWidget.setCurrentIndex(3)
-    
+    ui.comboBox_2.setCurrentIndex(0)
+    on_combobox_changed(0)
+    if not hasattr(ui, 'combobox_connected'):
+        ui.comboBox_2.currentIndexChanged.connect(on_combobox_changed)
+        ui.combobox_connected = True
+        # ui.widget_ave_age.setLayout(QVBoxLayout())
+        account_count = get_account_count()
+        ui.label_number_doctors.setText(str(account_count))
+        patient_count = get_patient_count()
+        male_count = get_gender_count('Male')
+        female_count = get_gender_count('Female')
+        ui.label_number_patients.setText(str(patient_count))
+        ui.label_number_male.setText(str(male_count))
+        ui.label_number_female.setText(str(female_count))
+        if patient_count > 0:
+            male_percentage = round((male_count / patient_count) * 100, 2)
+            female_percentage = round((female_count / patient_count) * 100, 2)
+            ui.label_per_male.setText(f"{str(male_percentage)}")
+            ui.label_per_female.setText(f"{str(female_percentage)}")
+        patient_ages = get_patient_ages()
+        average_age = round(sum(patient_ages) / len(patient_ages),2) if patient_ages else 0
+        ui.label_ages.setText(f"{str(average_age)}")
+        plot_age_distribution(patient_ages, ui.widget_plot)
+        
+        # Add patient profiles to comboBox_name
+        profiles = get_patient_profiles()
+        for profile in profiles:
+            ui.comboBox_name.addItem(f"{profile[0]}, {profile[1]}")
+
+        # Update comboBox_date when a profile is selected
+        def on_profile_selected():
+            selected_profile = ui.comboBox_name.currentText()
+            if selected_profile:
+                fullname, _ = selected_profile.split(",")
+                ui.tables = get_tables(fullname)
+                print(ui.tables)
+                ui.comboBox_date.clear()  # Clear the combobox before adding new items
+                for table in ui.tables:
+                    new_format_str = convert_date_format(table, fullname)
+                    ui.comboBox_date.addItem(new_format_str)
+                patient_details = get_patient_details(fullname)
+                if patient_details:
+                    ui.label_fullname.setText(patient_details['fullname'])
+                    ui.label_dob.setText(patient_details['dob'])
+                    ui.label_insur.setText(patient_details['insur_number'])
+                    ui.label_phone.setText(patient_details['phone'])
+                    ui.label_sex.setText(patient_details['sex'])
+        ui.comboBox_name.activated.connect(on_profile_selected)
+        on_profile_selected()
+        x_axis = AxisItem(orientation='bottom')
+        y_axis = AxisItem(orientation='left')
+        x_axis.setPen('k')  #Black
+        y_axis.setPen('k')
+        x_axis.setTextPen('k')
+        y_axis.setTextPen('k')
+        plot_widget = PlotWidget(axisItems={'bottom': x_axis, 'left': y_axis})
+        plot_widget.setBackground('w')
+        plot_widget.showGrid(True, True, alpha=0.5)
+        plot_widget.setYRange(-0.5, 3.5)
+        plot_widget.clear()
+        data_line = plot_widget.plot([],[],pen=mkPen('r', width=2))
+
+        layout = QtWidgets.QVBoxLayout()
+        layout.addWidget(plot_widget)
+        ui.widget_ecg_graph.setLayout(layout)
+        def on_start_button_clicked():
+            selected_index = ui.comboBox_date.currentIndex()
+            table_name = ui.tables[selected_index]
+            x, y = get_data_from_table(table_name)
+            if not x or not y: 
+                msg = QtWidgets.QMessageBox()
+                msg.setIcon(QtWidgets.QMessageBox.Information)
+                msg.setText("No data available for the selected table.")
+                msg.setWindowTitle("Information")
+                msg.exec_()
+            else:
+                start_plot(data_line, plot_widget, x, y)
+
+        ui.start_button.clicked.connect(on_start_button_clicked)
 def on_newprofile_btn_toggled(ui):
     global error_profile
     ui.stackedWidget.setCurrentIndex(2)

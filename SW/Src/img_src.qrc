@@ -1,5 +1,11 @@
 <RCC>
   <qresource prefix="icon">
+    <file>Icon_Logo/female.png</file>
+    <file>Icon_Logo/male.png</file>
+    <file>Icon_Logo/doctor.png</file>
+    <file>Icon_Logo/female-white.png</file>
+    <file>Icon_Logo/male-white.png</file>
+    <file>Icon_Logo/patient.png</file>
     <file>Icon_Logo/arrow-19-48.ico</file>
     <file>Icon_Logo/arrow-119-48.ico</file>
     <file>Icon_Logo/arrow-151-48.ico</file>
