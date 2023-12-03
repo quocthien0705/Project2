@@ -1,10 +1,11 @@
 import sys
-import os
+import scipy.signal 
 import pandas as pd
 import psycopg2 as ps
 from datetime import datetime
 from PyQt5 import QtWidgets, QtCore
 import pyqtgraph as pg
+from pyqtgraph import ScatterPlotItem
 import matplotlib.pyplot as plt
 from PyQt5.QtWidgets import QSizePolicy,QVBoxLayout
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
@@ -244,21 +245,53 @@ def get_data_from_table(table_name):
     data = cursor.fetchall()
     x_values = [row[0] for row in data]
     y_values = [row[1] for row in data]
-    return x_values, y_values
+    # Sampling rate of your data
+    fs = 200  # replace with your actual sampling rate
+
+    # Desired cutoff frequency
+    fc = 60  # replace with your desired cutoff frequency
+
+    # Nyquist frequency
+    nyquist = fs / 2.0
+
+    # Calculate Wn
+    wn = fc / nyquist
+    if len(y_values) > 18:
+        b, a = scipy.signal.butter(5, wn, 'low', analog=False)
+        y_values_filtered = scipy.signal.filtfilt(b, a, y_values, axis=0)
+    else:
+        y_values_filtered = y_values
+
+    return x_values, y_values_filtered
 
 
-def start_plot(data_line,plot_widget,x, y):
+def start_plot(data_line, plot_widget, x, y):
     current_index = 0
+    peaks, _ = scipy.signal.find_peaks(y, height=2.5)  # detect peaks
+    peak_plot = ScatterPlotItem(size=20, pen=pg.mkPen(None), brush=pg.mkBrush(0, 255, 0, 120), symbol='x')  # create a new ScatterPlotItem
+    plot_widget.addItem(peak_plot)  # add the ScatterPlotItem to the plot
+    plotted_peaks_x = []
+    plotted_peaks_y = []
+
     def update_plot():
         nonlocal current_index
         current_index += 1
         if current_index > len(x) - 500:
+            peak_plot.setData(plotted_peaks_x, plotted_peaks_y)  # plot all peaks
             timer.stop()  # Dừng QTimer khi đến điểm cuối của dữ liệu
             return
         data_line.setData(x[:current_index+500], y[:current_index+500])
         plot_widget.setXRange(x[current_index], x[current_index] + 500)
 
+        # store detected peaks
+        peak_indices = [i for i in peaks if current_index <= i < current_index + 500]
+        for peak_index in peak_indices:
+            plotted_peaks_x.append(x[peak_index])
+            plotted_peaks_y.append(y[peak_index])
+
+
     timer = QtCore.QTimer()
     timer.setInterval(3)  # in milliseconds
     timer.timeout.connect(update_plot)
     timer.start()
+

@@ -274,7 +274,7 @@ def on_display_btn_toggled(ui):
             selected_index = ui.comboBox_date.currentIndex()
             table_name = ui.tables[selected_index]
             x, y = get_data_from_table(table_name)
-            if not x or not y: 
+            if len(x)==0 or len(y)==0: 
                 msg = QtWidgets.QMessageBox()
                 msg.setIcon(QtWidgets.QMessageBox.Information)
                 msg.setText("No data available for the selected table.")
