@@ -29,8 +29,8 @@ def login_Ui():
         error_msg = None    
     ui.sign_inButton_2.clicked.connect(homepage_Ui)
     ui.createButton_2.clicked.connect(lambda:signup_Ui(ui))
-    Mainwindow.setFixedHeight(1080-taskbar_height)
-    Mainwindow.setFixedWidth(1920)
+    # Mainwindow.setFixedHeight(1080-taskbar_height)
+    # Mainwindow.setFixedWidth(1920)
     Mainwindow.showMaximized()
 def signup_Ui(ui):
     global signup_error_msg
@@ -43,8 +43,8 @@ def signup_Ui(ui):
     if signup_error_msg is not None:
         signup_error_msg.deleteLater()
         signup_error_msg = None    
-    Mainwindow.setFixedHeight(1080-taskbar_height)
-    Mainwindow.setFixedWidth(1920)
+    # Mainwindow.setFixedHeight(1080-taskbar_height)
+    # Mainwindow.setFixedWidth(1920)
     Mainwindow.showMaximized()
 def on_sign_up_clicked(ui):
     global username_signup, password_signup, confirm, email, signup_error_msg
@@ -231,7 +231,9 @@ def on_display_btn_toggled(ui):
         
         # Add patient profiles to comboBox_name
         profiles = get_patient_profiles()
+        ui.comboBox_name.clear()
         for profile in profiles:
+            print(profile[0])
             ui.comboBox_name.addItem(f"{profile[0]}, {profile[1]}")
 
         # Update comboBox_date when a profile is selected
@@ -320,8 +322,8 @@ def homepage_Ui():
             # print(username,password)
             ui = sidebar.Ui_MainWindow()
             ui.setupUi(Mainwindow)
-            Mainwindow.setFixedHeight(1080-taskbar_height-35)
-            Mainwindow.setFixedWidth(1920)  
+            # Mainwindow.setFixedHeight(1080-taskbar_height-35)
+            # Mainwindow.setFixedWidth(1920)  
             Mainwindow.showMaximized()
             ui.icon_only_widget.hide()
             ui.stackedWidget.setCurrentIndex(1)

@@ -14,7 +14,7 @@ import test_visualize
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1920, 900)
+        MainWindow.resize(1920, 992)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/icon/Icon_Logo/healthcare.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
