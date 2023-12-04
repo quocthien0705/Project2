@@ -554,6 +554,7 @@ class MainWindow(QMainWindow):
         self.dialog.show()
 
         profiles = self.get_patient_profiles()
+        self.dialog.comboBox.clear()
         for profile in profiles:
             self.dialog.comboBox.addItem(f"{profile[0]}, {profile[1]}")
 
@@ -592,6 +593,7 @@ class MainWindow(QMainWindow):
         self.export_dialog.show()
 
         profiles = self.get_patient_profiles()
+        self.export_dialog.comboBox.clear()
         for profile in profiles:
             self.export_dialog.comboBox.addItem(f"{profile[0]}, {profile[1]}")
 
