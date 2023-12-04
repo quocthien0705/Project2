@@ -7,6 +7,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QComboBox, QPushButton, Q
 from PyQt5.QtCore import QTimer, Qt
 from datetime import datetime
 from pyqtgraph import PlotWidget, mkPen,AxisItem
+from io import StringIO
 from serial_data_receiver import SerialDataReceiver
 class SaveDialog(QDialog):
     def __init__(self, parent=None):
@@ -566,17 +567,15 @@ class MainWindow(QMainWindow):
                 self.create_table(table_name)
 
                 cursor = connect_to_db()
-                for x, y in zip(self.x, self.y):
-                    cursor.execute(
-                        f"""
-                        INSERT INTO {table_name}(
-                            X,
-                            Y
-                        )
-                        VALUES (%s,%s)
-                        """, 
-                        (x, y)
-                    )
+                # Create a COPY command
+                # Prepare the data
+                data = '\n'.join(['\t'.join(map(str, row)) for row in zip(self.x, self.y)])
+                query = f"""
+                    COPY {table_name} (X, Y)
+                    FROM STDIN WITH (FORMAT text, DELIMITER E'\t')
+                """
+                cursor.copy_expert(query, StringIO(data))
+
                 cursor.connection.commit()
                 self.show_message_dialog("Save Data", "Save data successfully")
                 self.dialog.close()
