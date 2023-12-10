@@ -9,7 +9,9 @@ from pyqtgraph import ScatterPlotItem
 import matplotlib.pyplot as plt
 from PyQt5.QtWidgets import QSizePolicy,QVBoxLayout
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+# from GUI import current_peak_plot
 #Function connect to database
+current_peak_plot = None
 def connect_to_db():
     connectDB = ps.connect(
         host="a-3.postgres.database.azure.com",
@@ -266,10 +268,12 @@ def get_data_from_table(table_name):
 
 
 def start_plot(data_line, plot_widget, x, y):
+    global current_peak_plot
     current_index = 0
     peaks, _ = scipy.signal.find_peaks(y, height=2.5)  # detect peaks
-    peak_plot = ScatterPlotItem(size=20, pen=pg.mkPen(None), brush=pg.mkBrush(0, 255, 0, 120), symbol='x')  # create a new ScatterPlotItem
-    plot_widget.addItem(peak_plot)  # add the ScatterPlotItem to the plot
+    peak_plot = ScatterPlotItem(size=20, pen=pg.mkPen(None), brush=pg.mkBrush(0, 255, 0, 120), symbol='x') 
+    # peak_plot.setData([],[])
+    # plot_widget.addItem(peak_plot)  # add the ScatterPlotItem to the plot
     plotted_peaks_x = []
     plotted_peaks_y = []
 
@@ -288,8 +292,11 @@ def start_plot(data_line, plot_widget, x, y):
         for peak_index in peak_indices:
             plotted_peaks_x.append(x[peak_index])
             plotted_peaks_y.append(y[peak_index])
-
-
+    # Xóa peak_plot hiện tại (nếu có) trước khi thêm peak_plot mới
+    if current_peak_plot is not None:
+        plot_widget.removeItem(current_peak_plot)
+    plot_widget.addItem(peak_plot)
+    current_peak_plot = peak_plot  # Cập nhật peak_plot hiện tại
     timer = QtCore.QTimer()
     timer.setInterval(3)  # in milliseconds
     timer.timeout.connect(update_plot)

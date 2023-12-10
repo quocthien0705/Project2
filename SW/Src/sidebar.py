@@ -27,14 +27,14 @@ class Ui_MainWindow(object):
         self.gridLayout.setObjectName("gridLayout")
         self.icon_only_widget = QtWidgets.QWidget(self.centralwidget)
         self.icon_only_widget.setStyleSheet("    #icon_only_widget {\n"
-"        background-color: #313a46;\n"
+"        background-color: #6556D7;\n"
 "        width:50px;\n"
 "    }\n"
 "\n"
 "    #icon_only_widget QPushButton, QLabel {\n"
 "        height:50px;\n"
 "        border:none;\n"
-"        background-color: #313a46;\n"
+"        background-color: #6556D7;\n"
 "        /* border-bottom: 1px solid #b0b0b0; */\n"
 "    }\n"
 "\n"
@@ -132,7 +132,7 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.icon_only_widget, 0, 0, 1, 1)
         self.full_menu_widget = QtWidgets.QWidget(self.centralwidget)
         self.full_menu_widget.setStyleSheet("    #full_menu_widget {\n"
-"        background-color: #313a46;\n"
+"        background-color: #6556D7;\n"
 "    }\n"
 "\n"
 "    /* style for QPushButton */\n"
@@ -142,7 +142,7 @@ class Ui_MainWindow(object):
 "        text-align: left;\n"
 "        padding: 4px 10px 8px 15px;\n"
 "        color: #f2f3f4;\n"
-"        background-color: #313a46;\n"
+"        background-color: #6556D7;\n"
 "    }\n"
 "\n"
 "    #full_menu_widget QPushButton:hover {\n"
@@ -192,6 +192,8 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("Rockwell")
         font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
         self.home_btn_2.setFont(font)
         self.home_btn_2.setFocusPolicy(QtCore.Qt.NoFocus)
         self.home_btn_2.setAutoFillBackground(False)
@@ -206,6 +208,8 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("Rockwell")
         font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
         self.newprofile_btn_2.setFont(font)
         self.newprofile_btn_2.setFocusPolicy(QtCore.Qt.NoFocus)
         self.newprofile_btn_2.setStyleSheet("")
@@ -219,9 +223,11 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("Rockwell")
         font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
         self.display_btn_2.setFont(font)
         self.display_btn_2.setFocusPolicy(QtCore.Qt.NoFocus)
-        self.display_btn_2.setStyleSheet("")
+        self.display_btn_2.setStyleSheet("color: rgb(255, 255, 255)")
         self.display_btn_2.setIcon(icon3)
         self.display_btn_2.setIconSize(QtCore.QSize(30, 30))
         self.display_btn_2.setCheckable(True)
@@ -237,6 +243,8 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("Rockwell")
         font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
         self.uart_btn_2.setFont(font)
         self.uart_btn_2.setFocusPolicy(QtCore.Qt.NoFocus)
         self.uart_btn_2.setStyleSheet("")
@@ -253,6 +261,8 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("Rockwell")
         font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
         self.exit_btn_2.setFont(font)
         self.exit_btn_2.setFocusPolicy(QtCore.Qt.NoFocus)
         self.exit_btn_2.setStyleSheet("")
@@ -329,7 +339,7 @@ class Ui_MainWindow(object):
         self.widget_2 = QtWidgets.QWidget(self.page_3)
         self.widget_2.setObjectName("widget_2")
         self.frame = QtWidgets.QFrame(self.widget_2)
-        self.frame.setGeometry(QtCore.QRect(318, 0, 1000, 831))
+        self.frame.setGeometry(QtCore.QRect(418, 0, 1000, 831))
         font = QtGui.QFont()
         font.setFamily("Rockwell")
         font.setPointSize(10)
@@ -1426,7 +1436,7 @@ class Ui_MainWindow(object):
         self.page_history = QtWidgets.QWidget()
         self.page_history.setObjectName("page_history")
         self.label_37 = QtWidgets.QLabel(self.page_history)
-        self.label_37.setGeometry(QtCore.QRect(720, 355, 192, 60))
+        self.label_37.setGeometry(QtCore.QRect(720, 355, 211, 60))
         font = QtGui.QFont()
         font.setFamily("Rockwell")
         font.setPointSize(19)
@@ -1478,7 +1488,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         self.stackedWidget.setCurrentIndex(3)
         self.comboBox.setCurrentIndex(0)
-        self.stackedWidget_2.setCurrentIndex(2)
+        self.stackedWidget_2.setCurrentIndex(0)
         self.change_btn.toggled['bool'].connect(self.icon_only_widget.setVisible) # type: ignore
         self.change_btn.toggled['bool'].connect(self.full_menu_widget.setHidden) # type: ignore
         self.home_btn_1.toggled['bool'].connect(self.home_btn_2.setChecked) # type: ignore

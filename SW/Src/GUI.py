@@ -29,8 +29,8 @@ def login_Ui():
         error_msg = None    
     ui.sign_inButton_2.clicked.connect(homepage_Ui)
     ui.createButton_2.clicked.connect(lambda:signup_Ui(ui))
-    # Mainwindow.setFixedHeight(1080-taskbar_height)
-    # Mainwindow.setFixedWidth(1920)
+    Mainwindow.setFixedHeight(1080-taskbar_height)
+    Mainwindow.setFixedWidth(1920)
     Mainwindow.showMaximized()
 def signup_Ui(ui):
     global signup_error_msg
@@ -43,8 +43,8 @@ def signup_Ui(ui):
     if signup_error_msg is not None:
         signup_error_msg.deleteLater()
         signup_error_msg = None    
-    # Mainwindow.setFixedHeight(1080-taskbar_height)
-    # Mainwindow.setFixedWidth(1920)
+    Mainwindow.setFixedHeight(1080-taskbar_height)
+    Mainwindow.setFixedWidth(1920)
     Mainwindow.showMaximized()
 def on_sign_up_clicked(ui):
     global username_signup, password_signup, confirm, email, signup_error_msg
@@ -100,7 +100,7 @@ def on_sign_up_clicked(ui):
             signup_error_msg.setGeometry(QtCore.QRect(60, 345, 300, 30))
             signup_error_msg.show()
         else:
-            print(username_signup,password_signup,confirm,email)  
+            # print(username_signup,password_signup,confirm,email)  
             # data = pd.DataFrame([[username_signup, password_signup, email]], columns=['Username', 'Password', 'Email'])
             # data.to_csv(os.path.join(DATA_PATH,'Login_Account.csv'), mode='a', header=False, index=False)
             insert_new_user(username_signup, password_signup, email)
@@ -233,7 +233,7 @@ def on_display_btn_toggled(ui):
         profiles = get_patient_profiles()
         ui.comboBox_name.clear()
         for profile in profiles:
-            print(profile[0])
+            # print(profile[0])
             ui.comboBox_name.addItem(f"{profile[0]}, {profile[1]}")
 
         # Update comboBox_date when a profile is selected
@@ -242,7 +242,7 @@ def on_display_btn_toggled(ui):
             if selected_profile:
                 fullname, _ = selected_profile.split(",")
                 ui.tables = get_tables(fullname)
-                print(ui.tables)
+                # print(ui.tables)
                 ui.comboBox_date.clear()  # Clear the combobox before adding new items
                 for table in ui.tables:
                     new_format_str = convert_date_format(table, fullname)
@@ -289,7 +289,8 @@ def on_display_btn_toggled(ui):
 def on_newprofile_btn_toggled(ui):
     global error_profile
     ui.stackedWidget.setCurrentIndex(2)
-    print(ui.dateEdit.date().toString("dd/MM/yyyy"))
+    on_clear_button_clicked(ui)
+    # print(ui.dateEdit.date().toString("dd/MM/yyyy"))
     if error_profile is not None:
         error_profile.deleteLater()
         error_profile = None     
@@ -322,8 +323,8 @@ def homepage_Ui():
             # print(username,password)
             ui = sidebar.Ui_MainWindow()
             ui.setupUi(Mainwindow)
-            # Mainwindow.setFixedHeight(1080-taskbar_height-35)
-            # Mainwindow.setFixedWidth(1920)  
+            Mainwindow.setFixedHeight(1080-taskbar_height-35)
+            Mainwindow.setFixedWidth(1920)  
             Mainwindow.showMaximized()
             ui.icon_only_widget.hide()
             ui.stackedWidget.setCurrentIndex(1)

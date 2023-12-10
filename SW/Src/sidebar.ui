@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1920</width>
-    <height>900</height>
+    <height>992</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -41,14 +41,14 @@
      <widget class="QWidget" name="icon_only_widget" native="true">
       <property name="styleSheet">
        <string notr="true">	#icon_only_widget {
-		background-color: #313a46;
+		background-color: #6556D7;
 		width:50px;
 	}
 
 	#icon_only_widget QPushButton, QLabel {
 		height:50px;
 		border:none;
-		background-color: #313a46;
+		background-color: #6556D7;
 		/* border-bottom: 1px solid #b0b0b0; */
 	}
 
@@ -277,7 +277,7 @@
      <widget class="QWidget" name="full_menu_widget" native="true">
       <property name="styleSheet">
        <string notr="true">	#full_menu_widget {
-		background-color: #313a46;
+		background-color: #6556D7;
 	}
 
 	/* style for QPushButton */
@@ -287,7 +287,7 @@
 		text-align: left;
 		padding: 4px 10px 8px 15px;
 		color: #f2f3f4;
-		background-color: #313a46;
+		background-color: #6556D7;
 	}
 
 	#full_menu_widget QPushButton:hover {
@@ -383,6 +383,8 @@
             <font>
              <family>Rockwell</family>
              <pointsize>10</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
             </font>
            </property>
            <property name="focusPolicy">
@@ -422,6 +424,8 @@
             <font>
              <family>Rockwell</family>
              <pointsize>9</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
             </font>
            </property>
            <property name="focusPolicy">
@@ -458,13 +462,15 @@
             <font>
              <family>Rockwell</family>
              <pointsize>9</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
             </font>
            </property>
            <property name="focusPolicy">
             <enum>Qt::NoFocus</enum>
            </property>
            <property name="styleSheet">
-            <string notr="true"/>
+            <string notr="true">color: rgb(255, 255, 255)</string>
            </property>
            <property name="text">
             <string>Display</string>
@@ -500,6 +506,8 @@
             <font>
              <family>Rockwell</family>
              <pointsize>9</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
             </font>
            </property>
            <property name="focusPolicy">
@@ -551,6 +559,8 @@
           <font>
            <family>Rockwell</family>
            <pointsize>9</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
           </font>
          </property>
          <property name="focusPolicy">
@@ -724,7 +734,7 @@
              <widget class="QFrame" name="frame">
               <property name="geometry">
                <rect>
-                <x>318</x>
+                <x>418</x>
                 <y>0</y>
                 <width>1000</width>
                 <height>831</height>
@@ -1631,7 +1641,7 @@ QComboBox QListView::item:selected{
                </rect>
               </property>
               <property name="currentIndex">
-               <number>2</number>
+               <number>0</number>
               </property>
               <widget class="QWidget" name="page_dashboard">
                <widget class="QLabel" name="label_14">
@@ -2869,7 +2879,7 @@ QPushButton#start_button:pressed{
                  <rect>
                   <x>720</x>
                   <y>355</y>
-                  <width>192</width>
+                  <width>211</width>
                   <height>60</height>
                  </rect>
                 </property>

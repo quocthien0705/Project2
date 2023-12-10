@@ -14,49 +14,40 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1920, 1080)
+        MainWindow.resize(1920, 992)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/icon/Icon_Logo/healthcare.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
+        MainWindow.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.stackedWidget = QtWidgets.QStackedWidget(self.centralwidget)
-        self.stackedWidget.setGeometry(QtCore.QRect(10, 40, 1900, 1000))
+        self.stackedWidget.setGeometry(QtCore.QRect(10, 10, 1900, 900))
         self.stackedWidget.setObjectName("stackedWidget")
         self.page = QtWidgets.QWidget()
         self.page.setObjectName("page")
         self.widget_login = QtWidgets.QWidget(self.page)
-        self.widget_login.setGeometry(QtCore.QRect(760, 260, 380, 480))
+        self.widget_login.setGeometry(QtCore.QRect(760, 256, 380, 480))
         self.widget_login.setStyleSheet("QPushButton#sign_inButton_2{    \n"
-"    background-color: qlineargradient(spread:pad, x1:0, y1:0.505682, x2:1, y2:0.477, stop:0 rgba(20, 47, 78, 219), stop:1 rgba(85, 98, 112, 226));\n"
+"    background-color: qlineargradient(spread:pad, x1:0, y1:0.505682, x2:1, y2:0.477, stop:0 rgba(105, 16, 168, 219), stop:1 rgba(171, 81, 227, 226));\n"
 "    color:rgba(255, 255, 255, 210);\n"
 "    border-radius:5px;\n"
 "}\n"
 "QPushButton#sign_inButton_2:hover{    \n"
-"    background-color: qlineargradient(spread:pad, x1:0, y1:0.505682, x2:1, y2:0.477, stop:0 rgba(40, 67, 98, 219), stop:1 rgba(105, 118, 132, 226));\n"
+"    background-color: qlineargradient(spread:pad, x1:0, y1:0.505682, x2:1, y2:0.477, stop:0 rgba(163, 116, 186, 219), stop:1 rgba(215, 160, 255, 226));\n"
 "}\n"
 "QPushButton#sign_inButton_2:pressed{    \n"
 "    padding-left:5px;\n"
 "    padding-top:5px;\n"
-"    background-color:rgba(105, 118, 132, 200);\n"
+"    background-color:rgba(163, 116, 186, 200);\n"
 "}")
         self.widget_login.setObjectName("widget_login")
         self.label_3 = QtWidgets.QLabel(self.widget_login)
         self.label_3.setGeometry(QtCore.QRect(15, 10, 350, 460))
-        self.label_3.setStyleSheet("border-image: url(:/icon/Icon_Logo/stone-texture.jpg);\n"
+        self.label_3.setStyleSheet("border-image: url(:/icon/Icon_Logo/bg.jpg);\n"
 "border-radius:20px")
         self.label_3.setText("")
         self.label_3.setObjectName("label_3")
-        self.label_4 = QtWidgets.QLabel(self.widget_login)
-        self.label_4.setGeometry(QtCore.QRect(30, 25, 320, 430))
-        font = QtGui.QFont()
-        font.setFamily("Rockwell")
-        font.setPointSize(8)
-        self.label_4.setFont(font)
-        self.label_4.setStyleSheet("background-color: rgba(0,0,0,20);\n"
-"border-radius:15px;")
-        self.label_4.setText("")
-        self.label_4.setObjectName("label_4")
         self.label_signup_2 = QtWidgets.QLabel(self.widget_login)
         self.label_signup_2.setEnabled(True)
         self.label_signup_2.setGeometry(QtCore.QRect(30, 50, 320, 45))
@@ -141,37 +132,27 @@ class Ui_MainWindow(object):
         self.page_2 = QtWidgets.QWidget()
         self.page_2.setObjectName("page_2")
         self.widget_signup = QtWidgets.QWidget(self.page_2)
-        self.widget_signup.setGeometry(QtCore.QRect(760, 260, 380, 480))
+        self.widget_signup.setGeometry(QtCore.QRect(760, 256, 380, 480))
         self.widget_signup.setStyleSheet("QPushButton#sign_upButton_2{    \n"
-"    background-color: qlineargradient(spread:pad, x1:0, y1:0.505682, x2:1, y2:0.477, stop:0 rgba(20, 47, 78, 219), stop:1 rgba(85, 98, 112, 226));\n"
+"    background-color: qlineargradient(spread:pad, x1:0, y1:0.505682, x2:1, y2:0.477, stop:0 rgba(105, 16, 168, 219), stop:1 rgba(171, 81, 227, 226));\n"
 "    color:rgba(255, 255, 255, 210);\n"
 "    border-radius:5px;\n"
 "}\n"
 "QPushButton#sign_upButton_2:hover{    \n"
-"    background-color: qlineargradient(spread:pad, x1:0, y1:0.505682, x2:1, y2:0.477, stop:0 rgba(40, 67, 98, 219), stop:1 rgba(105, 118, 132, 226));\n"
+"    background-color: qlineargradient(spread:pad, x1:0, y1:0.505682, x2:1, y2:0.477, stop:0 rgba(163, 116, 186, 219), stop:1 rgba(215, 160, 255, 226));\n"
 "}\n"
 "QPushButton#sign_upButton_2:pressed{    \n"
 "    padding-left:5px;\n"
 "    padding-top:5px;\n"
-"    background-color:rgba(105, 118, 132, 200);\n"
+"    background-color:rgba(163, 116, 186, 200);\n"
 "}")
         self.widget_signup.setObjectName("widget_signup")
         self.label_7 = QtWidgets.QLabel(self.widget_signup)
         self.label_7.setGeometry(QtCore.QRect(15, 10, 350, 460))
-        self.label_7.setStyleSheet("border-image: url(:/icon/Icon_Logo/stone-texture.jpg);\n"
+        self.label_7.setStyleSheet("border-image: url(:/icon/Icon_Logo/bg.jpg);\n"
 "border-radius:20px")
         self.label_7.setText("")
         self.label_7.setObjectName("label_7")
-        self.label_8 = QtWidgets.QLabel(self.widget_signup)
-        self.label_8.setGeometry(QtCore.QRect(30, 25, 320, 430))
-        font = QtGui.QFont()
-        font.setFamily("Rockwell")
-        font.setPointSize(8)
-        self.label_8.setFont(font)
-        self.label_8.setStyleSheet("background-color: rgba(0,0,0,20);\n"
-"border-radius:15px;")
-        self.label_8.setText("")
-        self.label_8.setObjectName("label_8")
         self.label_signup_4 = QtWidgets.QLabel(self.widget_signup)
         self.label_signup_4.setEnabled(True)
         self.label_signup_4.setGeometry(QtCore.QRect(30, 50, 320, 45))

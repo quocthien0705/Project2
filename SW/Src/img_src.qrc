@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icon">
+    <file>Icon_Logo/bg.jpg</file>
     <file>Icon_Logo/female.png</file>
     <file>Icon_Logo/male.png</file>
     <file>Icon_Logo/doctor.png</file>
