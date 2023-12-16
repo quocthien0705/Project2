@@ -5,7 +5,7 @@ import sys
 from pyqtgraph import PlotWidget, mkPen,AxisItem
 import pandas as pd
 import stacked
-from get_taskbar_height import get_taskbar_height
+# from get_taskbar_height import get_taskbar_height
 import sidebar
 from support_function import *
 font = QtGui.QFont()
@@ -14,7 +14,7 @@ error_msg = None
 signup_error_msg = None
 error_profile = None
 ui = None
-taskbar_height = get_taskbar_height()
+# taskbar_height = get_taskbar_height()
 app = QtWidgets.QApplication(sys.argv)
 Mainwindow = QtWidgets.QMainWindow()
 
@@ -29,7 +29,7 @@ def login_Ui():
         error_msg = None    
     ui.sign_inButton_2.clicked.connect(homepage_Ui)
     ui.createButton_2.clicked.connect(lambda:signup_Ui(ui))
-    Mainwindow.setFixedHeight(1080-taskbar_height)
+    Mainwindow.setFixedHeight(994)
     Mainwindow.setFixedWidth(1920)
     Mainwindow.showMaximized()
 def signup_Ui(ui):
@@ -43,7 +43,7 @@ def signup_Ui(ui):
     if signup_error_msg is not None:
         signup_error_msg.deleteLater()
         signup_error_msg = None    
-    Mainwindow.setFixedHeight(1080-taskbar_height)
+    Mainwindow.setFixedHeight(994)
     Mainwindow.setFixedWidth(1920)
     Mainwindow.showMaximized()
 def on_sign_up_clicked(ui):
@@ -323,7 +323,7 @@ def homepage_Ui():
             # print(username,password)
             ui = sidebar.Ui_MainWindow()
             ui.setupUi(Mainwindow)
-            Mainwindow.setFixedHeight(1080-taskbar_height-35)
+            Mainwindow.setFixedHeight(994)
             Mainwindow.setFixedWidth(1920)  
             Mainwindow.showMaximized()
             ui.icon_only_widget.hide()
