@@ -280,15 +280,15 @@ def start_plot(data_line, plot_widget, x, y):
     def update_plot():
         nonlocal current_index
         current_index += 1
-        if current_index > len(x) - 500:
+        if current_index > len(x) - 2000:
             peak_plot.setData(plotted_peaks_x, plotted_peaks_y)  # plot all peaks
             timer.stop()  # Dừng QTimer khi đến điểm cuối của dữ liệu
             return
-        data_line.setData(x[:current_index+500], y[:current_index+500])
-        plot_widget.setXRange(x[current_index], x[current_index] + 500)
+        data_line.setData(x[:current_index+2000], y[:current_index+2000])
+        plot_widget.setXRange(x[current_index], x[current_index] + 2000)
 
         # store detected peaks
-        peak_indices = [i for i in peaks if current_index <= i < current_index + 500]
+        peak_indices = [i for i in peaks if current_index <= i < current_index + 2000]
         for peak_index in peak_indices:
             plotted_peaks_x.append(x[peak_index])
             plotted_peaks_y.append(y[peak_index])
