@@ -27,14 +27,14 @@ class Ui_MainWindow(object):
         self.gridLayout.setObjectName("gridLayout")
         self.icon_only_widget = QtWidgets.QWidget(self.centralwidget)
         self.icon_only_widget.setStyleSheet("    #icon_only_widget {\n"
-"        background-color: #6e9887;\n"
+"        background-color: #6556D7;\n"
 "        width:50px;\n"
 "    }\n"
 "\n"
 "    #icon_only_widget QPushButton, QLabel {\n"
 "        height:50px;\n"
 "        border:none;\n"
-"        background-color: #6e9887;\n"
+"        background-color: #6556D7;\n"
 "        /* border-bottom: 1px solid #b0b0b0; */\n"
 "    }\n"
 "\n"
@@ -132,7 +132,7 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.icon_only_widget, 0, 0, 1, 1)
         self.full_menu_widget = QtWidgets.QWidget(self.centralwidget)
         self.full_menu_widget.setStyleSheet("    #full_menu_widget {\n"
-"        background-color: #6e9887;\n"
+"        background-color: #6556D7;\n"
 "    }\n"
 "\n"
 "    /* style for QPushButton */\n"
@@ -142,7 +142,7 @@ class Ui_MainWindow(object):
 "        text-align: left;\n"
 "        padding: 4px 10px 8px 15px;\n"
 "        color: #f2f3f4;\n"
-"        background-color: #6e9887;\n"
+"        background-color: #6556D7;\n"
 "    }\n"
 "\n"
 "    #full_menu_widget QPushButton:hover {\n"
@@ -1486,9 +1486,9 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(3)
         self.comboBox.setCurrentIndex(0)
-        self.stackedWidget_2.setCurrentIndex(1)
+        self.stackedWidget_2.setCurrentIndex(0)
         self.change_btn.toggled['bool'].connect(self.icon_only_widget.setVisible) # type: ignore
         self.change_btn.toggled['bool'].connect(self.full_menu_widget.setHidden) # type: ignore
         self.home_btn_1.toggled['bool'].connect(self.home_btn_2.setChecked) # type: ignore

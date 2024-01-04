@@ -601,9 +601,9 @@ class MainWindow(QMainWindow):
             selected_profile = self.export_dialog.comboBox.currentText()
             if selected_profile:
                 fullname, _ = selected_profile.split(",")
-                print(fullname)
+                # print(fullname)
                 tables = get_tables(fullname)
-                print(tables)
+                # print(tables)
                 self.export_dialog.tableComboBox.clear()  # Clear the combobox before adding new items
                 for table in tables:
                     self.export_dialog.tableComboBox.addItem(table)
