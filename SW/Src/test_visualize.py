@@ -492,7 +492,7 @@ class MainWindow(QMainWindow):
         self.stop_serial()
         self.x = []
         self.y = []
-
+        self.current_x = 0
         self.serial_thread = SerialDataReceiver(selected_port, selected_baudrate)
         self.serial_thread.data_received.connect(self.update_graph)
         self.serial_thread.start()
@@ -513,7 +513,7 @@ class MainWindow(QMainWindow):
             self.x.append(self.current_x)
             self.y.append(data)
             self.current_x += 1
-            self.plot_widget.setXRange(self.current_x - 100, self.current_x)
+            self.plot_widget.setXRange(self.current_x - 1000, self.current_x)
             pen = mkPen(color="red", width=2)
             self.plot_widget.plot(self.x, self.y, pen=pen, clear=True)
             self.last_data = data

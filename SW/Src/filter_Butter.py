@@ -15,7 +15,7 @@ nyquist = fs / 2.0
 
 # Calculate Wn
 wn = fc / nyquist
-data = pd.read_csv(r'D:\HCMUT\huy\PJ2\New folder\j.csv')
+data = pd.read_csv(r'D:\HCMUT\huy\PJ2\New folder\7_1_2.csv')
 t=np.linspace(0, len(data)*0.005, len(data))
 fc_low = 0.5  # replace with your desired low cutoff frequency
 fc_high = 49  # replace with your desired high cutoff frequency
