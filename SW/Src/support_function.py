@@ -1,7 +1,8 @@
-import sys
+import numpy as np
 import scipy.signal 
 import pandas as pd
 import psycopg2 as ps
+import pywt
 from datetime import datetime
 from PyQt5 import QtWidgets, QtCore
 import pyqtgraph as pg
@@ -247,22 +248,26 @@ def get_data_from_table(table_name):
     data = cursor.fetchall()
     x_values = [row[0] for row in data]
     y_values = [row[1] for row in data]
-    # Sampling rate of your data
-    fs = 200  # replace with your actual sampling rate
+    # Load your ECG data
+    data = pd.DataFrame({'X': x_values, 'Y': y_values})
 
-    # Desired cutoff frequency
-    fc = 60  # replace with your desired cutoff frequency
+    coeffs = pywt.wavedec(data['Y'].values.squeeze(), 'db4', level=8)
 
-    # Nyquist frequency
-    nyquist = fs / 2.0
+    # Set the detail coefficients at the last two levels to zero
+    coeffs[-1] *= 0.5
+    coeffs[-2] *= 0.5
 
-    # Calculate Wn
-    wn = fc / nyquist
-    if len(y_values) > 18:
-        b, a = scipy.signal.butter(5, wn, 'low', analog=False)
-        y_values_filtered = scipy.signal.filtfilt(b, a, y_values, axis=0)
-    else:
-        y_values_filtered = y_values
+    # Apply the inverse DWT to get the filtered signal
+    y_values_filtered = pywt.waverec(coeffs, 'db4')
+
+    # Trim y_values_filtered to the same length as x_values
+    y_values_filtered = y_values_filtered[:len(x_values)]
+
+    peaks, _ = scipy.signal.find_peaks(y_values_filtered, height=2.2, distance=50)
+    k = 60 / (x_values[peaks[10]] - x_values[peaks[9]])
+    # print(round(k))
+
+    y_values_filtered = scipy.signal.medfilt(y_values_filtered.squeeze(), kernel_size=3)
 
     return x_values, y_values_filtered
 
@@ -272,10 +277,9 @@ def start_plot(data_line, plot_widget, x, y):
     current_index = 0
     peaks, _ = scipy.signal.find_peaks(y, height=2.5)  # detect peaks
     peak_plot = ScatterPlotItem(size=20, pen=pg.mkPen(None), brush=pg.mkBrush(0, 255, 0, 120), symbol='x') 
-    # peak_plot.setData([],[])
-    # plot_widget.addItem(peak_plot)  # add the ScatterPlotItem to the plot
     plotted_peaks_x = []
     plotted_peaks_y = []
+    heart_rates = []  # list to store heart rates
 
     def update_plot():
         nonlocal current_index
@@ -283,6 +287,12 @@ def start_plot(data_line, plot_widget, x, y):
         if current_index > len(x) - 2000:
             peak_plot.setData(plotted_peaks_x, plotted_peaks_y)  # plot all peaks
             timer.stop()  # Dừng QTimer khi đến điểm cuối của dữ liệu
+            # Calculate heart rate
+            for i in range(1, len(plotted_peaks_x)):
+                dt = plotted_peaks_x[i] - plotted_peaks_x[i-1]
+                heart_rate = 60 / dt
+                heart_rates.append(heart_rate)
+            print(f"Heart rate : {round(np.mean(heart_rates[1:])*200)} bpm")
             return
         data_line.setData(x[:current_index+2000], y[:current_index+2000])
         plot_widget.setXRange(x[current_index], x[current_index] + 2000)
@@ -292,6 +302,7 @@ def start_plot(data_line, plot_widget, x, y):
         for peak_index in peak_indices:
             plotted_peaks_x.append(x[peak_index])
             plotted_peaks_y.append(y[peak_index])
+
     # Xóa peak_plot hiện tại (nếu có) trước khi thêm peak_plot mới
     if current_peak_plot is not None:
         plot_widget.removeItem(current_peak_plot)
@@ -301,4 +312,5 @@ def start_plot(data_line, plot_widget, x, y):
     timer.setInterval(3)  # in milliseconds
     timer.timeout.connect(update_plot)
     timer.start()
+
 
