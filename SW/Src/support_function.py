@@ -201,7 +201,7 @@ def get_patient_ages():
 #Function plot average ages
 def plot_age_distribution(ages, widget):
     age_counts = [ages.count(i) for i in range(1, 111)]
-    figure = plt.figure(figsize=(9, 2.8))
+    figure = plt.figure(figsize=(4, 2))
     plt.bar(range(1, 111), age_counts, color='pink')
     plt.xlabel('Ages')
     plt.ylabel('Number of Patients')
@@ -272,7 +272,7 @@ def get_data_from_table(table_name):
     return x_values, y_values_filtered
 
 
-def start_plot(data_line, plot_widget, x, y):
+def start_plot(data_line, plot_widget, x, y,label_47):
     global current_peak_plot
     current_index = 0
     peaks, _ = scipy.signal.find_peaks(y, height=2.5)  # detect peaks
@@ -283,6 +283,7 @@ def start_plot(data_line, plot_widget, x, y):
 
     def update_plot():
         nonlocal current_index
+        label_47.setText("00")
         current_index += 1
         if current_index > len(x) - 2000:
             peak_plot.setData(plotted_peaks_x, plotted_peaks_y)  # plot all peaks
@@ -292,11 +293,13 @@ def start_plot(data_line, plot_widget, x, y):
                 dt = plotted_peaks_x[i] - plotted_peaks_x[i-1]
                 heart_rate = 60 / dt
                 heart_rates.append(heart_rate)
-            print(f"Heart rate : {round(np.mean(heart_rates[1:])*200)} bpm")
+            avg_heart_rate = round(np.mean(heart_rates[1:])*200)
+            print(f"Heart rate : {avg_heart_rate} bpm")
+            label_47.setText(f"{avg_heart_rate}")
             return
         data_line.setData(x[:current_index+2000], y[:current_index+2000])
         plot_widget.setXRange(x[current_index], x[current_index] + 2000)
-
+        plot_widget.setYRange(min(y), max(y))
         # store detected peaks
         peak_indices = [i for i in peaks if current_index <= i < current_index + 2000]
         for peak_index in peak_indices:

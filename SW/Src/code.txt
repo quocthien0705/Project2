@@ -19,3 +19,16 @@ export PGUSER=Project_Health_Care_System
 export PGPORT=5432
 export PGDATABASE=
 export PGPASSWORD="{your-password}"
+
+self.comboBox_date = MyComboBox(self.page_ecg)
+self.comboBox_name = MyComboBox(self.page_ecg)
+class MyComboBox(QtWidgets.QComboBox):
+    def showPopup(self):
+        popup_width = max(self.view().sizeHintForColumn(0), self.width())+50
+        self.view().setMinimumWidth(popup_width)
+        super().showPopup()
+
+        self.serialMonitor_V = test_visualize.MainWindow()
+        self.gridLayout_6.addWidget(self.serialMonitor_V, 0, 0, 1, 1)
+        self.stackedWidget.addWidget(self.page_5)
+import test_visualize

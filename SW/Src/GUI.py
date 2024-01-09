@@ -285,7 +285,7 @@ def on_display_btn_toggled(ui):
                 msg.setWindowTitle("Information")
                 msg.exec_()
             else:
-                start_plot(data_line, plot_widget, x, y)
+                start_plot(data_line, plot_widget, x, y,ui.label_47)
 
         ui.start_button.clicked.connect(on_start_button_clicked)
 def on_newprofile_btn_toggled(ui):
