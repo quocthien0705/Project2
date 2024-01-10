@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1229</width>
-    <height>700</height>
+    <width>1000</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -182,6 +182,9 @@ padding-bottom:5px</string>
            <property name="placeholderText">
             <string>Username</string>
            </property>
+           <property name="clearButtonEnabled">
+            <bool>true</bool>
+           </property>
           </widget>
           <widget class="QLineEdit" name="linepassword_2">
            <property name="geometry">
@@ -213,6 +216,9 @@ padding-bottom:5px</string>
            </property>
            <property name="placeholderText">
             <string>Password</string>
+           </property>
+           <property name="clearButtonEnabled">
+            <bool>true</bool>
            </property>
           </widget>
           <widget class="QPushButton" name="sign_inButton_2">
@@ -482,7 +488,7 @@ padding-bottom:5px</string>
             <string>Username</string>
            </property>
            <property name="clearButtonEnabled">
-            <bool>false</bool>
+            <bool>true</bool>
            </property>
           </widget>
           <widget class="QLineEdit" name="line_password_signup_2">
@@ -515,6 +521,9 @@ padding-bottom:5px</string>
            </property>
            <property name="placeholderText">
             <string>Password</string>
+           </property>
+           <property name="clearButtonEnabled">
+            <bool>true</bool>
            </property>
           </widget>
           <widget class="QPushButton" name="sign_upButton_2">
@@ -576,6 +585,9 @@ padding-bottom:5px</string>
            <property name="placeholderText">
             <string>Email</string>
            </property>
+           <property name="clearButtonEnabled">
+            <bool>true</bool>
+           </property>
           </widget>
           <widget class="QLineEdit" name="line_confirm_2">
            <property name="geometry">
@@ -607,6 +619,9 @@ padding-bottom:5px</string>
            </property>
            <property name="placeholderText">
             <string>Confirm Password</string>
+           </property>
+           <property name="clearButtonEnabled">
+            <bool>true</bool>
            </property>
           </widget>
           <widget class="QPushButton" name="back_Button">
@@ -649,19 +664,6 @@ padding-bottom:5px</string>
           </widget>
          </widget>
         </item>
-        <item row="2" column="3">
-         <spacer name="horizontalSpacer_6">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>392</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
         <item row="3" column="2">
          <spacer name="verticalSpacer_6">
           <property name="orientation">
@@ -671,6 +673,19 @@ padding-bottom:5px</string>
            <size>
             <width>20</width>
             <height>78</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="2" column="3">
+         <spacer name="horizontalSpacer_6">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>392</width>
+            <height>20</height>
            </size>
           </property>
          </spacer>

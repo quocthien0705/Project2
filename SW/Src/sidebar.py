@@ -10,13 +10,11 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 import test_visualize
-
 class MyComboBox(QtWidgets.QComboBox):
     def showPopup(self):
         popup_width = max(self.view().sizeHintForColumn(0), self.width())+50
         self.view().setMinimumWidth(popup_width)
         super().showPopup()
-
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -486,6 +484,7 @@ class Ui_MainWindow(object):
 "padding-bottom:5px")
         self.line_fullname.setText("")
         self.line_fullname.setPlaceholderText("")
+        self.line_fullname.setClearButtonEnabled(True)
         self.line_fullname.setObjectName("line_fullname")
         self.horizontalLayout_12.addWidget(self.line_fullname)
         self.verticalLayout_6.addLayout(self.horizontalLayout_12)
@@ -792,6 +791,7 @@ class Ui_MainWindow(object):
 "padding-bottom:5px")
         self.line_address.setText("")
         self.line_address.setPlaceholderText("")
+        self.line_address.setClearButtonEnabled(True)
         self.line_address.setObjectName("line_address")
         self.horizontalLayout_14.addWidget(self.line_address)
         self.verticalLayout_6.addLayout(self.horizontalLayout_14)
@@ -825,6 +825,7 @@ class Ui_MainWindow(object):
         self.line_height.setInputMethodHints(QtCore.Qt.ImhNone)
         self.line_height.setText("")
         self.line_height.setPlaceholderText("")
+        self.line_height.setClearButtonEnabled(True)
         self.line_height.setObjectName("line_height")
         self.horizontalLayout_19.addWidget(self.line_height)
         self.label_9 = QtWidgets.QLabel(self.frame)
@@ -853,6 +854,7 @@ class Ui_MainWindow(object):
         self.line_weight.setInputMethodHints(QtCore.Qt.ImhNone)
         self.line_weight.setText("")
         self.line_weight.setPlaceholderText("")
+        self.line_weight.setClearButtonEnabled(True)
         self.line_weight.setObjectName("line_weight")
         self.horizontalLayout_19.addWidget(self.line_weight)
         self.verticalLayout_6.addLayout(self.horizontalLayout_19)
@@ -892,6 +894,7 @@ class Ui_MainWindow(object):
         self.line_phone_number.setInputMethodHints(QtCore.Qt.ImhNone)
         self.line_phone_number.setText("")
         self.line_phone_number.setPlaceholderText("")
+        self.line_phone_number.setClearButtonEnabled(True)
         self.line_phone_number.setObjectName("line_phone_number")
         self.horizontalLayout_20.addWidget(self.line_phone_number)
         self.verticalLayout_6.addLayout(self.horizontalLayout_20)
@@ -930,6 +933,7 @@ class Ui_MainWindow(object):
         self.line_insur_number.setInputMethodHints(QtCore.Qt.ImhNone)
         self.line_insur_number.setText("")
         self.line_insur_number.setPlaceholderText("")
+        self.line_insur_number.setClearButtonEnabled(True)
         self.line_insur_number.setObjectName("line_insur_number")
         self.horizontalLayout_21.addWidget(self.line_insur_number)
         self.verticalLayout_6.addLayout(self.horizontalLayout_21)
@@ -966,6 +970,7 @@ class Ui_MainWindow(object):
 "color: rgba(0,0,0,255);\n"
 "padding-bottom:5px")
         self.line_note.setText("")
+        self.line_note.setClearButtonEnabled(True)
         self.line_note.setObjectName("line_note")
         self.horizontalLayout_29.addWidget(self.line_note)
         self.verticalLayout_6.addLayout(self.horizontalLayout_29)
@@ -2168,9 +2173,9 @@ class Ui_MainWindow(object):
         self.label_35.setText(_translate("MainWindow", "Select date:"))
         self.start_button.setText(_translate("MainWindow", "Start"))
         self.label_30.setText(_translate("MainWindow", "Name:"))
-        self.label_fullname.setText(_translate("MainWindow", "Pham Huynh Quoc Thien"))
+        self.label_fullname.setText(_translate("MainWindow", "None"))
         self.label_31.setText(_translate("MainWindow", "DoB:"))
-        self.label_dob.setText(_translate("MainWindow", "07/05/2002"))
+        self.label_dob.setText(_translate("MainWindow", "dd/mm/yyyy"))
         self.label_32.setText(_translate("MainWindow", "Sex:"))
         self.label_sex.setText(_translate("MainWindow", "None"))
         self.label_34.setText(_translate("MainWindow", "H/I Number:"))

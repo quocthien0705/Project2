@@ -1105,6 +1105,9 @@ padding-bottom:5px</string>
                        <property name="placeholderText">
                         <string/>
                        </property>
+                       <property name="clearButtonEnabled">
+                        <bool>true</bool>
+                       </property>
                       </widget>
                      </item>
                     </layout>
@@ -1631,6 +1634,9 @@ padding-bottom:5px</string>
                        <property name="placeholderText">
                         <string/>
                        </property>
+                       <property name="clearButtonEnabled">
+                        <bool>true</bool>
+                       </property>
                       </widget>
                      </item>
                     </layout>
@@ -1730,6 +1736,9 @@ padding-bottom:5px</string>
                        <property name="placeholderText">
                         <string/>
                        </property>
+                       <property name="clearButtonEnabled">
+                        <bool>true</bool>
+                       </property>
                       </widget>
                      </item>
                      <item>
@@ -1808,6 +1817,9 @@ padding-bottom:5px</string>
                        </property>
                        <property name="placeholderText">
                         <string/>
+                       </property>
+                       <property name="clearButtonEnabled">
+                        <bool>true</bool>
                        </property>
                       </widget>
                      </item>
@@ -1917,6 +1929,9 @@ padding-bottom:5px</string>
                        <property name="placeholderText">
                         <string/>
                        </property>
+                       <property name="clearButtonEnabled">
+                        <bool>true</bool>
+                       </property>
                       </widget>
                      </item>
                     </layout>
@@ -2022,6 +2037,9 @@ padding-bottom:5px</string>
                        <property name="placeholderText">
                         <string/>
                        </property>
+                       <property name="clearButtonEnabled">
+                        <bool>true</bool>
+                       </property>
                       </widget>
                      </item>
                     </layout>
@@ -2123,6 +2141,9 @@ padding-bottom:5px</string>
                        </property>
                        <property name="placeholderText">
                         <string>Note here if the patient has underlying disease.</string>
+                       </property>
+                       <property name="clearButtonEnabled">
+                        <bool>true</bool>
                        </property>
                       </widget>
                      </item>
@@ -3884,7 +3905,7 @@ color: rgba(111, 113, 120,255)</string>
 color: rgb(0, 0, 0);</string>
                            </property>
                            <property name="text">
-                            <string>Pham Huynh Quoc Thien</string>
+                            <string>None</string>
                            </property>
                            <property name="scaledContents">
                             <bool>true</bool>
@@ -3990,7 +4011,7 @@ color: rgba(111, 113, 120,255)</string>
 color: rgb(0, 0, 0);</string>
                            </property>
                            <property name="text">
-                            <string>07/05/2002</string>
+                            <string>dd/mm/yyyy</string>
                            </property>
                            <property name="scaledContents">
                             <bool>true</bool>
@@ -4729,7 +4750,7 @@ QComboBox QListView::item:selected{
  </widget>
  <resources>
   <include location="img_src.qrc"/>
-  <include location="C:/Users/ADMIN/.designer/backup/img_src.qrc"/>
+  <include location="img_src.qrc"/>
  </resources>
  <connections>
   <connection>
