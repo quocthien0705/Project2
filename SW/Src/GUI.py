@@ -11,6 +11,8 @@ from support_function import *
 font = QtGui.QFont()
 font.setFamily("Rockwell")
 error_msg = None
+current_user = None
+table_name = None
 signup_error_msg = None
 error_profile = None
 ui = None
@@ -206,6 +208,7 @@ def on_home_btn_toggled(ui):
     ui.stackedWidget.setCurrentIndex(1)
 
 def on_display_btn_toggled(ui):
+     
     ui.stackedWidget.setCurrentIndex(3)
     ui.comboBox_2.setCurrentIndex(0)
     on_combobox_changed(0)
@@ -233,6 +236,7 @@ def on_display_btn_toggled(ui):
         
         # Add patient profiles to comboBox_name
         profiles = get_patient_profiles()
+        print(profiles)
         ui.comboBox_name.clear()
         for profile in profiles:
             # print(profile[0])
@@ -240,24 +244,37 @@ def on_display_btn_toggled(ui):
 
         # Update comboBox_date when a profile is selected
         def on_profile_selected():
-            selected_profile = ui.comboBox_name.currentText()
-            if selected_profile:
-                fullname, _ = selected_profile.split(",")
-                ui.tables = get_tables(fullname)
-                # print(ui.tables)
-                ui.comboBox_date.clear()  # Clear the combobox before adding new items
-                for table in ui.tables:
-                    new_format_str = convert_date_format(table, fullname)
-                    ui.comboBox_date.addItem(new_format_str)
-                patient_details = get_patient_details(fullname)
-                if patient_details:
-                    ui.label_fullname.setText(patient_details['fullname'])
-                    ui.label_dob.setText(patient_details['dob'])
-                    ui.label_insur.setText(patient_details['insur_number'])
-                    ui.label_phone.setText(patient_details['phone'])
-                    ui.label_sex.setText(patient_details['sex'])
+            global current_user,table_name
+            selected_index = ui.comboBox_name.currentIndex()
+            selected_profile = profiles[selected_index]
+            fullname, _, user = selected_profile
+            print(user,current_user)
+
+            # Kiểm tra xem người dùng hiện tại có quyền truy cập vào hồ sơ này không
+            if user != current_user and table_name == 'patient_account':
+                # Hiển thị pop up cảnh báo
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Warning)
+                msg.setText(f"Only {fullname} and their doctor are authorized to access this data.")
+                msg.setWindowTitle("Warning")
+                msg.exec_()
+                ui.comboBox_date.clear()
+                return
+
+            ui.tables = get_tables(fullname)
+            ui.comboBox_date.clear()  # Clear the combobox before adding new items
+            for table in ui.tables:
+                new_format_str = convert_date_format(table, fullname)
+                ui.comboBox_date.addItem(new_format_str)
+            patient_details = get_patient_details(fullname)
+            if patient_details:
+                ui.label_fullname.setText(patient_details['fullname'])
+                ui.label_dob.setText(patient_details['dob'])
+                ui.label_insur.setText(patient_details['insur_number'])
+                ui.label_phone.setText(patient_details['phone'])
+                ui.label_sex.setText(patient_details['sex'])
         ui.comboBox_name.activated.connect(on_profile_selected)
-        on_profile_selected()
+        # on_profile_selected()
         x_axis = AxisItem(orientation='bottom')
         y_axis = AxisItem(orientation='left')
         x_axis.setPen('k')  #Black
@@ -289,21 +306,47 @@ def on_display_btn_toggled(ui):
 
         ui.start_button.clicked.connect(on_start_button_clicked)
 def on_newprofile_btn_toggled(ui):
-    global error_profile
+    global error_profile, table_name
+    if table_name == 'patient_account':
+        if not hasattr(ui, 'warning_shown_newprofile') or not ui.warning_shown_newprofile:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText("Patient accounts are not authorized to view this section.")
+            msg.setWindowTitle("Warning")
+            msg.exec_()
+            ui.warning_shown_newprofile = True
+        else:
+            ui.warning_shown_newprofile = False        
+        return
+
     ui.stackedWidget.setCurrentIndex(2)
     on_clear_button_clicked(ui)
-    # print(ui.dateEdit.date().toString("dd/MM/yyyy"))
+
     if error_profile is not None:
         error_profile.deleteLater()
         error_profile = None     
+
     if not hasattr(ui, 'save_button_connected'):
         ui.save_button.clicked.connect(lambda: on_save_button_clicked(ui))
         ui.save_button_connected = True
+
     ui.clear_button.clicked.connect(lambda: on_clear_button_clicked(ui))
 def on_uart_btn_toggled(ui):
+    global table_name
+    if table_name == 'patient_account':
+        if not hasattr(ui, 'warning_uart') or not ui.warning_uart:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText("Patient accounts are not authorized to view this section.")
+            msg.setWindowTitle("Warning")
+            msg.exec_()
+            ui.warning_uart = True
+        else:
+            ui.warning_uart = False        
+        return
     ui.stackedWidget.setCurrentIndex(4)
 def homepage_Ui():
-    global ui,error_msg,username,password
+    global ui,error_msg,username,password, current_user, table_name
     username = ui.line_username_2.text()
     password = ui.linepassword_2.text()
 
@@ -321,8 +364,11 @@ def homepage_Ui():
         
     else:
         # df = pd.read_csv(os.path.join(DATA_PATH,'Login_Account.csv'))
-        if check_user_and_password_signin(username,password):
-            # print(username,password)
+        is_valid, table_name = check_user_and_password_signin(username, password)
+        if is_valid:
+            current_user = username
+            print(f"Current logged in user: {current_user}")
+            print(f"User belongs to: {table_name}")
             ui = sidebar.Ui_MainWindow()
             ui.setupUi(Mainwindow)
             # Mainwindow.setFixedHeight(994)
@@ -333,15 +379,15 @@ def homepage_Ui():
             ui.stackedWidget.setCurrentIndex(1)
             ui.home_btn_2.setChecked(True)
             # # Connect signals to slots
-            ui.stackedWidget.currentChanged.connect(lambda: on_stackedWidget_currentChanged(ui, ui.stackedWidget.currentIndex()))
-            ui.home_btn_1.toggled.connect(lambda: on_home_btn_toggled(ui))
-            ui.home_btn_2.toggled.connect(lambda: on_home_btn_toggled(ui))
-            ui.display_btn_1.toggled.connect(lambda: on_display_btn_toggled(ui))
-            ui.display_btn_2.toggled.connect(lambda: on_display_btn_toggled(ui))
-            ui.newprofile_btn_1.toggled.connect(lambda: on_newprofile_btn_toggled(ui))
-            ui.newprofile_btn_2.toggled.connect(lambda: on_newprofile_btn_toggled(ui))
-            ui.uart_btn_1.toggled.connect(lambda: on_uart_btn_toggled(ui))
-            ui.uart_btn_2.toggled.connect(lambda: on_uart_btn_toggled(ui))
+            ui.stackedWidget.currentChanged.connect(lambda: on_stackedWidget_currentChanged(ui, ui.stackedWidget.currentIndex()) if ui.stackedWidget.currentIndex() else None)
+            ui.home_btn_1.toggled.connect(lambda: on_home_btn_toggled(ui) if ui.home_btn_1.isChecked() else None)
+            ui.home_btn_2.toggled.connect(lambda: on_home_btn_toggled(ui) if ui.home_btn_2.isChecked() else None)
+            ui.display_btn_1.toggled.connect(lambda: on_display_btn_toggled(ui) if ui.display_btn_1.isChecked() else None)
+            ui.display_btn_2.toggled.connect(lambda: on_display_btn_toggled(ui) if ui.display_btn_2.isChecked() else None)
+            ui.newprofile_btn_1.toggled.connect(lambda: on_newprofile_btn_toggled(ui) if ui.newprofile_btn_1.isChecked() else None)
+            ui.newprofile_btn_2.toggled.connect(lambda: on_newprofile_btn_toggled(ui) if ui.newprofile_btn_2.isChecked() else None)
+            ui.uart_btn_1.toggled.connect(lambda: on_uart_btn_toggled(ui) if ui.uart_btn_1.isChecked() else None)
+            ui.uart_btn_2.toggled.connect(lambda: on_uart_btn_toggled(ui) if ui.uart_btn_2.isChecked() else None)
         else:
             error_msg.setText("Invalid username or password.")
             error_msg.setGeometry(QtCore.QRect(70, 265, 300, 30))
