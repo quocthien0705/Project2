@@ -17,6 +17,7 @@ coeffs = pywt.wavedec(data, 'db4', level=3)
 # Set the detail coefficients at the last two levels to zero
 coeffs[-1] = np.zeros_like(coeffs[-1])
 coeffs[-2] = np.zeros_like(coeffs[-2])
+coeffs[-3] = np.zeros_like(coeffs[-3])
 # Apply the inverse DWT to get the filtered signal
 filtered_signal = pywt.waverec(coeffs, 'db4')
 filtered_signal = scipy.signal.medfilt(filtered_signal.squeeze(), kernel_size=3)

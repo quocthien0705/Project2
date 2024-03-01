@@ -32,3 +32,6 @@ class MyComboBox(QtWidgets.QComboBox):
         self.gridLayout_6.addWidget(self.serialMonitor_V, 0, 0, 1, 1)
         self.stackedWidget.addWidget(self.page_5)
 import test_visualize
+// error TkAgg
+import matplotlib
+matplotlib.use('Agg')

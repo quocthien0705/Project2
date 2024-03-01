@@ -16,9 +16,9 @@ nyquist = fs / 2.0
 # Calculate Wn
 wn = fc / nyquist
 data = pd.read_csv(r'D:\HCMUT\huy\PJ2\New folder\7_1_2.csv')
-t=np.linspace(0, len(data)*0.005, len(data))
-fc_low = 0.5  # replace with your desired low cutoff frequency
-fc_high = 49  # replace with your desired high cutoff frequency
+t=np.linspace(0, len(data)*0.006, len(data))
+fc_low = 0.09  # replace with your desired low cutoff frequency
+fc_high = 60  # replace with your desired high cutoff frequency
 
 # Calculate Wn for bandpass filter
 wn_low = fc_low / nyquist
@@ -36,7 +36,7 @@ w, h = freqz(b_band, a_band, worN=8000)
 h_db = 20 * np.log10(abs(h))
 
 # Create the plot
-plt.figure(2)
+# plt.figure(2)
 plt.plot(0.5*fs*w/np.pi, h_db, 'b')
 plt.title('Bandpass Filter Frequency Response')
 plt.xlabel('Frequency [Hz]')

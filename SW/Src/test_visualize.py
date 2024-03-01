@@ -66,7 +66,7 @@ class SaveDialog(QDialog):
             }
         """)
         self.layout.addWidget(self.comboBox)
-
+        
         self.saveButton = QPushButton("Save", self)
         self.saveButton.setFont(QFont("Rockwell", 12))
         self.saveButton.setStyleSheet("""
@@ -290,7 +290,7 @@ class ExportDialog(QDialog):
         self.setFixedSize(480, 300)
 
     def browse(self):
-        file_path = QFileDialog.getSaveFileName(self, 'Save File', '', 'Excel Files (*.xlsx)')
+        file_path = QFileDialog.getSaveFileName(self, 'Save File', '', 'CSV Files (*.csv)')
         if file_path:
             self.pathLineEdit.setText(file_path[0])
 
@@ -298,6 +298,7 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.last_data = None
+        self.buffer = []
         self.setWindowTitle("SerialPort")
         self.setGeometry(0, 0, 500, 500)
         self.center_window()
@@ -503,21 +504,32 @@ class MainWindow(QMainWindow):
     def stop_serial(self):
         if self.serial_thread and self.serial_thread.isRunning():
             self.serial_thread.stop()
+            self.buffer = []
             self.serial_thread.wait()
 
         self.start_button.setEnabled(True)
         self.stop_button.setEnabled(False)
 
-    def update_graph(self, data):
-        if data != self.last_data:
-            self.x.append(self.current_x)
-            self.y.append(data)
-            self.current_x += 1
+    def update_graph(self, data):        
+        self.buffer.append(data)
+        if len(self.buffer) >= 100:
+            self.x.extend([self.current_x + i for i in range(100)])
+            self.y.extend(self.buffer)
+            self.current_x += 100
             self.plot_widget.setXRange(self.current_x - 1000, self.current_x)
             pen = mkPen(color="red", width=2)
             self.plot_widget.plot(self.x, self.y, pen=pen, clear=True)
             self.last_data = data
-
+            self.buffer = []
+    # def run(self):
+    #     while self.is_running:
+    #         try:
+    #             line = self.serial.readline().strip()
+    #             if line:  # check if line is not empty
+    #                 data = float(line)
+    #                 self.data_received.emit(data)
+    #         except ValueError:
+    #             print("Could not convert string to float")
     def show_message_dialog(self, title, message):
         msg_box = QMessageBox()
         msg_box.setIcon(QMessageBox.Information)
@@ -586,7 +598,7 @@ class MainWindow(QMainWindow):
         cursor = connect_to_db()
         query = f"SELECT * FROM {table_name}"
         df = pd.read_sql_query(query, cursor.connection)
-        df.to_excel(file_path, index=False)   
+        df.to_csv(file_path, index=False, sep=';')   
     def export_data(self):
         self.export_dialog = ExportDialog(self)
         self.export_dialog.setModal(True)
