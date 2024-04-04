@@ -85,6 +85,8 @@ def insert_new_user(username_signup, password_signup, email):
 #Function check username and password when login
 def check_user_and_password_signin(username, password):
     cursor = connect_to_db()
+    
+    # Kiểm tra trong bảng user_account
     cursor.execute(
         """
         SELECT * FROM user_account
@@ -94,12 +96,27 @@ def check_user_and_password_signin(username, password):
     )
     result = cursor.fetchone()
     if result is not None:
-        return True
-    else:
-        return False
+        return True, 'user_account'
+    
+    # Kiểm tra trong bảng patient_account
+    cursor.execute(
+        """
+        SELECT * FROM patient_account
+        WHERE user_name = %s AND password = %s
+        """, 
+        (username, password)
+    )
+    result = cursor.fetchone()
+    if result is not None:
+        return True, 'patient_account'
+    
+    return False, None
+
 #Function to insert new patient profile   
 def save_to_db(fullname, dob, sex, height, weight, phone, insur_number, address, note):
     cursor = connect_to_db()
+
+
     cursor.execute(
         """
         INSERT INTO profile_of_patient(
@@ -117,7 +134,24 @@ def save_to_db(fullname, dob, sex, height, weight, phone, insur_number, address,
         """, 
         (fullname, dob, sex, height, weight, phone, insur_number, address, note)
     )
+
+
+    username = fullname.replace(" ", "").lower()
+    password = phone
+
+    cursor.execute(
+        """
+        INSERT INTO patient_account(
+            user_name,
+            password
+        )
+        VALUES (%s,%s)
+        """, 
+        (username, password)
+    )
+
     cursor.connection.commit()
+
 #Function to check patient's fullname is exist or not when create patient profile      
 def check_fullname_exists(fullname):
     cursor = connect_to_db()
@@ -214,7 +248,7 @@ def plot_age_distribution(ages, widget):
     
 def get_patient_profiles():
     cursor = connect_to_db()
-    cursor.execute("SELECT fullname, insur_number FROM profile_of_patient")
+    cursor.execute("SELECT fullname, insur_number, phone FROM profile_of_patient")
     return cursor.fetchall()
 
 #Convert date
@@ -315,5 +349,3 @@ def start_plot(data_line, plot_widget, x, y,label_47):
     timer.setInterval(3)  # in milliseconds
     timer.timeout.connect(update_plot)
     timer.start()
-
-

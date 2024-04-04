@@ -2130,7 +2130,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Health Monitoring System"))
-        self.logo_label_3.setText(_translate("MainWindow", "Project_2"))
+        self.logo_label_3.setText(_translate("MainWindow", "Project"))
         self.home_btn_2.setText(_translate("MainWindow", "Home"))
         self.newprofile_btn_2.setText(_translate("MainWindow", "Create New Profile"))
         self.display_btn_2.setText(_translate("MainWindow", "Display"))
