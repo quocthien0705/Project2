@@ -21,7 +21,7 @@ ui = None
 # taskbar_height = get_taskbar_height()
 app = QtWidgets.QApplication(sys.argv)
 Mainwindow = QtWidgets.QMainWindow()
-
+manager = IdentityManager(connection_string)
 def login_Ui():
     global ui,error_msg
     ui = stacked.Ui_MainWindow()
@@ -62,7 +62,7 @@ def on_sign_up_clicked(ui):
     password_signup = ui.line_password_signup_2.text()
     confirm = ui.line_confirm_2.text()
     email = ui.line_email_2.text()
-    manager = IdentityManager(connection_string)
+    
     id_value = manager.create_and_add_user_to_db(cursor, username_signup)
 
     if signup_error_msg is None:
@@ -173,7 +173,14 @@ def on_save_button_clicked(ui):
         error_profile.deleteLater()
         error_profile = None 
         try:
-            save_to_db(fullname, dob, sex, str(height), str(weight),str(phone), str(insur_number), address, note)
+            username = fullname.replace(" ", "").lower()
+            password = phone 
+            print(username,password)
+            identity = manager.create_and_add_paitent_to_db(cursor, username) 
+            # print(str(identity ))         
+            save_to_db(fullname, dob, sex, str(height), str(weight),str(phone), str(insur_number), address, note,username,password,identity)
+            
+
             # Show a success message
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Information)

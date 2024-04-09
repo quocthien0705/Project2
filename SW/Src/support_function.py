@@ -114,7 +114,7 @@ def check_user_and_password_signin(username, password):
     return False, None
 
 #Function to insert new patient profile   
-def save_to_db(fullname, dob, sex, height, weight, phone, insur_number, address, note):
+def save_to_db(fullname, dob, sex, height, weight, phone, insur_number, address, note,username, password,identity):
     cursor = connect_to_db()
 
 
@@ -137,18 +137,18 @@ def save_to_db(fullname, dob, sex, height, weight, phone, insur_number, address,
     )
 
 
-    username = fullname.replace(" ", "").lower()
-    password = phone
+    
 
     cursor.execute(
         """
         INSERT INTO patient_account(
             user_name,
-            password
+            password,
+            identity
         )
-        VALUES (%s,%s)
+        VALUES (%s,%s,%s)
         """, 
-        (username, password)
+        (username, password,identity)
     )
 
     cursor.connection.commit()

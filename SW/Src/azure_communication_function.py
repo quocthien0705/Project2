@@ -40,6 +40,15 @@ def insert_identity_into_db(cursor, id_value=None, display_name=None):
         (id_value, display_name)
     )
     cursor.connection.commit()
+def insert_identity_paitent_into_db(cursor, id_value=None):
+    cursor.execute(
+        """
+        INSERT INTO patient_account identity
+        VALUES (%s)
+        """, 
+        (id_value)
+    )
+    cursor.connection.commit()    
 def get_all_display_names():
     cursor = connect_to_db()
     cursor.execute("SELECT user_name, identity FROM user_account")
@@ -74,6 +83,7 @@ def insert_threadid_name_into_db(cursor,joiner_1=None  , joiner_2=None, thread_i
     cursor.execute(sq, (joiner_2+"|"+thread_id+"|"+topic,))
     cursor.connection.commit()
 #Get values by display_name
+
 def get_threadId_by_name(cursor, joiner_1, joiner_2):
     value_pattern = f"{joiner_2}|%"
     query = f"SELECT {joiner_1} FROM thread_manage WHERE {joiner_1} LIKE %s"
@@ -110,10 +120,12 @@ class IdentityManager:
 
     def create_and_add_user_to_db(self,cursor, display_name):
         user = self.identity_client.create_user()
-        id_value = user.properties['id']
-        
+        id_value = user.properties['id']        
         return id_value
-
+    def create_and_add_paitent_to_db(self,cursor, display_name):
+        user = self.identity_client.create_user()
+        id_value = user.properties['id']        
+        return id_value
     def get_token(self, user_id):
         user = user = CommunicationUserIdentifier(user_id)
         tokenresponse = self.identity_client.get_token(user, scopes=["voip"])
