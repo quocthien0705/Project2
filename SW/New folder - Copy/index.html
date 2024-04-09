@@ -1,0 +1,48 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Health Monitoring Calling Service</title>
+        <link rel="stylesheet" type="text/css" href="styles.css"/>
+        <link rel="icon" href="/icon/call_center.svg" type="image/svg+xml">
+    </head>
+    <body>
+        <h4>Health Monitoring Calling Service</h4>
+        <!-- <input id="user-access-token"
+            type="text"
+            placeholder="User access token"
+            style="margin-bottom:1em; width: 500px;"/>
+        <button id="initialize-call-agent" type="button">Initialize Call Agent</button> -->
+        <div id="user-display-name"></div>
+        <!-- <input id="callee-acs-user-id"
+            type="text"
+            placeholder="Enter callee's Azure Communication Services user identity in format: '8:acs:resourceId_userId'"
+            style="margin-bottom:1em; width: 500px; display: block;"/> -->
+        <div class="dropdown-container">
+            <label for="callee-acs-user-id">Select a person to call:</label>
+            <select id="callee-acs-user-id" style="width: 300px;"></select>
+        </div>
+        <div id="button-container">
+            <button id="start-call-button" type="button" disabled="true">
+                <img id="start-call-icon" src="/icon/start_call_dis.png">
+            </button>
+            <button id="toggle-video-button" type="button" disabled="true">
+                <img id="toggle-video-icon" src="/icon/video_dis.png">
+            </button>
+            <button id="toggle-micro-button" type="button" disabled="true">
+                <img id="toggle-micro-icon" src="/icon/mic_dis.png">
+            </button>
+            <button id="accept-call-button" type="button" disabled="true">
+                <img id="accept-call-icon" src="/icon/accept_call_dis.png">
+            </button>
+            <button id="hangup-call-button" type="button" disabled="true">
+                <img id="hangup-call-icon" src="/icon/hangup_dis.png">
+            </button>
+        </div>      
+        <div id="connectedLabel" style="color: #13bb13;" hidden>Call is connected!</div>
+        <div id="remoteVideosGallery" hidden></div>
+        <div id="localVideoContainer" hidden></div>
+        <!-- points to the bundle generated from client.js -->
+        <script src="./main.js"></script>
+    </body>
+</html>

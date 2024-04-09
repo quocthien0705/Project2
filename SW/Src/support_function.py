@@ -68,18 +68,19 @@ def check_email_signup(email):
     else:
         return False
 #Function insert new user when create account
-def insert_new_user(username_signup, password_signup, email):
+def insert_new_user(username_signup, password_signup, email,identity):
     cursor = connect_to_db()
     cursor.execute(
         """
         INSERT INTO user_account(
             user_name,
             password,
-            email
+            email,
+            identity
         )
-        VALUES (%s,%s,%s)
+        VALUES (%s,%s,%s,%s)
         """, 
-        (username_signup, password_signup, email)
+        (username_signup, password_signup, email, identity)
     )
     cursor.connection.commit()
 #Function check username and password when login

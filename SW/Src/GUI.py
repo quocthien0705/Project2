@@ -5,8 +5,10 @@ import sys
 from pyqtgraph import PlotWidget, mkPen,AxisItem
 import pandas as pd
 import stacked
+import open_web
 # from get_taskbar_height import get_taskbar_height
 import sidebar
+from azure_communication_function import *
 from support_function import *
 font = QtGui.QFont()
 font.setFamily("Rockwell")
@@ -55,12 +57,14 @@ def on_sign_up_clicked(ui):
     # ui = stacked.Ui_MainWindow()
     # ui.setupUi(Mainwindow)
     # ui.stackedWidget.setCurrentIndex(1)    
+
     username_signup = ui.line_username_signup_2.text()
     password_signup = ui.line_password_signup_2.text()
     confirm = ui.line_confirm_2.text()
     email = ui.line_email_2.text()
+    manager = IdentityManager(connection_string)
+    id_value = manager.create_and_add_user_to_db(cursor, username_signup)
 
-    
     if signup_error_msg is None:
         signup_error_msg = QtWidgets.QLabel(ui.widget_signup)
         signup_error_msg.setStyleSheet("background-color: rgba(0,0,0,0);color: red")
@@ -107,7 +111,7 @@ def on_sign_up_clicked(ui):
             # print(username_signup,password_signup,confirm,email)  
             # data = pd.DataFrame([[username_signup, password_signup, email]], columns=['Username', 'Password', 'Email'])
             # data.to_csv(os.path.join(DATA_PATH,'Login_Account.csv'), mode='a', header=False, index=False)
-            insert_new_user(username_signup, password_signup, email)
+            insert_new_user(username_signup, password_signup, email, id_value)
             login_Ui()
 
 def on_stackedWidget_currentChanged(ui, index):
@@ -357,6 +361,7 @@ def homepage_Ui():
         font.setPointSize(10)
         error_msg.setFont(font)
         
+        
     if len(username)==0 or len(password)==0:
         
         error_msg.setText("Please input all fields.")
@@ -389,6 +394,7 @@ def homepage_Ui():
             ui.newprofile_btn_2.toggled.connect(lambda: on_newprofile_btn_toggled(ui) if ui.newprofile_btn_2.isChecked() else None)
             ui.uart_btn_1.toggled.connect(lambda: on_uart_btn_toggled(ui) if ui.uart_btn_1.isChecked() else None)
             ui.uart_btn_2.toggled.connect(lambda: on_uart_btn_toggled(ui) if ui.uart_btn_2.isChecked() else None)
+            open_web.open_web(username)
         else:
             error_msg.setText("Invalid username or password.")
             error_msg.setGeometry(QtCore.QRect(70, 265, 300, 30))

@@ -1,0 +1,137 @@
+/**
+ * CSS for styling the loading spinner over the remote video stream
+ */
+.dropdown-container {
+    display: flex;
+    align-items: center;
+    width: 450px;
+    justify-content: space-between;
+}
+#button-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 10px; 
+}
+#hangup-call-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    padding: 0;
+    border: none;
+    background-color: #e7e5e4;
+    overflow: hidden;
+}
+#hangup-call-icon {
+    width: 50px;
+    height: 50px;
+}
+
+#accept-call-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    padding: 0;
+    border: none;
+    background-color: #e7e5e4;
+    overflow: hidden;
+}
+#accept-call-icon {
+    width: 50px;
+    height: 50px;
+}
+
+#start-call-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    padding: 0;
+    border: none;
+    background-color: #e7e5e4;
+    overflow: hidden;
+}
+#start-call-icon {
+    width: 50px;
+    height: 50px;
+}
+
+#toggle-video-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    padding: 0;
+    border: none;
+    background-color: #e7e5e4;
+    overflow: hidden;
+}
+#toggle-video-icon {
+    width: 50px;
+    height: 50px;
+}
+
+#toggle-micro-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    padding: 0;
+    border: none;
+    background-color: #e7e5e4;
+    overflow: hidden;
+}
+#toggle-micro-icon {
+    width: 50px;
+    height: 50px;
+}
+
+.remote-video-container {
+    position: relative;
+}
+.loading-spinner {
+    border: 12px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 12px solid #ca5010;
+    width: 100px;
+    height: 100px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: translate(-50%, -50%);
+}
+#remoteVideosGallery {
+    margin: auto;
+    width: 70%;
+}
+#localVideoContainer {
+    position: absolute;
+    width: 14%;
+    right: 5px;
+    bottom: 0;
+}
+#remoteVideosGallery *,
+#localVideoContainer * {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+}
+body {
+    overflow: hidden;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+/* Safari */
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
