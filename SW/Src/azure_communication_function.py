@@ -51,17 +51,25 @@ def insert_identity_paitent_into_db(cursor, id_value=None):
     cursor.connection.commit()    
 def get_all_display_names():
     cursor = connect_to_db()
-    cursor.execute("SELECT user_name, identity FROM user_account")
-    rows = cursor.fetchall()
-    display_names = [{"display_name": row[0], "identity": row[1]} for row in rows]
 
     # Load the current display name from the JSON file
     with open('token_data.json', 'r') as f:
         data = json.load(f)
     current_display_name = data['display_name']
 
-    # Remove the current display name from the list
-    display_names = [d for d in display_names if d["display_name"] != current_display_name]
+    # Check if the current display name is in the user_account table
+    cursor.execute("SELECT user_name, identity FROM user_account WHERE user_name = %s", (current_display_name,))
+    row = cursor.fetchone()
+    if row is not None:
+        # If the current display name is in the user_account table, get all display names from the patient_account table
+        cursor.execute("SELECT user_name, identity FROM patient_account")
+    else:
+        # If the current display name is not in the user_account table, it must be in the patient_account table
+        # So, get all display names from the user_account table
+        cursor.execute("SELECT user_name, identity FROM user_account")
+
+    rows = cursor.fetchall()
+    display_names = [{"display_name": row[0], "identity": row[1]} for row in rows]
 
     return display_names
 def write_display_names_to_json():
@@ -69,13 +77,22 @@ def write_display_names_to_json():
     with open('display_names.json', 'w') as f:
         json.dump(display_names, f)
 def get_id_by_display_name(cursor, display_name):
-    query = "SELECT identity FROM user_account WHERE user_name = %s"
-    cursor.execute(query, (display_name,))
+    # Query for user_account table
+    query_user_account = "SELECT identity FROM user_account WHERE user_name = %s"
+    cursor.execute(query_user_account, (display_name,))
     row = cursor.fetchone()
     if row is not None:
         return row[0]
-    else:
-        return None
+
+    # Query for patient_account table
+    query_patient_account = "SELECT identity FROM patient_account WHERE user_name = %s"
+    cursor.execute(query_patient_account, (display_name,))
+    row = cursor.fetchone()
+    if row is not None:
+        return row[0]
+
+    # If no match found in both tables
+    return None
 def insert_threadid_name_into_db(cursor,joiner_1=None  , joiner_2=None, thread_id=None, topic=None):
     sql = f"ALTER TABLE thread_manage ADD COLUMN {joiner_1} VARCHAR(255)"
     cursor.execute(sql)
@@ -110,6 +127,7 @@ def create_token_and_write_to_json(user_name):
             "id": identity,
             "token": token
         }
+        print(os.getcwd())
         with open('token_data.json', 'w') as f:
             json.dump(data, f)
     else:
