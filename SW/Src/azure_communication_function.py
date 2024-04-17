@@ -69,7 +69,7 @@ def get_all_display_names():
         cursor.execute("SELECT user_name, identity FROM user_account")
 
     rows = cursor.fetchall()
-    display_names = [{"display_name": row[0], "identity": row[1]} for row in rows]
+    display_names = [{"display_name": row[0], "id": row[1]} for row in rows]
 
     return display_names
 def write_display_names_to_json():
@@ -146,7 +146,7 @@ class IdentityManager:
         return id_value
     def get_token(self, user_id):
         user = user = CommunicationUserIdentifier(user_id)
-        tokenresponse = self.identity_client.get_token(user, scopes=["voip"])
+        tokenresponse = self.identity_client.get_token(user, scopes=["voip","chat"])
         return tokenresponse.token
 
     def create_chat_client(self, token):
@@ -183,4 +183,4 @@ class IdentityManager:
 # chat_client = manager.create_chat_client(token)
 # thread_id = get_threadId_by_name(cursor, "huy1", "huy3")
 # print("thread_id",thread_id)
-
+print(get_threadId_by_name(cursor, "huy1", "huy3"))
