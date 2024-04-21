@@ -15,3 +15,6 @@ SW/Src/build
 SW/Src/dist
 /qt
 aqtinstall.log
+SW/Video_Call/node_modules
+SW/communication-services-web-chat-hero/node_modules
+SW/communication-services-web-chat-hero/node_modules
