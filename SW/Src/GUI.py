@@ -64,6 +64,8 @@ def on_sign_up_clicked(ui):
     email = ui.line_email_2.text()
     
     id_value = manager.create_and_add_user_to_db(cursor, username_signup)
+    cursor.execute("ALTER TABLE docter_threadmanage ADD COLUMN username_signup text")
+    cursor.connection.commit()
 
     if signup_error_msg is None:
         signup_error_msg = QtWidgets.QLabel(ui.widget_signup)
@@ -179,7 +181,9 @@ def on_save_button_clicked(ui):
             identity = manager.create_and_add_paitent_to_db(cursor, username) 
             # print(str(identity ))         
             save_to_db(fullname, dob, sex, str(height), str(weight),str(phone), str(insur_number), address, note,username,password,identity)
-            
+            cursor.execute("ALTER TABLE patient_threadmanage ADD COLUMN username text")
+            cursor.connection.commit()
+
 
             # Show a success message
             msg = QMessageBox()
