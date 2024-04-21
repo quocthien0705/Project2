@@ -67,6 +67,7 @@ def on_sign_up_clicked(ui):
     cursor.execute("ALTER TABLE docter_threadmanage ADD COLUMN username_signup text")
     cursor.connection.commit()
 
+
     if signup_error_msg is None:
         signup_error_msg = QtWidgets.QLabel(ui.widget_signup)
         signup_error_msg.setStyleSheet("background-color: rgba(0,0,0,0);color: red")
