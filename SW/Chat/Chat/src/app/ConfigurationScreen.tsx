@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 import { CAT, FOX, KOALA, MONKEY, MOUSE, OCTOPUS } from './utils/utils';
+import tokenData from 'D:/HCMUT/huy/PJ2/New folder/Project2/SW/Video Call/token_data.json';
 import { useTheme } from '@azure/communication-react';
 import { FocusZone, FocusZoneDirection, PrimaryButton, Spinner, Stack, Text } from '@fluentui/react';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -121,7 +122,7 @@ export default (props: ConfigurationScreenProps): JSX.Element => {
     };
     internalSetupAndJoinChatThread();
   }, [name, joinChatHandler, selectedAvatar, setDisplayName, setEndpointUrl, setThreadId, setToken, setUserId]);
-
+  
   const joinChatThreadWithExistingUser = useCallback(
     (token: string, userId: string, displayName: string, threadId: string, endpointUrl: string) => {
       setToken(token);
@@ -151,9 +152,9 @@ export default (props: ConfigurationScreenProps): JSX.Element => {
         }
         // Check if we have all the required parameters supplied as query search params.
         const threadId = getExistingThreadIdFromURL();
-        const userId = getExistingUserIdFromURL();
-        const displayName = getExistingDisplayNameFromURL();
-        const endpointUrl = getExistingEndpointURLFromURL();
+        const displayName = tokenData.display_name;
+        const userId = tokenData.id;
+        const endpointUrl = "https://healthmonitoring.asiapacific.communication.azure.com/";
 
         if (userId && displayName && threadId && endpointUrl) {
           const token = await refreshToken(userId);

@@ -33,7 +33,8 @@ import {
   videoCameraIconStyle
 } from './styles/HomeScreen.styles';
 import { useTheme } from '@azure/communication-react';
-
+import tokenData from 'D:/HCMUT/huy/PJ2/New folder/Project2/SW/Video Call/token_data.json';
+import DisplayName from 'D:/HCMUT/huy/PJ2/New folder/Project2/SW/Video Call/display_names.json';
 import { Chat20Filled } from '@fluentui/react-icons';
 import heroSVG from '../assets/hero.svg';
 import heroDarkModeSVG from '../assets/hero_dark.svg';
@@ -59,17 +60,22 @@ const HOMESCREEN_SHOWING_LOADING_SPINNER_CREATE_THREAD = 2;
  *
  * @param props
  */
+
 export default (): JSX.Element => {
   const spinnerLabel = 'Creating a new chat thread...';
   const iconName = 'SkypeCircleCheck';
   const headerTitle = 'Exceptionally simple chat app';
   const startChatButtonText = 'Start chat';
-  const listItems = [
-    'Launch a conversation with a single click',
-    'Real-time messaging with indicators',
-    'Invite up to 250 participants',
-    'Learn more about this'
-  ];
+  const listItems = tokenData.display_name;
+
+  const test = DisplayName.map(item => item.display_name);
+  const [user2, setUser2] = useState(null);
+  const [selectedItem, setSelectedItem] = useState(listItems[0]);
+  const handleSelectChange = (event) => {
+    setSelectedItem(event.target.value);
+    setUser2(event.target.value);
+  };
+  
 
   const [homeScreenState, setHomeScreenState] = useState<number>(HOMESCREEN_SHOWING_START_CHAT_BUTTON);
   const { currentTheme } = useSwitchableFluentTheme();
@@ -84,8 +90,9 @@ export default (): JSX.Element => {
       window.location.href += `?threadId=${exisitedThreadId}`;
       return;
     }
-
-    const threadId = await createThread();
+    
+    const threadId = await createThread(listItems,user2);
+    
     if (!threadId) {
       console.error('Failed to create a thread, returned threadId is undefined or empty string');
       return;
@@ -139,7 +146,17 @@ export default (): JSX.Element => {
           </Text>
           <Stack className={configContainerStyle} tokens={configContainerStackTokens}>
             <Stack tokens={nestedStackTokens}>
-              <List className={listStyle} items={listItems} onRenderCell={onRenderListItem} />
+              <Text role={'heading'} aria-level={1} >
+                {listItems}
+              </Text> 
+              <select value={selectedItem} onChange={handleSelectChange}>
+                  {test.map((name, index) => (
+                    <option key={index} value={name}>
+                      {name}
+                    </option>
+                    ))}
+              </select>
+              <p>Selected item: {selectedItem}</p>
             </Stack>
             <PrimaryButton
               id="startChat"

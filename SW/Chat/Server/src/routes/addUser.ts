@@ -6,6 +6,52 @@ import { AzureCommunicationTokenCredential } from '@azure/communication-common';
 import * as express from 'express';
 import { getEndpoint } from '../lib/envHelper';
 import { getAdminUser, getToken } from '../lib/identityClient';
+import { get } from 'http';
+import { threadId } from 'worker_threads';
+// const pgp = require("pg-promise")();
+
+// const client = pgp({
+//     host: 'a-3.postgres.database.azure.com',
+//     port: 5432,
+//     database: 'project',
+//     user: 'Project_Health_Care_System',
+//     password: '@healthcare2',
+//     ssl: {
+//         rejectUnauthorized: false,
+//     },
+// });
+// const connect_db = async () => {
+//     try {
+//         await client.connect();
+//         console.log("Connected to the database");
+//     } catch (error) {
+//         console.log("Error connecting to the database");
+//     }
+// };
+
+// const getDoctor_ThreadIdByName =  async (joiner_1: string, joiner_2: string) => {
+//   const valuePattern = `${joiner_2}|%`;
+//   const query = `SELECT ${joiner_1} FROM docter_threadmanage WHERE ${joiner_1} LIKE $1`;
+//   const values = [valuePattern];
+
+//   connect_db();
+  
+//   const res = await client.any(query, values);
+//   console.log("bug1");
+//   console.log(res);
+//   const str = res[0][joiner_1];
+//   const parts = str.split('|');
+//   let t;
+//   if (parts.length > 2) {
+//       t = parts[1]; // Get the second part, which is the text between the '|' characters
+//   } else {
+//       t = str;
+//   }
+//   return t;
+  
+// };
+
+// console.log("addUser.ts");
 
 const router = express.Router();
 interface AddUserParam {
