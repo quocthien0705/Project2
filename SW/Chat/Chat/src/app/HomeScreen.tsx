@@ -156,7 +156,6 @@ export default (): JSX.Element => {
                     </option>
                     ))}
               </select>
-              <p>Selected item: {selectedItem}</p>
             </Stack>
             <PrimaryButton
               id="startChat"

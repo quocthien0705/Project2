@@ -60,31 +60,31 @@ const webpackConfig = (sampleAppDir, env, babelConfig) => {
       proxy: [
         {
           path: '/token',
-          target: 'http://[::1]:8080'
+          target: 'http://[::1]:5000'
         },
         {
           path: '/refreshToken/*',
-          target: 'http://[::1]:8080'
+          target: 'http://[::1]:5000'
         },
         {
           path: '/isValidThread/*',
-          target: 'http://[::1]:8080'
+          target: 'http://[::1]:5000'
         },
         {
           path: '/createThread',
-          target: 'http://[::1]:8080'
+          target: 'http://[::1]:5000'
         },
         {
           path: '/userConfig/*',
-          target: 'http://[::1]:8080'
+          target: 'http://[::1]:5000'
         },
         {
           path: '/getEndpointUrl',
-          target: 'http://[::1]:8080'
+          target: 'http://[::1]:5000'
         },
         {
           path: '/addUser/*',
-          target: 'http://[::1]:8080'
+          target: 'http://[::1]:5000'
         }
       ]
     }

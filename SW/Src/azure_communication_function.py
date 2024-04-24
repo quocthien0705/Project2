@@ -116,7 +116,18 @@ def add_user_to_thread(cursor, joiner_1, joiner_2, thread_id, topic):
 
     insert_threadid_name_into_db(cursor, joiner_1, joiner_2, thread_id, topic)
     return thread_id
-def create_token_and_write_to_json(user_name):
+def update_admin_user_id(new_user_id):
+    # Open the JSON file and load its contents
+    with open(r'D:\HCMUT\huy\PJ2\New folder\Project2\SW\Chat\Server\appsettings.json', 'r') as f:
+        data = json.load(f)
+
+    # Update the AdminUserId field
+    data['AdminUserId'] = new_user_id
+
+    # Write the updated JSON back to the file
+    with open(r'D:\HCMUT\huy\PJ2\New folder\Project2\SW\Chat\Server\appsettings.json', 'w') as f:
+        json.dump(data, f, indent=2)
+def create_token_and_write_to_json(user_name,table_name):
     identity = get_id_by_display_name(cursor,user_name)
     print(identity)
     if identity is not None:
@@ -125,8 +136,10 @@ def create_token_and_write_to_json(user_name):
         data = {
             "display_name": user_name,
             "id": identity,
-            "token": token
+            "token": token,
+            "table_name": table_name
         }
+        update_admin_user_id(identity)
         print(os.getcwd())
         with open('token_data.json', 'w') as f:
             json.dump(data, f)
@@ -174,13 +187,3 @@ class IdentityManager:
         insert_threadid_name_into_db(cursor,joiner_1, joiner_2,thread_id=chat_thread_id, topic=joiner_1+"-"+joiner_2)
         return chat_thread_id
 
-# id_value, display_name_value, thread_id_value = create_and_add_user_to_db(cursor, 'Thien1', 'test topic')
-# manager = IdentityManager(connection_string)
-# user_name = "huy1"
-# user_id = get_id_by_display_name(cursor, "huy1")
-# token = manager.get_token(user_id)
-# print("token",token)
-# chat_client = manager.create_chat_client(token)
-# thread_id = get_threadId_by_name(cursor, "huy1", "huy3")
-# print("thread_id",thread_id)
-print(get_threadId_by_name(cursor, "huy1", "huy3"))

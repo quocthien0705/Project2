@@ -64,7 +64,7 @@ def on_sign_up_clicked(ui):
     email = ui.line_email_2.text()
     
     id_value = manager.create_and_add_user_to_db(cursor, username_signup)
-    cursor.execute("ALTER TABLE docter_threadmanage ADD COLUMN username_signup text")
+    cursor.execute(f"ALTER TABLE docter_threadmanage ADD COLUMN {username_signup} text")
     cursor.connection.commit()
 
 
@@ -182,7 +182,7 @@ def on_save_button_clicked(ui):
             identity = manager.create_and_add_paitent_to_db(cursor, username) 
             # print(str(identity ))         
             save_to_db(fullname, dob, sex, str(height), str(weight),str(phone), str(insur_number), address, note,username,password,identity)
-            cursor.execute("ALTER TABLE patient_threadmanage ADD COLUMN username text")
+            cursor.execute(f"ALTER TABLE patient_threadmanage ADD COLUMN {username} text")
             cursor.connection.commit()
 
 
@@ -406,7 +406,7 @@ def homepage_Ui():
             ui.newprofile_btn_2.toggled.connect(lambda: on_newprofile_btn_toggled(ui) if ui.newprofile_btn_2.isChecked() else None)
             ui.uart_btn_1.toggled.connect(lambda: on_uart_btn_toggled(ui) if ui.uart_btn_1.isChecked() else None)
             ui.uart_btn_2.toggled.connect(lambda: on_uart_btn_toggled(ui) if ui.uart_btn_2.isChecked() else None)
-            open_web.open_web(username)
+            open_web.open_web(username,table_name)
         else:
             error_msg.setText("Invalid username or password.")
             error_msg.setGeometry(QtCore.QRect(70, 265, 300, 30))

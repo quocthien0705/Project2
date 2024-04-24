@@ -5,6 +5,8 @@ import { AzureCommunicationTokenCredential } from '@azure/communication-common';
 import { ChatClient, CreateChatThreadOptions, CreateChatThreadRequest } from '@azure/communication-chat';
 import { getEndpoint } from '../envHelper';
 import { getAdminUser, getToken } from '../identityClient';
+import tokenData from 'D:/HCMUT/huy/PJ2/New folder/Project2/SW/Video Call/token_data.json';
+import { token } from 'morgan';
 const pgp = require("pg-promise")();
 
 const client = pgp({
@@ -58,54 +60,40 @@ const get_PatientId_by_Name =  async (displayName:string) => {
   // Create an identity
   return user_id;
 }
-export const insert_Doctor_ThreadIdNameIntoDb = async (
-  name1: string | null = null, 
-  name2: string | null = null, 
-  thread_id: string | null = null, 
-  topic: string | null = null
-): Promise<string | undefined> => {
-  // Check if column exists
-  const checkColumnExists = `SELECT column_name FROM information_schema.columns WHERE table_name='Docter_ThreadManage' AND column_name='${name1}';`;
-  const columnExists = await client.any(checkColumnExists);
-  // If column does not exist, add it
-  // Code missing here
-
-  // Check if name2 already exists in the column
-  let checkJoiner2Exists = `SELECT * FROM Docter_ThreadManage WHERE ${name1} LIKE '%${name2}%'`;
-  let joiner2Exists = await client.any(checkJoiner2Exists);
-
-  if (joiner2Exists.length > 0) {
-    console.log(`name2: ${name2} already exists in column: ${name1}`);
-    // Extract the thread ID from the existing record
-    let existingRecord = joiner2Exists.rows[0][name1];
-    console.log(existingRecord);
-    let existingThreadId = existingRecord.split("|")[1];
-    return existingThreadId;
-  }
-
-  // Insert data into the column
-  let sq = `INSERT INTO Docter_ThreadManage (${name1}) VALUES ($1)`;
-  await client.any(sq, [name2 + "|" + thread_id + "|" + topic]);
-
-  let sqq = `INSERT INTO patient_threadmanage (${name2}) VALUES ($1)`;
-  await client.any(sqq, [name1 + "|" + thread_id + "|" + topic]);
-
-  return thread_id;
+const get_DoctorID_by_Name =  async (displayName:string) => {
+  connect_db();
+  const queryUserAccount = 'SELECT identity FROM user_account WHERE user_name = $1';
+  let res = await client.any(queryUserAccount, [displayName]);
+  let user_id;
+  if (res.length > 0) {
+      user_id = res[0].identity;
+  }    
+  // Create an identity
+  return user_id;
 }
+
 export const createThread = async (name1:string, name2:string): Promise<string> =>{
     // Check if name2 already exists in the name1 column
-  console.log(name1,name2);
-  let checkJoinerExists = `SELECT * FROM docter_threadmanage WHERE ${name1} LIKE '%${name2}%'`;
+  let Check = null;
+  let name2_id = '';
+  if(tokenData.table_name == "patient_account"){
+    Check = 'patient_threadmanage';
+    name2_id = await get_DoctorID_by_Name(name2);
+  }
+  else{
+    Check = 'docter_threadmanage';
+    name2_id = await get_PatientId_by_Name(name2);
+  } 
+  
+  let checkJoinerExists = `SELECT * FROM ${Check} WHERE ${name1} LIKE '%${name2}%'`;
   let joinerExists = await client.any(checkJoinerExists);
 
   if (joinerExists && joinerExists.length > 0) {
-    console.log(`Joiner: ${name2} already exists in ${name1} column. Not creating a new chat thread.`);
-    // Extract the thread ID from the existing record
+    console.log(`Joiner: ${name2} already exists in ${name1} column. Not creating a new chat thread.`);  // Extract the thread ID from the existing record
     let existingRecord = joinerExists[0][name1];
     if (existingRecord) {
       console.log(existingRecord);
       let existingThreadId = existingRecord.split("|")[1];
-      console.log(existingThreadId);
       return existingThreadId;
     } else {
       console.error(`Column ${name1} does not exist in the returned rows.`);
@@ -113,10 +101,10 @@ export const createThread = async (name1:string, name2:string): Promise<string> 
       return;
     }
   }
-  let joiner2_id = await get_PatientId_by_Name(name2);
   let topic = "Hello!";
   const user = await getAdminUser();
-  const name2_id = await get_PatientId_by_Name(name2);
+
+  //////////////////////////
   const credential = new AzureCommunicationTokenCredential({
     tokenRefresher: async () => (await getToken(user, ['chat', 'voip'])).token,
     refreshProactively: true
@@ -137,7 +125,20 @@ export const createThread = async (name1:string, name2:string): Promise<string> 
   const result = await chatClient.createChatThread(request, options);
 
   const threadID = result.chatThread?.id;
-  insert_Doctor_ThreadIdNameIntoDb( name1, name2, threadID, topic);
+  if(Check == 'patient_threadmanage'){
+  let sq = `INSERT INTO Docter_ThreadManage (${name2}) VALUES ($1)`;
+  await client.any(sq, [name1 + "|" + threadID + "|" + topic]);
+
+  let sqq = `INSERT INTO patient_threadmanage (${name1}) VALUES ($1)`;
+  await client.any(sqq, [name2 + "|" + threadID + "|" + topic]);
+  }
+  else{
+  let sq = `INSERT INTO Docter_ThreadManage (${name1}) VALUES ($1)`;
+  await client.any(sq, [name2 + "|" + threadID + "|" + topic]);
+
+  let sqq = `INSERT INTO patient_threadmanage (${name2}) VALUES ($1)`;
+  await client.any(sqq, [name1 + "|" + threadID + "|" + topic]);
+  }
   return threadID;
 }
 // export const createThread = async (name1:string,name2:string): Promise<string> => {
