@@ -15,6 +15,6 @@ SW/Src/build
 SW/Src/dist
 /qt
 aqtinstall.log
-SW/Video_Call/node_modules
-SW/Chat/node_modules
+SW/Src/Video Call/node_modules
+SW/Src/Chat/node_modules
 node_modules

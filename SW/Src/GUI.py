@@ -407,6 +407,7 @@ def homepage_Ui():
             ui.uart_btn_1.toggled.connect(lambda: on_uart_btn_toggled(ui) if ui.uart_btn_1.isChecked() else None)
             ui.uart_btn_2.toggled.connect(lambda: on_uart_btn_toggled(ui) if ui.uart_btn_2.isChecked() else None)
             open_web.open_web(username,table_name)
+            open_web.start_cmd()
         else:
             error_msg.setText("Invalid username or password.")
             error_msg.setGeometry(QtCore.QRect(70, 265, 300, 30))

@@ -1,7 +1,0 @@
-npx webpack serve --config webpack.config.js
-Set your connection string in Server/appsettings.json
-Set your endpoint URL string in Server/appsettings.json
-Set your adminUserId string in Server/appsettings.json
-npm run setup // from the root directory
-npm run start // from the root directory
-npm audit fix

@@ -53,7 +53,7 @@ def get_all_display_names():
     cursor = connect_to_db()
 
     # Load the current display name from the JSON file
-    with open('token_data.json', 'r') as f:
+    with open(r'Src/Video Call/token_data.json', 'r') as f:
         data = json.load(f)
     current_display_name = data['display_name']
 
@@ -74,7 +74,7 @@ def get_all_display_names():
     return display_names
 def write_display_names_to_json():
     display_names = get_all_display_names()
-    with open('display_names.json', 'w') as f:
+    with open(r'Src/Video Call/display_names.json', 'w') as f:
         json.dump(display_names, f)
 def get_id_by_display_name(cursor, display_name):
     # Query for user_account table
@@ -118,14 +118,15 @@ def add_user_to_thread(cursor, joiner_1, joiner_2, thread_id, topic):
     return thread_id
 def update_admin_user_id(new_user_id):
     # Open the JSON file and load its contents
-    with open(r'D:\HCMUT\huy\PJ2\New folder\Project2\SW\Chat\Server\appsettings.json', 'r') as f:
+    os.chdir('..//..')
+    with open(r'Chat\Server\appsettings.json', 'r') as f:
         data = json.load(f)
 
     # Update the AdminUserId field
     data['AdminUserId'] = new_user_id
 
     # Write the updated JSON back to the file
-    with open(r'D:\HCMUT\huy\PJ2\New folder\Project2\SW\Chat\Server\appsettings.json', 'w') as f:
+    with open(r'Chat\Server\appsettings.json', 'w') as f:
         json.dump(data, f, indent=2)
 def create_token_and_write_to_json(user_name,table_name):
     identity = get_id_by_display_name(cursor,user_name)
@@ -140,8 +141,8 @@ def create_token_and_write_to_json(user_name,table_name):
             "table_name": table_name
         }
         update_admin_user_id(identity)
-        print(os.getcwd())
-        with open('token_data.json', 'w') as f:
+        # print(os.getcwd())
+        with open(r'Src/Video Call/token_data.json', 'w') as f:
             json.dump(data, f)
     else:
         print(f"No user found with display name {user_name}")
