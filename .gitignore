@@ -18,3 +18,7 @@ aqtinstall.log
 SW/Src/Video Call/node_modules
 SW/Src/Chat/node_modules
 node_modules
+SW/Src/Video Call/token_data.json
+SW/Src/Video Call/display_name.json
+SW/Src/paths.json
+SW/Src/Chat/Server/appsettings.json

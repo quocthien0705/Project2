@@ -24,6 +24,7 @@ Mainwindow = QtWidgets.QMainWindow()
 manager = IdentityManager(connection_string)
 def login_Ui():
     global ui,error_msg
+    write_path_to_json()
     ui = stacked.Ui_MainWindow()
     ui.setupUi(Mainwindow)
     ui.stackedWidget.setCurrentIndex(0)

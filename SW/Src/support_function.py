@@ -10,6 +10,8 @@ from pyqtgraph import ScatterPlotItem
 import matplotlib.pyplot as plt
 from PyQt5.QtWidgets import QSizePolicy,QVBoxLayout
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+import os 
+import json
 # from GUI import current_peak_plot
 #Function connect to database
 current_peak_plot = None
@@ -350,3 +352,29 @@ def start_plot(data_line, plot_widget, x, y,label_47):
     timer.setInterval(3)  # in milliseconds
     timer.timeout.connect(update_plot)
     timer.start()
+    
+def search_dir(names, folder_name):
+    file_paths = {os.path.splitext(name)[0]: None for name in names}
+    dir_paths = {os.path.splitext(name)[0]: None for name in names}
+    
+    for folder, _, files in os.walk(folder_name):
+        for name in names:
+            if name in files and file_paths[os.path.splitext(name)[0]] is None:
+                file_paths[os.path.splitext(name)[0]] = os.path.join(folder, name)
+
+    for folder, subfolders, _ in os.walk(folder_name):
+        for name in names:
+            if name in subfolders and dir_paths[os.path.splitext(name)[0]] is None:
+                dir_paths[os.path.splitext(name)[0]] = os.path.join(folder, name)
+                
+    paths = {os.path.splitext(name)[0]: file_paths.get(os.path.splitext(name)[0]) or dir_paths.get(os.path.splitext(name)[0]) for name in names}
+                
+    return paths
+
+def write_path_to_json():
+    names = ["appsettings.json", "display_names.json", "token_data.json", "Chat", "Video Call"]
+    folder_name = os.path.dirname(os.path.abspath(__file__))
+    paths = search_dir(names, folder_name)
+    paths['cur_dir'] = os.path.dirname(os.path.abspath(__file__))
+    with open('paths.json', 'w') as f:
+        json.dump(paths, f, ensure_ascii=False, indent=4)
