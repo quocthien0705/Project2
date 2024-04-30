@@ -3,6 +3,7 @@ import scipy.signal
 import pandas as pd
 import psycopg2 as ps
 import pywt
+from biosppy.signals import ecg
 from datetime import datetime
 from PyQt5 import QtWidgets, QtCore
 import pyqtgraph as pg
@@ -238,16 +239,21 @@ def get_patient_ages():
 #Function plot average ages
 def plot_age_distribution(ages, widget):
     age_counts = [ages.count(i) for i in range(1, 111)]
-    figure = plt.figure(figsize=(4, 2))
-    plt.bar(range(1, 111), age_counts, color='pink')
-    plt.xlabel('Ages')
-    plt.ylabel('Number of Patients')
-    plt.tight_layout()
-    canvas = FigureCanvas(figure)
-    canvas.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-    if widget.layout() is None:
-        widget.setLayout(QVBoxLayout())
-    widget.layout().addWidget(canvas)
+    plot_widget = pg.PlotWidget()
+    plot_widget.setBackground('w')
+    plot_widget.setLabel('left', 'Number of Patients')
+    plot_widget.setLabel('bottom', 'Ages')
+    plot_widget.showGrid(x=True, y=True)
+    # Create a bar graph with pink color and no border
+    bar_item = pg.BarGraphItem(x=range(1, 111), height=age_counts, width=1, brush='pink')
+    plot_widget.addItem(bar_item)
+    
+    if widget.layout() is not None:
+        widget.layout().addWidget(plot_widget)
+    else:
+        layout = QVBoxLayout()
+        layout.addWidget(plot_widget)
+        widget.setLayout(layout)
     
 def get_patient_profiles():
     cursor = connect_to_db()
@@ -310,10 +316,10 @@ def get_data_from_table(table_name):
 
 
 def start_plot(data_line, plot_widget, x, y,label_47):
-    global current_peak_plot
+    # global current_peak_plot
     current_index = 0
     peaks, _ = scipy.signal.find_peaks(y, height=2.5)  # detect peaks
-    peak_plot = ScatterPlotItem(size=20, pen=pg.mkPen(None), brush=pg.mkBrush(0, 255, 0, 120), symbol='x') 
+    # peak_plot = ScatterPlotItem(size=20, pen=pg.mkPen(None), brush=pg.mkBrush(0, 255, 0, 120), symbol='x') 
     plotted_peaks_x = []
     plotted_peaks_y = []
     heart_rates = []  # list to store heart rates
@@ -323,7 +329,7 @@ def start_plot(data_line, plot_widget, x, y,label_47):
         label_47.setText("00")
         current_index += 1
         if current_index > len(x) - 2000:
-            peak_plot.setData(plotted_peaks_x, plotted_peaks_y)  # plot all peaks
+            # peak_plot.setData(plotted_peaks_x, plotted_peaks_y)  # plot all peaks
             timer.stop()  # Dừng QTimer khi đến điểm cuối của dữ liệu
             # Calculate heart rate
             for i in range(1, len(plotted_peaks_x)):
@@ -333,6 +339,10 @@ def start_plot(data_line, plot_widget, x, y,label_47):
             avg_heart_rate = round(np.mean(heart_rates[1:])*200)
             print(f"Heart rate : {avg_heart_rate} bpm")
             label_47.setText(f"{avg_heart_rate}")
+            try:
+                ecg.ecg(signal=y*4096/3.3, sampling_rate=1/0.006, show=True,interactive=False)
+            except:
+                print('Warning when plot ECG Summary')
             return
         data_line.setData(x[:current_index+2000], y[:current_index+2000])
         plot_widget.setXRange(x[current_index], x[current_index] + 2000)
@@ -344,10 +354,10 @@ def start_plot(data_line, plot_widget, x, y,label_47):
             plotted_peaks_y.append(y[peak_index])
 
     # Xóa peak_plot hiện tại (nếu có) trước khi thêm peak_plot mới
-    if current_peak_plot is not None:
-        plot_widget.removeItem(current_peak_plot)
-    plot_widget.addItem(peak_plot)
-    current_peak_plot = peak_plot  # Cập nhật peak_plot hiện tại
+    # if current_peak_plot is not None:
+    #     plot_widget.removeItem(current_peak_plot)
+    # plot_widget.addItem(peak_plot)
+    # current_peak_plot = peak_plot  # Cập nhật peak_plot hiện tại
     timer = QtCore.QTimer()
     timer.setInterval(3)  # in milliseconds
     timer.timeout.connect(update_plot)

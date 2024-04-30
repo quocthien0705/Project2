@@ -6,6 +6,7 @@ from pyqtgraph import PlotWidget, mkPen,AxisItem
 import pandas as pd
 import stacked
 import open_web
+import threading
 # from get_taskbar_height import get_taskbar_height
 import sidebar
 from azure_communication_function import *
@@ -37,7 +38,7 @@ def login_Ui():
     # Mainwindow.setFixedHeight(994)
     # Mainwindow.setFixedWidth(1920)
     # Mainwindow.resize(1000,600)
-    Mainwindow.show()
+    Mainwindow.showMaximized()
 def signup_Ui(ui):
     global signup_error_msg
     # ui = stacked.Ui_MainWindow()
@@ -52,7 +53,7 @@ def signup_Ui(ui):
     # Mainwindow.setFixedHeight(994)
     # Mainwindow.setFixedWidth(1920)
     # Mainwindow.resize(1000,600)
-    Mainwindow.show()
+    Mainwindow.showMaximized()
 def on_sign_up_clicked(ui):
     global username_signup, password_signup, confirm, email, signup_error_msg
     # ui = stacked.Ui_MainWindow()
@@ -321,7 +322,6 @@ def on_display_btn_toggled(ui):
                 msg.exec_()
             else:
                 start_plot(data_line, plot_widget, x, y,ui.label_47)
-
         ui.start_button.clicked.connect(on_start_button_clicked)
 def on_newprofile_btn_toggled(ui):
     global error_profile, table_name
@@ -393,7 +393,7 @@ def homepage_Ui():
             # Mainwindow.setFixedHeight(994)
             # Mainwindow.setFixedWidth(1920) 
             # Mainwindow.resize(1000,600)
-            Mainwindow.show()
+            Mainwindow.showMaximized()
             ui.icon_only_widget.hide()
             ui.stackedWidget.setCurrentIndex(1)
             ui.home_btn_2.setChecked(True)
@@ -407,8 +407,14 @@ def homepage_Ui():
             ui.newprofile_btn_2.toggled.connect(lambda: on_newprofile_btn_toggled(ui) if ui.newprofile_btn_2.isChecked() else None)
             ui.uart_btn_1.toggled.connect(lambda: on_uart_btn_toggled(ui) if ui.uart_btn_1.isChecked() else None)
             ui.uart_btn_2.toggled.connect(lambda: on_uart_btn_toggled(ui) if ui.uart_btn_2.isChecked() else None)
-            open_web.open_web(username,table_name)
-            open_web.start_cmd()
+            
+            def open_web_and_start_cmd(username, table_name):
+                open_web.open_web(username, table_name)
+                open_web.start_cmd()
+
+            # Create a new thread for opening web and starting cmd
+            thread = threading.Thread(target=open_web_and_start_cmd, args=(username, table_name))
+            thread.start()
         else:
             error_msg.setText("Invalid username or password.")
             error_msg.setGeometry(QtCore.QRect(70, 265, 300, 30))

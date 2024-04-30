@@ -18,7 +18,7 @@ class MyComboBox(QtWidgets.QComboBox):
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1000, 600)
+        # MainWindow.resize(1920, 1040)
         MainWindow.setMinimumSize(QtCore.QSize(0, 600))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/icon/Icon_Logo/healthcare.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -1939,7 +1939,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_6 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_6.setObjectName("horizontalLayout_6")
         self.label_46 = QtWidgets.QLabel(self.widget_plot_ecg)
-        self.label_46.setMaximumSize(QtCore.QSize(100, 16777215))
+        self.label_46.setMaximumSize(QtCore.QSize(150, 16777215))
         font = QtGui.QFont()
         font.setFamily("Rockwell")
         font.setPointSize(12)
@@ -2183,7 +2183,7 @@ class Ui_MainWindow(object):
         self.label_33.setText(_translate("MainWindow", "Phone number:"))
         self.label_phone.setText(_translate("MainWindow", "None"))
         self.label_36.setText(_translate("MainWindow", "Electrocardiogram (ECG)"))
-        self.label_46.setText(_translate("MainWindow", "Heartbeat:"))
+        self.label_46.setText(_translate("MainWindow", "Average Heart rate:"))
         self.label_47.setText(_translate("MainWindow", "00"))
         self.label_48.setText(_translate("MainWindow", "bpm"))
         self.label_37.setText(_translate("MainWindow", "Maintenance"))
