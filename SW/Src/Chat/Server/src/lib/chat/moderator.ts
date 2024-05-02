@@ -30,7 +30,7 @@ const connect_db = async () => {
 
 const getDoctor_ThreadIdByName =  async (name1: string, name2: string) => {
   const valuePattern = `${name2}|%`;
-  const query = `SELECT ${name1} FROM docter_threadmanage WHERE ${name1} LIKE $1`;
+  const query = `SELECT ${name1} FROM doctor_threadmanage WHERE ${name1} LIKE $1`;
   const values = [valuePattern];
 
   connect_db();
@@ -81,7 +81,7 @@ export const createThread = async (name1:string, name2:string): Promise<string> 
     name2_id = await get_DoctorID_by_Name(name2);
   }
   else{
-    Check = 'docter_threadmanage';
+    Check = 'doctor_threadmanage';
     name2_id = await get_PatientId_by_Name(name2);
   } 
   
@@ -126,14 +126,14 @@ export const createThread = async (name1:string, name2:string): Promise<string> 
 
   const threadID = result.chatThread?.id;
   if(Check == 'patient_threadmanage'){
-  let sq = `INSERT INTO Docter_ThreadManage (${name2}) VALUES ($1)`;
+  let sq = `INSERT INTO doctor_threadmanage (${name2}) VALUES ($1)`;
   await client.any(sq, [name1 + "|" + threadID + "|" + topic]);
 
   let sqq = `INSERT INTO patient_threadmanage (${name1}) VALUES ($1)`;
   await client.any(sqq, [name2 + "|" + threadID + "|" + topic]);
   }
   else{
-  let sq = `INSERT INTO Docter_ThreadManage (${name1}) VALUES ($1)`;
+  let sq = `INSERT INTO doctor_threadmanage (${name1}) VALUES ($1)`;
   await client.any(sq, [name2 + "|" + threadID + "|" + topic]);
 
   let sqq = `INSERT INTO patient_threadmanage (${name2}) VALUES ($1)`;

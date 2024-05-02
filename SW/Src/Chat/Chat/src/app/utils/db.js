@@ -73,7 +73,7 @@ var getDoctor_ThreadIdByName = function (joiner_1, joiner_2) { return __awaiter(
         switch (_a.label) {
             case 0:
                 valuePattern = "".concat(joiner_2, "|%");
-                query = "SELECT ".concat(joiner_1, " FROM docter_threadmanage WHERE ").concat(joiner_1, " LIKE $1");
+                query = "SELECT ".concat(joiner_1, " FROM doctor_threadmanage WHERE ").concat(joiner_1, " LIKE $1");
                 values = [valuePattern];
                 connect_db();
                 return [4 /*yield*/, client.any(query, values)];
@@ -94,7 +94,7 @@ var getDoctor_ThreadIdByName = function (joiner_1, joiner_2) { return __awaiter(
     });
 }); };
 // async function create_chatThread_WithDocter(joiner_1: string, joiner_2: string): Promise<string> {
-//     let checkJoinerExists = `SELECT * FROM Docter_ThreadManage WHERE ${joiner_1} LIKE '%${joiner_2}%'`;
+//     let checkJoinerExists = `SELECT * FROM doctor_threadmanage WHERE ${joiner_1} LIKE '%${joiner_2}%'`;
 //     let joinerExists = await client.query(checkJoinerExists);
 //     if (joinerExists.rows.length > 0) {
 //       console.log(`Joiner: ${joiner_2} already exists in ${joiner_1} column. Not creating a new chat thread.`);

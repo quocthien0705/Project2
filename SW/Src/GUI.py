@@ -66,7 +66,7 @@ def on_sign_up_clicked(ui):
     email = ui.line_email_2.text()
     
     id_value = manager.create_and_add_user_to_db(cursor, username_signup)
-    cursor.execute(f"ALTER TABLE docter_threadmanage ADD COLUMN {username_signup} text")
+    cursor.execute(f"ALTER TABLE doctor_threadmanage ADD COLUMN {username_signup} text")
     cursor.connection.commit()
 
 

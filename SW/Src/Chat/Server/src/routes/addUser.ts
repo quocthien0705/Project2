@@ -31,7 +31,7 @@ import { threadId } from 'worker_threads';
 
 // const getDoctor_ThreadIdByName =  async (joiner_1: string, joiner_2: string) => {
 //   const valuePattern = `${joiner_2}|%`;
-//   const query = `SELECT ${joiner_1} FROM docter_threadmanage WHERE ${joiner_1} LIKE $1`;
+//   const query = `SELECT ${joiner_1} FROM doctor_threadmanage WHERE ${joiner_1} LIKE $1`;
 //   const values = [valuePattern];
 
 //   connect_db();

@@ -21,7 +21,7 @@ const connect_db = async () => {
 
 const getDoctor_ThreadIdByName =  async (joiner_1: string, joiner_2: string) => {
   const valuePattern = `${joiner_2}|%`;
-  const query = `SELECT ${joiner_1} FROM docter_threadmanage WHERE ${joiner_1} LIKE $1`;
+  const query = `SELECT ${joiner_1} FROM doctor_threadmanage WHERE ${joiner_1} LIKE $1`;
   const values = [valuePattern];
 
   connect_db();
@@ -42,7 +42,7 @@ const getDoctor_ThreadIdByName =  async (joiner_1: string, joiner_2: string) => 
 };
 
 // async function create_chatThread_WithDocter(joiner_1: string, joiner_2: string): Promise<string> {
-//     let checkJoinerExists = `SELECT * FROM Docter_ThreadManage WHERE ${joiner_1} LIKE '%${joiner_2}%'`;
+//     let checkJoinerExists = `SELECT * FROM doctor_threadmanage WHERE ${joiner_1} LIKE '%${joiner_2}%'`;
 //     let joinerExists = await client.query(checkJoinerExists);
   
 //     if (joinerExists.rows.length > 0) {

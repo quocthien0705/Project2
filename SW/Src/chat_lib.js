@@ -96,7 +96,7 @@ async function create_chatThread_WithPatient(joiner_1, joiner_2/*name of user wa
 async function create_chatThread_WithDocter(joiner_1, joiner_2/*name of user want to chat */) // add this to create chat thread, it have check the exitsting thread by name, jo
 {
     // Check if joiner_2 already exists in the joiner_1 column
-    let checkJoinerExists = `SELECT * FROM Docter_ThreadManage WHERE ${joiner_1} LIKE '%${joiner_2}%'`;
+    let checkJoinerExists = `SELECT * FROM doctor_threadmanage WHERE ${joiner_1} LIKE '%${joiner_2}%'`;
     let joinerExists = await client.query(checkJoinerExists);
 
     if (joinerExists.rows.length > 0) {
@@ -139,7 +139,7 @@ const client = new Client({
 });
 async function getDoctor_ThreadIdByName(client, joiner_1, joiner_2) {
     const valuePattern = `${joiner_2}|%`;
-    const query = `SELECT ${joiner_1} FROM Docter_ThreadManage WHERE ${joiner_1} LIKE $1`;
+    const query = `SELECT ${joiner_1} FROM doctor_threadmanage WHERE ${joiner_1} LIKE $1`;
     const values = [valuePattern];
 
     try {
@@ -195,21 +195,21 @@ async function insert_Patient_ThreadIdNameIntoDb(client, joiner_1 = null, joiner
     let sq = `INSERT INTO patient_threadmanage (${joiner_1}) VALUES ($1)`;
     await client.query(sq, [joiner_2 + "|" + thread_id + "|" + topic]);
     
-    let sqq = `INSERT INTO Docter_ThreadManage (${joiner_2}) VALUES ($1)`;
+    let sqq = `INSERT INTO doctor_threadmanage (${joiner_2}) VALUES ($1)`;
     await client.query(sqq, [joiner_1 + "|" + thread_id + "|" + topic]);
 
     return thread_id;
 }
 async function insert_Doctor_ThreadIdNameIntoDb(client, joiner_1 = null, joiner_2 = null, thread_id = null, topic = null) {
     // Check if column exists
-    const checkColumnExists = `SELECT column_name FROM information_schema.columns WHERE table_name='Docter_ThreadManage' AND column_name='${joiner_1}';`;
+    const checkColumnExists = `SELECT column_name FROM information_schema.columns WHERE table_name='doctor_threadmanage' AND column_name='${joiner_1}';`;
     const columnExists = await client.query(checkColumnExists);
 
     // If column does not exist, add it
     
 
     // Check if joiner_2 already exists in the column
-    let checkJoiner2Exists = `SELECT * FROM Docter_ThreadManage WHERE ${joiner_1} LIKE '%${joiner_2}%'`;
+    let checkJoiner2Exists = `SELECT * FROM doctor_threadmanage WHERE ${joiner_1} LIKE '%${joiner_2}%'`;
     let joiner2Exists = await client.query(checkJoiner2Exists);
 
     if (joiner2Exists.rows.length > 0) {
@@ -221,7 +221,7 @@ async function insert_Doctor_ThreadIdNameIntoDb(client, joiner_1 = null, joiner_
     }
 
     // Insert data into the column
-    let sq = `INSERT INTO Docter_ThreadManage (${joiner_1}) VALUES ($1)`;
+    let sq = `INSERT INTO doctor_threadmanage (${joiner_1}) VALUES ($1)`;
     await client.query(sq, [joiner_2 + "|" + thread_id + "|" + topic]);
 
     let sqq = `INSERT INTO patient_threadmanage (${joiner_2}) VALUES ($1)`;
