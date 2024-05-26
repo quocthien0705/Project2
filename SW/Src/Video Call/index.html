@@ -7,7 +7,7 @@
         <link rel="icon" href="/icon/call_center.svg" type="image/svg+xml">
     </head>
     <body>
-        <h4>Health Monitoring Calling Service</h4>
+        <h1>Welcome to the Health Monitoring Call Service</h1>
         <!-- <input id="user-access-token"
             type="text"
             placeholder="User access token"
@@ -40,8 +40,13 @@
             </button>
         </div>      
         <div id="connectedLabel" style="color: #13bb13;" hidden>Call is connected!</div>
+        <label class="switch">
+            <input type="checkbox" id="theme-toggle">
+            <span class="slider round"></span>
+          </label>
         <div id="remoteVideosGallery" hidden></div>
         <div id="localVideoContainer" hidden></div>
+        <audio id="ringtone" src="audio/ringtone.mp3" preload="auto" loop></audio>
         <!-- points to the bundle generated from client.js -->
         <script src="./main.js"></script>
     </body>

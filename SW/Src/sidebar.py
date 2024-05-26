@@ -1939,7 +1939,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_6 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_6.setObjectName("horizontalLayout_6")
         self.label_46 = QtWidgets.QLabel(self.widget_plot_ecg)
-        self.label_46.setMaximumSize(QtCore.QSize(150, 16777215))
+        self.label_46.setMaximumSize(QtCore.QSize(200, 16777215))
         font = QtGui.QFont()
         font.setFamily("Rockwell")
         font.setPointSize(12)

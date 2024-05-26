@@ -7,7 +7,12 @@ setLogLevel('verbose');
 AzureLogger.log = (...args) => {
     console.log(...args);
 };
+var ringtone = document.getElementById('ringtone');
+let isUserInteracted = false;
 
+document.body.addEventListener('click', () => {
+    isUserInteracted = true;
+});
 // Calling web sdk objects
 let callAgent;
 let deviceManager;
@@ -58,6 +63,9 @@ async function initializeCallAgent(token) {
                 acceptCallIcon.src = '/icon/accept_call.png';
                 startCallButton.disabled = true;
                 startCallIcon.src = '/icon/start_call_dis.png';
+                if (isUserInteracted) {
+                    ringtone.play();
+                }
             } catch (error) {
                 console.error(error);
             }
@@ -69,13 +77,16 @@ async function initializeCallAgent(token) {
         console.error(error);
     }
 }
-
+document.getElementById('theme-toggle').addEventListener('change', function() {
+    document.body.classList.toggle('dark-mode');
+    document.body.classList.toggle('light-mode');
+});
 fetch('token_data.json')
     .then(response => response.json())
     .then(data => {
         const userAccessToken = data.token;
         const displayName = data.display_name;
-        document.getElementById('user-display-name').textContent = `Signed in by ${displayName}`;
+        document.getElementById('user-display-name').innerHTML = `Authenticated as <span>${displayName}</span>`;
         initializeCallAgent(userAccessToken);
     })
     .catch((error) => {
@@ -129,6 +140,8 @@ acceptCallButton.onclick = async () => {
         const videoOptions = localVideoStream ? { localVideoStreams: [localVideoStream] } : undefined;
         call = await incomingCall.accept({ videoOptions });
         // Subscribe to the call's properties and events.
+        ringtone.pause();
+        ringtone.currentTime = 0;
         subscribeToCall(call);
     } catch (error) {
         console.error(error);
@@ -168,6 +181,7 @@ subscribeToCall = (call) => {
                 toggleMicroButton.disabled = false;
                 toggleMicroIcon.src = '/icon/mic_on.png';
                 remoteVideosGallery.hidden = false;
+                document.getElementById('connectedLabel').style.display = 'block';
             } else if (call.state === 'Disconnected') {
                 connectedLabel.hidden = true;
                 acceptCallIcon.src = '/icon/accept_call_dis.png';
@@ -181,6 +195,7 @@ subscribeToCall = (call) => {
                 toggleVideoIcon.src = '/icon/video_dis.png';
                 toggleMicroButton.disabled = true;
                 toggleMicroIcon.src = '/icon/mic_dis.png';
+                document.getElementById('connectedLabel').style.display = 'none';
                 console.log(`Call ended, call end reason={code=${call.callEndReason.code}, subCode=${call.callEndReason.subCode}}`);
             }   
         });
@@ -279,8 +294,10 @@ subscribeToRemoteVideoStream = async (remoteVideoStream) => {
                 const isLoadingSpinnerActive = remoteVideoContainer.contains(loadingSpinner);
                 if (!isReceiving && !isLoadingSpinnerActive) {
                     remoteVideoContainer.appendChild(loadingSpinner);
+                    document.getElementById('connectedLabel').style.display = 'none';
                 } else if (isReceiving && isLoadingSpinnerActive) {
                     remoteVideoContainer.removeChild(loadingSpinner);
+                    document.getElementById('connectedLabel').style.display = 'block';
                 }
             }
         } catch (e) {
@@ -419,6 +436,30 @@ removeLocalVideoStream = async() => {
 /**
  * End current call
  */
+// function resetCallUI() {
+//     acceptCallButton.disabled = true;
+//     acceptCallIcon.src = '/icon/accept_call_dis.png';
+//     startCallButton.disabled = false;
+//     startCallIcon.src = '/icon/start_call.png';
+//     toggleVideoButton.disabled = true;
+//     toggleVideoIcon.src = '/icon/video_dis.png';
+//     toggleMicroButton.disabled = true;
+//     toggleMicroIcon.src = '/icon/mic_dis.png';
+// }
+// hangUpCallButton.addEventListener("click", async () => {
+//     if (isUserInteracted) {
+//         if (incomingCall.state == 'Ringing') {
+//             await call.hangUp({ forEveryone: true });
+//             resetCallUI();
+//         } else if (call) {
+//             await call.hangUp({ forEveryone: true });
+//             call = null;
+//             resetCallUI();
+//         }
+//         ringtone.pause();
+//         ringtone.currentTime = 0;
+//     }
+// });
 hangUpCallButton.addEventListener("click", async () => {
     // end the current call
     await call.hangUp();
