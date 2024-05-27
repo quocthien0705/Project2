@@ -1,28 +1,40 @@
 body {
     font-family: 'Courier New', sans-serif;
     margin: 0;
+    margin-left: 10px;
     padding: 0;
-    background-color: #F5F5F5;
     color: #555;
+    /* background-color: #F5F5F5; */
+    transition: background-color 0.3s ease;
     background-image: url('icon/bg2.jpeg');
     background-size: cover; /* Cover the entire background */
     background-repeat: no-repeat;
     background-position: center; /* Center the background image */
-    transition: background-color 0.3s ease;
-    height: 100vh; /* Set body height to viewport height */
+    height: 98vh; /* Set body height to viewport height */
 }
 
 
 /* Rest of your CSS */
 
 body.light-mode {
-    background-color: #F7F7F7;
+    /* background-color: #F7F7F7; */
     color: #555;
+    background-image: url('icon/bg2.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 98vh;
 }
 body.light-mode #button-container {
     border: 2px solid black;
     background-color: #FFFFFF;
+}
+body.light-mode .dropdown-container label {
+    color: #555;
+}
 
+body.dark-mode .dropdown-container label {
+    color: #fff;
 }
 
 body.dark-mode #user-display-name span {
@@ -32,13 +44,17 @@ body.dark-mode #user-display-name span {
 body.dark-mode {
     background-color: #11100F;
     color: white;
+    background-image: url('icon/darkmode.jpg');
+    background-size: cover; /* Cover the entire background */
+    background-repeat: no-repeat;
+    background-position: center; /* Center the background image */
+    height: 98vh; /* Set body height to viewport height */
 }
 
 
 body.dark-mode #button-container {
     border: 2px solid #666666;
     background-color: #3B3A39;
-
 }
 
 body.dark-mode #user-display-name span {
@@ -130,7 +146,7 @@ h1 {
 .dropdown-container {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .dropdown-container label {
@@ -242,7 +258,7 @@ button img {
 #connectedLabel {
     color: #13bb13;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 5px;
     font-weight: bold;
     z-index: 1;
 }
@@ -270,7 +286,7 @@ button img {
 
 #remoteVideosGallery {
     margin: auto;
-    width: 70%;
+    width: 60%;
 }
 
 #localVideoContainer {
