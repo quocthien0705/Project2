@@ -19,10 +19,6 @@ def lgth_transform(ecg, ws):
 		right=temp[ws]-temp[-1]
 		diff[i]=min(left, right)
 		diff[diff<0]=0
-	# sqr_diff=np.multiply(diff, diff)
-	# diff=ecg[:-1]-ecg[1:]
-	# sqr_diff[:-1]=np.multiply(diff, diff)
-	# sqr_diff[-1]=sqr_diff[-2]
 	return np.multiply(diff, diff)
 
 def integrate(ecg, ws):

@@ -1,11 +1,20 @@
 body {
     font-family: 'Courier New', sans-serif;
     margin: 0;
-    margin-left: 10px;
     padding: 0;
     background-color: #F5F5F5;
     color: #555;
+    background-image: url('icon/bg2.jpeg');
+    background-size: cover; /* Cover the entire background */
+    background-repeat: no-repeat;
+    background-position: center; /* Center the background image */
+    transition: background-color 0.3s ease;
+    height: 100vh; /* Set body height to viewport height */
 }
+
+
+/* Rest of your CSS */
+
 body.light-mode {
     background-color: #F7F7F7;
     color: #555;
@@ -24,6 +33,7 @@ body.dark-mode {
     background-color: #11100F;
     color: white;
 }
+
 
 body.dark-mode #button-container {
     border: 2px solid #666666;
@@ -119,7 +129,6 @@ h1 {
 }
 .dropdown-container {
     display: flex;
-    justify-content: left;
     align-items: center;
     margin-bottom: 20px;
 }
@@ -127,12 +136,78 @@ h1 {
 .dropdown-container label {
     margin-right: 10px;
     font-weight: bold;
+    color: #555;
 }
 
 .dropdown-container select {
     width: 200px;
+    height: 40px;
     font-family: 'Courier New', sans-serif;
+    font-size: 16px;
+    font-weight: bold; /* Making text bold */
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    background-color: #f9f9f9;
+    color: #555;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex; /* Use flexbox */
+    align-items: center; /* Center vertically */
 }
+
+/* Hover and focus effects */
+.dropdown-container select:hover,
+.dropdown-container select:focus {
+    background-color: #fff;
+    outline: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    color: #028391; /* Change text color on hover/focus */
+}
+
+/* Arrow styling */
+.dropdown-container select::after {
+    content: '\25BC';
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #555;
+}
+
+/* Colorful border and background */
+.dropdown-container select {
+    background: linear-gradient(180deg, #FFE8D6, #FFFAF3); /* Lightened gradient background */
+    border: 2px solid transparent; /* Transparent border */
+}
+
+/* Colorful hover and focus effects */
+.dropdown-container select:hover,
+.dropdown-container select:focus {
+    background: linear-gradient(180deg, #FFFAF3, #FFE8D6); /* Lightened gradient background on hover/focus */
+}
+
+/* Colorful arrow */
+.dropdown-container select::after {
+    color: #FFD166; /* Arrow color */
+}
+
+/* Animation */
+@keyframes rainbow {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+}
+
+.dropdown-container select {
+    width: 100%;  /* Make the select element take up the full width of its container */
+    text-align-last: center;
+    animation: rainbow 5s infinite; /* Apply rainbow animation */
+}
+
 
 #button-container {
     position: fixed;

@@ -11,11 +11,11 @@ __webpack_require__.d(__webpack_exports__, {
   "H": () => (/* binding */ AbortController),
   "_": () => (/* binding */ AbortError)
 });
-
+var playaudio = new Audio('ting.mp3');
 // EXTERNAL MODULE: ./node_modules/tslib/tslib.es6.js
 var tslib_es6 = __webpack_require__(655);
 ;// CONCATENATED MODULE: ./node_modules/@azure/abort-controller/dist-esm/src/AbortSignal.js
-// Copyright (c) Microsoft Corporation.
+// Copycright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 var listenersMap = new WeakMap();
 var abortedMap = new WeakMap();
@@ -640,9 +640,20 @@ const mapToChatMessageSdkModel = (chatMessage) => {
  * @internal
  * Mapping chat messages collection REST model to chat message SDK model array
  */
+// Create a new Audio object
+
 const mapToChatMessagesSdkModelArray = (chatMessagesCollection) => {
     var _a;
-    return (_a = chatMessagesCollection.value) === null || _a === void 0 ? void 0 : _a.map((chatMessage) => mapToChatMessageSdkModel(chatMessage));
+    const chatMessages = (_a = chatMessagesCollection.value) === null || _a === void 0 ? void 0 : _a.map((chatMessage) => mapToChatMessageSdkModel(chatMessage));
+    
+    // If there are new chat messages, play the sound
+    if (chatMessages && chatMessages.length > 0) {
+        var playaudio = new Audio('ting.mp3');
+        playaudio.play();
+        console.log("New chat message received");
+    }
+
+    return chatMessages;
 };
 /**
  * @internal
@@ -18862,6 +18873,9 @@ exports.toMessageHandler = function (event, listener) {
             if (eventPayload === null) {
                 return undefined;
             }
+            var playaudio = new Audio('ting.mp3');
+            console.log("chatMessageReceived: ");
+            playaudio.play();
             listener(eventPayload);
             return { isHandled: true, resultCode: 200 };
         }
@@ -18882,6 +18896,9 @@ var toEventPayload = function (event, genericPayload) {
             message: payload.messageBody,
             metadata: parseMetadata(payload.acsChatMessageMetadata)
         };
+        var playaudio = new Audio('ting.mp3');
+        console.log("chatMessageReceived: ");
+        playaudio.play();
         return eventPayload;
     }
     if (event === "chatMessageEdited") {
