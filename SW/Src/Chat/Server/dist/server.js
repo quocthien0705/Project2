@@ -7428,13 +7428,6 @@ const createCommunicationTokenCredentialPolicy = (credential) => {
 ;// CONCATENATED MODULE: ./node_modules/@azure/communication-chat/dist-esm/src/chatThreadClient.js
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
-
-
-
-
-
-
-
 const minimumTypingIntervalInMilliSeconds = 8000;
 /**
  * The client to do chat operations
